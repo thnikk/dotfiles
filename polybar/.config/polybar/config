@@ -98,7 +98,7 @@ height = 30
 modules-right =  vm update pulseaudio kbd net powermenu
 
 ; Make fonts bigger
-font-0 = Operator Mono Medium:pixelsize=14;2
+font-0 = Operator Mono Book:pixelsize=14;2
 font-1 = Source Han Sans JP:size=12:antialias=true;2
 font-2 = Material Icons:pixelsize=14;4
 
