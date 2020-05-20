@@ -27,6 +27,9 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export LESSHISTFILE="-"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export WGETRC="$HOME/.config/wget/wgetrc"
+# Create wgetrc if it doesn't exist
+[ ! -d "$HOME/.config/wget" ] && mkdir -p "$HOME/.config/wget"
+[ ! -f "$WGETRC" ] && touch "$WGETRC"
 export ZDOTDIR="$HOME/.config/zsh"
 
 # Add to path
