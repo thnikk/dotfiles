@@ -30,7 +30,7 @@ call plug#end()
 "Set colorscheme
 set termguicolors
 "colorscheme base16-ocean
-colorscheme nord
+colorscheme thnikk
 let g:lightline = { 'colorscheme': 'nord', 'component': { 'percent': ''}, }
 
 "General settings
