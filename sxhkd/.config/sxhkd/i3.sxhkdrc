@@ -1,0 +1,50 @@
+# Shift focus
+super+{h,j,k,l}
+    i3-msg focus {left,down,up,right}
+super+{Left,Down,Up,Right}
+    i3-msg focus {left,down,up,right}
+
+# Move focused window
+super+shift+{h,j,k,l}
+    i3-msg move {left,down,up,right}
+super+shift+{Left,Down,Up,Right}
+    i3-msg move {left,down,up,right}
+
+# Split
+super+{backslash,minus}
+    i3-msg split {h,v}
+
+# Kill
+super+shift+q
+    i3-msg kill
+
+# Fullscreen
+super+f
+    i3-msg fullscreen toggle
+
+# Layout
+super+{w,s}
+    i3-msg layout {tabbed,toggle split}
+
+# Floating mode
+super+shift+space
+    i3-msg floating toggle
+
+# Focus floating toggle
+super+space
+    i3-msg focus mode_toggle
+
+# Focus workspace
+super+{1,2,3,4,5,6,7,8,9,0}
+    i3-msg workspace {1,2,3,4,5,6,7,8,9,10}
+# Move window to workspace
+super+shift+{1,2,3,4,5,6,7,8,9,0}
+    i3-msg move container to workspace {1,2,3,4,5,6,7,8,9,10}
+
+# Restart i3
+super+shift+r
+    i3-msg restart
+
+# Close i3
+super+shift+e
+    i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'

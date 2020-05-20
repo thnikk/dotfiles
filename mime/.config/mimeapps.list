@@ -1,0 +1,16 @@
+[Default Applications]
+image/bmp=sxiv-rifle.desktop;
+image/jpeg=sxiv-rifle.desktop;
+image/png=sxiv-rifle.desktop;
+image/gif=mpv.desktop;
+image/svg+xml=sxiv-rifle.desktop;
+video/x-matroska=mpv.desktop;
+text/x-shellscript=nvim.desktop;
+application/postscript=zathura.desktop;
+inode/directory=ranger.desktop;
+text/plain=nvim.desktop;
+x-scheme-handler/trash=exo-file-manager.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/mailto=firefox.desktop;
+text/html=firefox.desktop

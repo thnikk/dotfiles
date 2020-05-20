@@ -1,0 +1,88 @@
+### wm independent hotkeys
+
+# terminal emulator
+super + Return
+	sh -c $TERMINAL
+
+# program launcher
+super + d
+	sh -c $LAUNCHER
+super + a
+	~/.local/bin/ls_anime
+
+# File manager
+super + e
+	sh -c $FM
+
+# Web browser
+super + b
+	sh -c $BROWSER
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd && notify-send "Restarting SXHKD"
+
+@ctrl+alt+p
+	sleep 1 && xdotool type "On top of fire extinguisher opposite of front door."
+
+# Brightness control
+XF86MonBrightnessUp
+	light -A 10% && dunstify -r 1 "Brightness: $(light)%"
+XF86MonBrightnessDown
+	light -U 10% && dunstify -r 1 "Brightness: $(light)%"
+# Volume control
+XF86AudioRaiseVolume
+	pamixer -i 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
+XF86AudioLowerVolume
+	pamixer -d 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
+XF86AudioMute
+	pactl set-sink-mute 0 toggle
+
+# Music control
+{F8,F9,F10}
+	mpc {toggle,prev,next}
+shift+{F9,F10}
+	mpc volume {-5,+5} && dunstify -r 3 "mpc $(mpc volume)"
+ctrl+{F8,F9,F10}
+	mpc -h desktop {toggle,prev,next}
+ctrl+shift+{F9,F10}
+	mpc -h desktop volume {-5,+5}
+
+# MQTT
+ctrl+{F1,F2,F3,F4}
+	mosquitto_pub -h 10.0.0.29 -t toggle/{light,shelf,desk,printer} -n
+
+# xkill
+super+x
+	xkill
+
+# Picom
+super+c
+	sh -c $COMPOSITOR
+super+shift+c
+	pkill picom
+
+# Switch resolution
+super+m
+	~/.local/bin/res_switch
+super+n
+	~/.local/bin/normie
+
+# Screenshots
+Print
+	maim ~/Pictures/Screenshots/$(date +%s).png
+ctrl+shift+1
+	maim | xclip -selection clipboard -t image/png
+ctrl+shift+2
+	maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+ctrl+shift+4
+	maim -s | xclip -selection clipboard -t image/png
+ctrl+shift+~
+	sharenix -m c | xargs -I {} dunstify -r 1 "{}"
+
+# Screencast
+ctrl+Print
+	~/.local/bin/screencast
+ctrl+shift+Print
+	killall ffmpeg
+

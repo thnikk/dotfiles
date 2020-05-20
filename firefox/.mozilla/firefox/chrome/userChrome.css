@@ -1,0 +1,252 @@
+/*
+This is a compact theme made for use with tiling
+window managers. The main goal is to reduce
+unnecessary wasted space at the top of the
+browser, and also provide easy access to
+extensions without having their ugly icons in
+the tab bar.
+
+PREREQUISITES
+- Gohufont
+- Compact theme
+*/
+@-moz-document url(chrome://browser/content/browser.xul)
+{
+#main-window,
+  browser[type="content-primary"],
+  browser[type="content"],
+  tabbrowser#content,
+  #content,
+  browser[type="content"] > html {
+     background: #1c1f26 !important;
+  }
+}
+/* Context menu icons */
+#context-navigation {
+ transform: scale(.75) !important;
+ margin: -5px;
+}
+
+
+:root[uidensity=compact] #urlbar,
+:root[uidensity=compact] .searchbar-textbox {
+  font-size: unset !important;
+  min-height: 24px !important;
+}
+
+ :root[uidensity=compact] #identity-box {
+  max-height: 22px;
+}
+
+:root[uidensity=compact] #nav-bar .toolbarbutton-1 {
+  padding: 0px !important;
+}
+
+/* Compatibility with auto-hide.css */
+:root[uidensity=compact] #navigator-toolbox {
+  --nav-bar-height: 25px !important;
+}
+
+/* Variables */
+:root {
+    --tab-toolbar-navbar-overlap: 0px !important; /* fix for full screen mode */
+    --tab-min-height: 20px !important;
+    --color-dark: #1c1f26;
+    --my-tab-min-width: 32px;
+    --toolbarbutton-border-radius: 0px !important;
+    --urlbar-height: 28px !important;
+    --urlbar-toolbar-height: 28px !important;
+    --urlbar-container-height: 28px !important;
+    --toolbarbutton-hover-background: #FFFFFF !important;
+    --color-red: #bf616a;
+    --color-blue: #81a1c1;
+    --color-magenta: #b48ead;
+    --color-yellow: #ebcb8b;
+    --color-cyan:#88c0d0;
+    --color-green:#a3be8c;
+    --color-fg:#D8DEE9;
+    --empty-icon:"□";
+    --full-icon:"■";
+    --dl-icon:"▾";
+}
+
+#urlbar-container {
+    margin-inline: 0px !important;
+    padding-block: 0px !important;
+}
+#urlbar {
+    padding: 2px !important;
+}
+#urlbar:not(.megabar), #urlbar.megabar > #urlbar-background, #searchbar {
+    background-color: #2E3440 !important;
+}
+/*
+#urlbar-container {
+    display: none !important;
+}
+#navigator-toolbox:focus-within :moz-any(#nav-bar) > * #urlbar-container {
+    display: block !important;
+    position: absolute !important;
+    width: 100%;
+    margin-inline: 0px !important;
+    padding-block: 0px !important;
+}*/
+/* Hide URL bar when not in use (new tab or F6 to focus)*/
+#nav-bar:not([customizing="true"]):not([inFullscreen]) {
+    min-height: 0px !important;
+    max-height: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    transition: all 1ms linear 0s !important;
+    z-index: -5 !important;
+}
+#navigator-toolbox:focus-within :-moz-any(#nav-bar) {
+    min-height: 28px !important;
+    max-height: 28px !important;
+    margin-top: 0px !important;
+    margin-bottom: -28px !important;
+    transition: all 1ms linear 0s !important;
+    z-index: 5 !important;
+}
+/* Needed for for FF 75 megabar */
+#urlbar {
+    --urlbar-toolbar-height: 28px !important;
+}
+
+#add-ons-button {
+    display:none;
+}
+
+/* Remove margin and color around extension icons */
+#TabsToolbar .toolbarbutton-1, .tabbrowser-arrowscrollbox::part(scrollbutton-up), .tabbrowser-arrowscrollbox::part(scrollbutton-down) {
+    margin: 0px !important;
+    background: var(--color-dark) !important;
+}
+#alltabs-button { display: none; } /* Remove all tabs button */
+/* Removes extension icons and badges */
+.toolbar-items > * .toolbarbutton-icon, .toolbar-items > * .toolbarbutton-badge { display: none; padding: 0px; }
+.toolbar-items > * .toolbarbutton-badge-stack { padding: 0px !important; }
+/* Set extension icons */
+.toolbar-items > * .webextension-browser-action:before { content:var(--empty-icon); padding-left: 5px; padding-right: 5px; }
+.toolbar-items > * .webextension-browser-action:hover:before { content:var(--full-icon); }
+.toolbar-items > * toolbarbutton[id*="downloads-button"]:before{ content:var(--dl-icon); padding-left: 5px; padding-right: 5px; }
+.toolbar-items > * toolbarbutton[id*="downloads-button"]:hover:before{ content:var(--dl-icon); }
+.toolbar-items > * #downloads-indicator-anchor { display:none; }
+/* Menu icon ☰ ← → ↻ */
+/* Private browsing icon */
+.private-browsing-indicator { background-image: none !important; }
+.accessibility-indicator, .private-browsing-indicator { width: 0px !important; margin-top: 3px !important; }
+.private-browsing-indicator:before { content: var(--full-icon); color: var(--color-magenta); }
+/* Set colors for extension icons */
+toolbarbutton:before{ font-family: Gohu Gohufont; font-size:10px !important; }
+toolbarbutton[id*="checkerplus"]:before{ color: var(--color-red); }
+toolbarbutton[id*="darkreader"]:before{ color: var(--color-blue); }
+toolbarbutton[id*="ublock"]:before{ color: var(--color-green); }
+toolbarbutton[label*="Violentmonkey"]:before{ color: var(--color-magenta); }
+toolbarbutton[label*="Stylus"]:before{ color: var(--color-cyan); }
+
+toolbarbutton[label*="Tree Style Tab"]:before{ content: "☰" !important; }
+
+
+/* Remove tab border */
+#tabbrowser-tabs { color: var(--color-fg); font-family: Gohu Gohufont; font-style: normal; font-size:11px; border:none !important; }
+/* Remove tab separators */
+.tabbrowser-tab::before, .tabbrowser-tab::after{ display: none !important; }
+/* Set background for current tab */
+#tabbrowser-tabs .tabbrowser-tab[selected] .tab-content { font-style: normal !important; background:#3b4252 !important; }
+/* Tab: hovered colors */
+#tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content { background: #2e3440 !important; }
+
+/* Tab text and icon placement */
+.tab-content { padding: 0 5px !important; margin-top: -1px !important; }
+
+/* Tab height */
+#tabbrowser-tabs { --tab-min-height: 25px !important; }
+#TabsToolbar { height: 25px !important; }
+.tab-label { line-height: 1.5em !important; }
+
+/* Disable new tab button */
+#tabs-newtab-button { display:none !important; }
+
+/* Disable close tab button */
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button { display:none!important; }
+
+
+/* Essential rule for reducing minimum tab width */
+.tabbrowser-tab:not([pinned]){ min-width: var(--my-tab-min-width) !important; }
+/* Optional rules for widths below 40px */
+/* Reduce icon's right margin for less wasted space */
+.tabbrowser-tab:not([pinned]) .tab-icon-image { margin-right: 5px !important; }
+/* Max width of tab */
+.tabbrowser-tab:not([pinned]) { max-width: 150px !important; }
+.tabbrowser-tab:not([pinned]):not([fadein]) { max-width: 0.1px !important; }
+
+/* Set color of tab bar background */
+#tabbrowser-tabs {
+    background: var(--color-dark) !important;
+    border: none !important;
+}
+
+/* Yeet border and make tab border match inactive tab background */
+#navigator-toolbox {
+    border: none !important;
+    --tabs-border-color: var(--color-dark) !important;
+}
+
+/* Set color of nav bar */
+#nav-bar {
+    background: var(--color-dark) !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-top: -1px !important; border-top-width: -1px !important;
+    margin-bottom: -1px !important; border-bottom-width: -1px !important;
+}
+
+/* Make urlbar megabar appear more compact */
+/* Set the pref browser.urlbar.megabar to true */
+#urlbar[breakout]{
+    margin-inline-start: 0px !important;
+    width: 100% !important;
+    left: 0 !important;
+    top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+}
+#urlbar[breakout]:not([open]){ bottom: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important; }
+.urlbarView{ margin-inline: 0 !important; width: auto !important; }
+.urlbarView-row{ padding: 0 4px !important; }
+#urlbar-background{ animation: none !important; }
+#urlbar-input-container{ padding: 0 !important; height: 100% !important; }
+#identity-box{ padding-block: var(--urlbar-icon-padding) }
+
+/* Remove ugly border around urlbar */
+#urlbar:not(.megabar), #urlbar.megabar > #urlbar-background, #searchbar {
+    border: none !important;
+}
+
+
+
+html, html > *, html > * > *, .browser-toolbar  {
+  border: none !important;
+  -moz-appearance: none !important;
+  box-shadow: none !important;
+  background: transparent!important;
+}
+
+.titlebar-color, .browser-toolbar, findbar {
+  background: rgba(49, 54, 59, 0.75)!important;
+}
+
+.tab-line {
+  background: none !important;
+}
+
+.tab-background[selected=true] {
+  background: #5294e2 !important;
+  border-radius: 6px;
+  border: none !important;
+}
+
+tab[selected="true"]::after, .tabbrowser-tab[beforeselected-visible]::after {
+    opacity: 0 !important;
+}
+
+/*   rgba(49, 54, 59, 0.75) */

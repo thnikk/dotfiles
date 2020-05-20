@@ -1,0 +1,55 @@
+# ls aliases
+alias ls='ls --color=auto'
+alias ll='ls -llh'
+alias la='ls -llha'
+
+# Source zshrc
+alias zs='source ~/.config/zsh/.zshrc'
+
+# Edit files
+alias cb='cd ~/.local/bin'
+alias ic='vim ~/.config/i3/config && i3-msg restart'
+alias sc='vim ~/.config/sway/config && swaymsg reload'
+alias pc='vim ~/.config/polybar/config'
+alias cc='vim ~/.config/picom.conf'
+alias kc='vim ~/.config/kitty/kitty.conf'
+alias zc='vim ~/.config/zsh/.zshrc && source ~/.config/zsh/.zshrc'
+alias bc='vim ~/.bashrc && source ~/.bashrc'
+alias vc='vim ~/.config/nvim/init.vim'
+alias tc='vim ~/.tmux.conf && tmux source-file ~/.tmux.conf'
+alias ac='vim ~/.config/aliasrc && source ~/.config/aliasrc'
+alias bsc='vim ~/.config/bspwm/bspwmrc'
+alias sxc='vim ~/.config/sxhkd/sxhkdrc'
+
+# Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m '
+alias gp='git push'
+alias DF='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias ds='DF status'
+alias da='DF add'
+alias dc='DF commit -m '
+alias dp='DF push'
+
+# Misc
+alias wid="xprop WM_CLASS"
+alias ddd="sudo dd bs=2M status=progress"
+# systemctl aliases
+alias SS="sudo systemctl"
+alias SU="systemctl --user"
+# VFIO aliases
+alias lsvfio="sudo lspci -vv | grep vfio -B 12"
+alias lsevdev="ls /dev/input/by-id"
+
+# Keypads
+alias u2k="pio run -e 2k -t upload -d ~/Documents/Dev/Sketches/trinketM0"
+alias u4k="pio run -e 4k -t upload -d ~/Documents/Dev/Sketches/trinketM0"
+alias u7k="pio run -t upload -d ~/Documents/Dev/Sketches/7kKeypad"
+alias uM="pio run -t upload -d ~/Documents/Dev/Sketches/trinketM0Macro"
+alias u2kt="pio run -e 2k -t upload -d ~/Documents/Dev/Sketches/touchPad"
+alias u4kt="pio run -e 4k -t upload -d ~/Documents/Dev/Sketches/touchPad"
+alias monacm="screen /dev/$(ls /dev/ | grep ttyACM)"
+
+# Run vim as root with user config
+alias svim="sudo -E vim"

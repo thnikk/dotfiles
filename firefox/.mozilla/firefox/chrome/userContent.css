@@ -1,0 +1,70 @@
+/* Change scrollbar */
+* { scrollbar-width: thin; }
+:root:not(:hover) { scrollbar-color: transparent transparent !important; }
+:root { scrollbar-color: #4C566A #1c1f26 !important; }
+
+/* Change background color for about:blank */
+@-moz-document url-prefix(about:blank) {*{background-color:#1c1f26;}}
+
+/* Tweetdeck css */
+@-moz-document domain(tweetdeck.twitter.com) {
+    /* Fix gaps between buttons */
+    .js-tweet-actions > * .icon{
+        font-size: 20px !important;
+        padding:10px;
+    }
+    .js-tweet-actions > * .icon:hover{
+        background-color: #2b303b !important;
+    }
+    .js-tweet-actions > * .pull-right {
+        display:block !important;
+        position:absolute !important;
+        pointer-events: none !important;
+    }
+    html.dark .margin-r--10, html.dark .margin-rl {
+        margin-right: 0px !important;
+    }
+    /* Disable scrollbars */
+    .js-column-scroller {
+		width: 105%!important;
+	}
+}
+
+/*
+@-moz-document domain(tweetdeck.twitter.com) {
+	.app-columns {
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	.column {
+		flex: 1 20% !important;
+		height:50% !important;
+	}
+
+	.column-header {
+		height: 30px !important;
+		line-height: 30px !important;
+
+	}
+
+	.column-title {
+		font-size: 1em !important;
+	}
+
+	.js-column-scroller {
+		width: 105%!important;
+	}
+
+	.column-content {
+		top: 30px !important;
+	}
+
+	.icon-sliders {
+		font-size: 18px !important;
+	}
+
+	.column-settings-link {
+		margin-top: -4px
+	}
+}*/
