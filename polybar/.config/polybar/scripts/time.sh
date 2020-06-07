@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/dash
 
 DATE=$(date +%a,\ %b\ %-d)
 DAY=$(date +%d)

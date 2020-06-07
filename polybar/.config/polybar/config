@@ -77,14 +77,13 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Operator Mono Book:pixelsize=12;2
-#font-0 = Gohu Gohufont:pixelsize=14;2
+font-0 = Operator Mono Light:pixelsize=12;2
 font-1 = Source Han Sans JP:size=10:antialias=true;2
 font-2 = Material Icons:pixelsize=12;4
 
 modules-left =  i3 bspwm keypad
 modules-center = time date weather gmail mpc mpd
-modules-right =  rec update pulseaudio cputemp cpu mem kbd net bat
+modules-right = rec update pulseaudio cputemp cpu mem kbd net bat
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -95,7 +94,7 @@ monitor = ${monitor.main}
 height = 30
 
 ; Override module positioning
-modules-right =  vm update pulseaudio kbd net powermenu
+modules-right = vm update pulseaudio kbd net
 
 ; Make fonts bigger
 font-0 = Operator Mono Book:pixelsize=14;2
@@ -108,8 +107,8 @@ inherit = bar/bar1
 monitor = ${monitor.secondary}
 
 ; Override tray positioning
-tray-position =
-padding-right = 1
+tray-position = right
+tray-background = ${colors.background-alt}
 
 ; Override module placement
 modules-left = i3 bspwm
@@ -121,12 +120,19 @@ interval = 60
 format-background = ${colors.background}
 format-padding = 1
 
+[module/volnew]
+inherit = module/general
+type = custom/script
+exec = ~/.config/polybar/scripts/volume.sh
+tail = true
+interval = 0.1
+
 [module/gmail]
 inherit = module/general
 type = custom/script
 exec = ~/.config/polybar/scripts/polybar-gmail/launch.py -p "" -ns
 tail = true
-click-left = $BROWSER --new-tab https://mail.google.com
+click-left = $TERMINAL neomutt
 
 [module/keypad]
 inherit = module/general
@@ -158,16 +164,6 @@ label = "%output%"
 exec = /home/thnikk/.config/polybar/scripts/kb.sh
 exec-if = pgrep ibus-daemon
 interval = 1
-
-[module/phone]
-inherit = module/general
-type = custom/script
-format = <label>
-label = %output%
-exec = /home/thnikk/.config/polybar/scripts/polybar-kdeconnect.sh -d
-exec-if = test -f /usr/bin/kdeconnect-cli
-format-foreground = ${colors.foreground-alt}
-tail = true
 
 [module/gm]
 inherit = module/general
@@ -352,7 +348,7 @@ type = custom/script
 exec = ~/.config/polybar/scripts/net.sh
 format-prefix = ${icons.eth}
 format-prefix-foreground = ${colors.foreground-alt}
-interval = 10
+interval = 1
 
 [module/pulseaudio]
 inherit = module/general

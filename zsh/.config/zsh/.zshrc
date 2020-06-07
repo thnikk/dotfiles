@@ -16,17 +16,29 @@ stty stop undef		            # Disable ctrl-s to freeze terminal.
 
 # Completion
 autoload -U compinit
-zstyle ':completion:*' menu select                              # Tab selection
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-#zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"        # Colors for tab completion with CD
+zstyle ':completion:*' menu select                                              # Tab selection
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*' # Allow case-insensitive matching
 zmodload zsh/complist
 compinit
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)	                                                    # Include hidden files in autocompletion
+
+# Completion colors for file/dir selection
+zstyle ':completion:*:default' list-colors \
+  "di=1;36" "ln=35" "so=32" "pi=33" "ex=32" "bd=34;46" "cd=34;43" \
+  "su=30;41" "sg=30;46" "tw=30;42" "ow=30;43"
+# Fix systemctl completion
+_systemctl_unit_state() {
+  typeset -gA _sys_unit_state
+  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
+
 
 # Prompt
-NEWLINE=$'\n' # Create newline variable
-[ -n "$SSH_CLIENT" ] && HNC="red" || HNC="blue"
-PS1="%{$fg[green]%}%n%{$reset_color%} in %{$fg[cyan]%}% %~ %{$reset_color%}% at %{$fg[$HNC]%}%m %{$reset_color%}% %{$fg[green]%}% $NEWLINE→ "
+NEWLINE=$'\n'                                   # Create newline variable
+ERROR="%{$fg[red]%}%(?..[%?])%{$reset_color%}%" # Show last command's exit code
+CHAR="%{$fg[green]%}→ %{$reset_color%}%"
+DIR="%(4~|…/%2~|%~)"                            # Set dir to only show a max depth of 2
+[ -n "$SSH_CLIENT" ] && HNC="red" || HNC="blue" # Colorize hostname based on local/ssh
+PS1="%{$fg[green]%}%n%{$reset_color%} in %{$fg[cyan]%}% $DIR %{$reset_color%}% at %{$fg[$HNC]%}%m %{$reset_color%}% $ERROR $NEWLINE$CHAR "
 
 # Move/delete betweeen words and directories (delimited by /)
 autoload -U select-word-style
@@ -50,6 +62,7 @@ bindkey "^[[1;3D" backward-word
 bindkey "^[[A" up-line-or-beginning-search      # Up in history
 bindkey "^[[B" down-line-or-beginning-search    # Down in history
 bindkey "^[[Z" reverse-menu-complete            # [Shift+Tab] Move back in completion
+bindkey "\e[3~" delete-char                     # Map delete
 
 # Tmux
 alias tmuxn='tmux new-session -s $$'
@@ -62,5 +75,5 @@ trap _trap_exit EXIT
 source ~/.config/aliasrc
 
 # Load plugins
-source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh 2>/dev/null
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh

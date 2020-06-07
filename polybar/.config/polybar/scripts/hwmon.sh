@@ -8,27 +8,30 @@ DEVICE="${1:-cpu}"
 hwCheck() {
     # Check through all hwmon devices and look for names matching arguments
     for d in /sys/class/hwmon/hwmon*; do
-        name=$(cat $d/name) >/dev/null
-        # If requesting temp...
-        if [[ $name == $1 ]]; then
+        name=$(cat "$d/name") >/dev/null
+        # If we find a match,
+        if [ "$name" == "$1" ]; then
             # Echo temp
-            [ -f $d/temp1_input ] && echo -ne "$(( $(cat $d/temp1_input)/1000 ))C"
+            [ -f "$d/temp1_input" ] && echo -ne "$(( $(cat "$d/temp1_input")/1000 ))C"
             # Add space if fan speed exists
-            [ -f $d/temp1_input ] && [ -f $d/fan1_max ] && echo -ne " "
+            [ -f "$d/temp1_input" ] && [ -f "$d/fan1_max" ] && echo -ne " "
             # Echo fan speed percentage
-            [ -f $d/fan1_max ] && echo -ne "$(( $(( $(cat $d/fan1_input)*100 ))/$(cat $d/fan1_max) ))%"
+            [ -f "$d/fan1_max" ] && echo -ne "$(( $(( $(cat "$d/fan1_input")*100 ))/$(cat "$d/fan1_max") ))%"
         fi
-    done 2>/dev/null
+    done 2>/dev/null # Ignore errors
 }
 
 # If your device isn't listed, add another hwCheck line with the name of your device.
 case $DEVICE in
     cpu)
+        # AMD
         hwCheck k10temp
+        # Intel
         hwCheck coretemp
         echo ""
         ;;
     gpu)
+        # AMD
         hwCheck amdgpu
         echo ""
         ;;

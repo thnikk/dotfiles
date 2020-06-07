@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/dash
 ENGINE=$(ibus engine | awk -F ":" '{print $NF}')
 
 case $ENGINE in

@@ -1,14 +1,12 @@
-#!/bin/sh
+#/usr/bin/env sh
 
-ping -c1 google.com >/dev/null 2>/dev/null | exit 1
+ping -c1 google.com >/dev/null 2>/dev/null || exit 1
 
 # Check for updates once an hour
 if [ "$(stat -c %y ~/.cache/updates 2>/dev/null | cut -d':' -f1)" != "$(date '+%Y-%m-%d %H')" ]; then
     # Check main repos and aur
     updates_arch=$(checkupdates 2> /dev/null | wc -l )
     updates_aur=$(yay -Qum 2> /dev/null | wc -l)
-    [ $updates_arch ] || updates_arch=0
-    [ $updates_aur ] || updates_aur=0
     echo $(( "$updates_arch"+"$updates_aur" )) > ~/.cache/updates
 fi
 

@@ -9,12 +9,12 @@ user_pref("devtools.debugger.remote-enabled", true);
 user_pref("devtools.theme", "dark");
 
 // Force acceleration to fix fullscreen performance
-//user_pref("layers.acceleration.force-enabled", true);
+user_pref("layers.acceleration.force-enabled", true);
 //user_pref("layers.gpu-process.force-enabled", true);
 
 // Disable newtab page
 user_pref("browser.newtabpage.enabled", false);
-user_pref("browser.startup.homepage", "about:blank");
+//user_pref("browser.startup.homepage", "about:blank");
 
 // Don't warn about open tabs when closing the browser
 user_pref("browser.tabs.warnOnClose", false);

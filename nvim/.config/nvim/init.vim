@@ -9,6 +9,7 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
     silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"> ~/.config/nvim/autoload/plug.vim
     autocmd VimEnter * PlugInstall
 endif
+
 "Set up plugins
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Yggdroot/indentLine' "Show lines at indentations
@@ -16,15 +17,18 @@ Plug 'junegunn/goyo.vim' "Shuuchuu
 Plug 'preservim/nerdcommenter' "Easily comment blocks of code
 Plug 'tpope/vim-surround' "Highlights quotes/brackets/parantheses
 Plug 'kovetskiy/sxhkd-vim' "Syntax highlighting
-Plug 'mboughaba/i3config.vim'
+Plug 'mboughaba/i3config.vim' "Syntax highlighting for i3 config
 Plug 'airblade/vim-gitgutter' "Shows changes from last commit in NL gutter
 Plug 'chriskempson/base16-vim' "Main colorsheme
-Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim' "Colorscheme (required for lightline)
 Plug 'itchyny/lightline.vim' "Bottom bar
-Plug 'mike-hearn/base16-vim-lightline'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md preview
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "Show colors in vim
+Plug 'tpope/vim-surround' "Complete tags
 call plug#end()
+
+"Hexokinase configuration
+let g:Hexokinase_highlighters = [ 'background' ]
 
 "Colors
 "Set colorscheme
@@ -44,6 +48,7 @@ set mouse=a "Enable mouse support
 set wildmenu "Autocompletion
 set hlsearch "Highlight search patterns
 set smartcase "Lowercase search is case insensitive while uppercase is
+set ignorecase "Case-insensitive search
 set confirm "Prompt to save changes on exit
 set expandtab "Convert tab to spaces
 set linebreak "Word wrap
@@ -80,5 +85,9 @@ autocmd BufWritePost *.rst !make html
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 autocmd BufWritePost *polybar/config !pkill -USR1 polybar
+autocmd BufWritePost *polybar/config/scripts/* !pkill -USR1 polybar
 autocmd BufWritePost picom.conf !pkill -USR1 picom
 autocmd BufWritePost flexget/config.yml !flexget execute
+
+"Italicize comments
+highlight Comment gui=italic cterm=italic

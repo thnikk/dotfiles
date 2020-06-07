@@ -12,6 +12,20 @@ for_window [class="^.*"] border pixel 2
 gaps inner 10
 gaps outer 0
 
+### Force workspaces on specific monitors ###
+set $monitor_one DisplayPort-1
+set $monitor_two DisplayPort-2
+workspace 1 output $monitor_one
+workspace 2 output $monitor_two
+workspace 3 output $monitor_one
+workspace 4 output $monitor_one
+workspace 5 output $monitor_one
+workspace 6 output $monitor_two
+workspace 7 output $monitor_one
+workspace 8 output $monitor_one
+workspace 9 output $monitor_one
+workspace 10 output $monitor_one
+
 ### Window Rules ###
 # Use xprop for window info, case sensitive
 for_window [class="Gnome-system-monitor|Virt-manager|Eog|Nautilus|Thunar|Nemo|Yad|Deluge|Pavucontrol|Gucharmap|Nitrogen|nitrogen|kunst|Kunst|Wine|Minecraft Launcher|minecraft-launcher|File-roller|Trackma-gtk"] floating enable
@@ -22,15 +36,21 @@ for_window [class="mpv"] fullscreen enable
 # Float all pop-up windows
 for_window [window_role="pop-up"] floating enable
 
+### Workspace assignment ###
+for_window [class="TelegramDesktop|discord"] move workspace number 2
+for_window [class="Slic3r.pl|cura|Cura"] move workspace number 4
+for_window [title="MusicPlayer"] move workspace number 2
+
 ### Launch at startup ###
-exec_always --no-startup-id ~/.config/polybar/launch.sh 1
-exec_always --no-startup-id autotiling
-exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc
-exec --no-startup-id sxhkd
+exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh # Start polybar
+exec_always --no-startup-id autotiling # i3 specific autotitling
+exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc # Start i3-sepcific sxhkd first
+exec --no-startup-id sxhkd # Then general sxhkd
 # Always restart picom to avoid focused window being stuck at 100% opacity
 exec_always --no-startup-id pkill -USR1 picom
+exec --no-startup-id ~/.config/i3/startup.sh # Start desktop-specific programs
 
-font pango:Operator Mono Book 0
+font pango:Operator Mono Book 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

@@ -8,7 +8,7 @@ super + Return
 super + d
 	sh -c $LAUNCHER
 super + a
-	~/.local/bin/ls_anime
+	~/.local/bin/lsAnime2
 
 # File manager
 super + e
@@ -86,3 +86,14 @@ ctrl+Print
 ctrl+shift+Print
 	killall ffmpeg
 
+
+# VFIO
+super+shift+{minus,plus}
+	~/.VFIOinput/controller_toggle.sh {0,1}
+
+super+shift+b
+	polybar-msg cmd toggle
+
+# Looking Glass Resize
+super+shift+f
+	i3-msg '[class="looking-glass-client"]' focus && i3-msg resize set width 1939px height 1084px

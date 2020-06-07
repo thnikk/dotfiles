@@ -1,17 +1,17 @@
-#!/usr/bin/env sh
+#!/usr/bin/dash
 
-# Terminate already running bar instances
-killall -q polybar
 
-# Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
-if [[ $HOST == "thnikk-desktop" ]]; then
-    # Since this is specific to my configuration:
-    polybar bar1 &
-    polybar bar2 &
-else
-    polybar default &
+# Restart polybar (this is faster than pgrepping and launching.)
+pkill -USR1 polybar
+# If restart fails, start polybar
+if [ $? -ne 0 ]; then
+    if [ "$HOST" = "thnikk-desktop" ]; then
+        # Since this is specific to my configuration:
+        polybar bar1 &
+        polybar bar2 &
+    else
+        polybar default &
+    fi
 fi
 
-echo "Bars launched..."
