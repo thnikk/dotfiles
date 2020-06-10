@@ -96,10 +96,12 @@ height = 30
 ; Override module positioning
 modules-right = vm update pulseaudio kbd net
 
+separator = %{F#747C84}|%{F-}
+
 ; Make fonts bigger
 font-0 = Operator Mono Book:pixelsize=14;2
 font-1 = Source Han Sans JP:size=12:antialias=true;2
-font-2 = Material Icons:pixelsize=14;4
+font-2 = Material Icons:pixelsize=12;3
 
 [bar/bar2]
 ; Follow bar 1 since same system

@@ -3,6 +3,10 @@ alias ls='ls --color=auto'
 alias ll='ls -llh'
 alias la='ls -llha'
 
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -vI'
+
 # Source zshrc
 alias zs='source ~/.config/zsh/.zshrc'
 

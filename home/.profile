@@ -12,7 +12,7 @@ export BROWSER="firefox"
 export READER="zathura"
 export COMPOSITOR="picom"
 export LAUNCHER="rofi -show drun"
-export WM="sway"
+export WM="i3"
 export FM="$TERMINAL lf"
 
 # Make man more readable by adding colors
@@ -50,7 +50,8 @@ export WGETRC="$HOME/.config/wget/wgetrc"
 export ZDOTDIR="$HOME/.config/zsh"
 
 # Add to path
-export PATH=$PATH:~/.local/bin:~/.platformio/penv/bin
+[ ! -d "$HOME/.local/bin/$HOST" ] && mkdir "$HOME/.local/bin/$HOST"
+export PATH="$PATH:$HOME/.local/bin:~/.platformio/penv/bin:$HOME/.local/bin/$HOST"
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"

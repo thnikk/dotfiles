@@ -68,8 +68,8 @@ bindkey "\e[3~" delete-char                     # Map delete
 alias tmuxn='tmux new-session -s $$'
 _trap_exit() { tmux kill-session -t $$; }
 trap _trap_exit EXIT
-# If not using kitty, run tmux on startup if not already running
-[ "$TERM" != "xterm-kitty" ] && [ "$TERM" != "tmux-256color" ] && tmuxn
+# If not using kitty and not on ssh session, run tmux on startup if not already running
+[ "$TERM" != "xterm-kitty" ] && [ "$TERM" != "tmux-256color" ] && [ ! -n "$SSH_CLIENT"] && tmuxn
 
 # Source external files
 source ~/.config/aliasrc

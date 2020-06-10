@@ -25,15 +25,26 @@ Plug 'itchyny/lightline.vim' "Bottom bar
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md preview
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "Show colors in vim
 Plug 'tpope/vim-surround' "Complete tags
+Plug 'mhinz/vim-startify' "Start screen
+Plug 'vim-syntastic/syntastic' "Shows syntax errors
+Plug 'neoclide/coc.nvim', {'branch': 'release'} "Code completion
 call plug#end()
 
-"Hexokinase configuration
+" Tab completion for coc
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+"Hexokinase configuration (show color in hex code bg)
 let g:Hexokinase_highlighters = [ 'background' ]
 
 "Colors
-"Set colorscheme
 set termguicolors
-"colorscheme base16-ocean
 colorscheme thnikk
 let g:lightline = { 'colorscheme': 'nord', 'component': { 'percent': ''}, }
 
@@ -66,8 +77,6 @@ nmap <silent> <Up> gk
 map <F7> gg=G<C-o><C-o>
 "Spell-check set to <leader>o, 'o' for 'orthography':
 map <leader>o :setlocal spell! spelllang=en_us<CR>
-"Shellcheck
-map <leader>c :!clear && shellcheck %<CR>
 "Replace all
 map <leader>s :%s//g<Left><Left>
 "Insert path and replace ~ (auto-resolved) with $HOME
@@ -76,6 +85,10 @@ map <leader>r :r !sed "s,$HOME,\$HOME,g"<<< $(echo -n )<left>
 map <leader>p :!opout <c-r>%<CR><CR>
 "Add shebang
 map <leader>b <Esc>O#!/usr/bin/env sh<Down><Esc>
+"Complile and run C program
+map <leader>r : !gcc % && ./a.out <CR>
+"Disable coc
+map <leader>c :CocDisable<CR>
 
 "On save
 "Clean trailing whitespace on save.
