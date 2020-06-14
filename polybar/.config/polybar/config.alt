@@ -34,16 +34,16 @@ mclose = ""
 
 [colors]
 background = #1c1f26
-background-alt = #2b303b
+background-alt = #2e3440
 foreground = #d8dee9
 foreground-alt = #747C84
-blue = #8fa1b3
+blue = #81a1c1
 purple = #b48ead
 green = #a3be8c
 orange = #d08770
 brown = #ab7967
 yellow = #ebcb8b
-aqua = #96b5b4
+aqua = #88c0d0
 red = #bf616a
 blank = #00000000
 
@@ -68,16 +68,18 @@ border-color    = ${colors.blank}
 radius          = 0
 line-size       = 2
 
-background = ${colors.background}
+background = ${colors.background-alt}
 foreground = ${colors.foreground}
 
 padding-left = 0
-padding-right = 1
+padding-right = 0
+format-padding-background=${colors.background}
 
 module-margin-left = 0
 module-margin-right = 0
 
-separator = "%{T3} %{T-}%{F#747C84}|%{F-}%{T3} %{T-}"
+separator = "%{B#1c1f26}%{T3} %{T-}%{F#747C84}|%{F-}%{T3} %{T-}%{B#000000}"
+separator-background = ${colors.background}
 
 font-0 = Operator Mono Light:pixelsize=12;2
 font-1 = Source Han Sans JP:size=10:antialias=true;2
@@ -85,9 +87,8 @@ font-2 = Material Icons:pixelsize=12;4
 # This font only exists to create smaller spaces after icons.
 font-3 = Operator Mono Light:pixelsize=6;
 
-modules-left =  i3 bspwm keypad mpd
-modules-center = time date weather gmail mpc
-modules-right = rec update pulseaudio cputemp cpu mem kbd net bat
+modules-left =  i3 bspwm keypad mpc
+modules-right = gmail weather rec update kbd net bat date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -96,8 +97,11 @@ cursor-scroll = ns-resize
 inherit = bar/default
 monitor = ${monitor.main}
 height = 30
+bottom = true
 
 ; Override module positioning
+modules-left =  i3 bspwm keypad
+modules-center = time date weather gmail mpc
 modules-right = vm update pulseaudio kbd net
 
 
@@ -135,6 +139,7 @@ interval = 0.1
 [module/gmail]
 inherit = module/general
 type = custom/script
+label = " %output%"
 exec = ~/.config/polybar/scripts/polybar-gmail/launch.py -p "" -ns
 tail = true
 click-left = $TERMINAL neomutt
@@ -228,7 +233,7 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.clock}
 format-prefix-foreground = ${colors.foreground-alt}
-label = %output%
+label = "%output%"
 exec = date +%I:%M
 interval = 60
 
@@ -236,10 +241,10 @@ interval = 60
 inherit = module/general
 type = custom/script
 format = <label>
-format-prefix = ${icons.date}
+format-prefix = ${icons.clock}
 format-prefix-foreground = ${colors.foreground-alt}
-label = %output%
-exec = ~/.config/polybar/scripts/time.sh
+label = "%output% "
+exec = date "+%I:%M %a %m-%d-%y"
 interval = 60
 
 ; Custom module for memory values more consistent with other programs
@@ -308,12 +313,12 @@ label-mode-foreground = ${colors.foreground}
 label-mode-background = ${colors.red}
 
 label-unfocused-padding-right = 1
-label-unfocused-background = ${colors.background-alt}
+label-unfocused-background = ${colors.background}
 
 ; focused = Active workspace on focused monitor
 label-focused-padding-right = 1
 label-focused-foreground = ${colors.background}
-label-focused-background = ${colors.blue}
+label-focused-background = ${colors.red}
 
 ; visible = Active workspace on unfocused monitor
 label-visible-foreground = ${colors.background}
@@ -331,7 +336,7 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.mpc}
 format-prefix-foreground = ${colors.foreground-alt}
-label = %output%
+label = "%output% "
 exec = mpc current -f %title%
 exec-if = mpc | grep playing
 tail = false

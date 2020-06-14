@@ -27,4 +27,8 @@ battery_percent=$(( battery_level * 100 ))
 # Divide to get final percentage
 battery_percent=$(( battery_percent / battery_max ))
 
+# Force percentage to always span two digits
+[ $battery_percent -lt 10 ] && echo -n " "
+[ $battery_percent -eq 100 ] && battery_percent=99
+
 echo "$battery_percent%"

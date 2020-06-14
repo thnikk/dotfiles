@@ -42,4 +42,4 @@ esac
 ICON=$(echo "$ICON" | awk '{$1 = "%{F#747c84}"$1"%{F-}"; print}')
 
 # Return full string
-echo "$ICON $TEMP"
+echo "$ICON%{T3} %{T-}$TEMP"

@@ -17,6 +17,8 @@ super + e
 # Web browser
 super + b
 	sh -c $BROWSER
+super + b
+	sh -c cura
 
 # make sxhkd reload its configuration files:
 super + Escape

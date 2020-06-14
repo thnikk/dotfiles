@@ -37,8 +37,8 @@ NEWLINE=$'\n'                                   # Create newline variable
 ERROR="%{$fg[red]%}%(?..[%?])%{$reset_color%}%" # Show last command's exit code
 CHAR="%{$fg[green]%}→ %{$reset_color%}%"
 DIR="%(4~|…/%2~|%~)"                            # Set dir to only show a max depth of 2
-[ -n "$SSH_CLIENT" ] && HNC="red" || HNC="blue" # Colorize hostname based on local/ssh
-PS1="%{$fg[green]%}%n%{$reset_color%} in %{$fg[cyan]%}% $DIR %{$reset_color%}% at %{$fg[$HNC]%}%m %{$reset_color%}% $ERROR $NEWLINE$CHAR "
+[ -n "$SSH_CLIENT" ] && HNC="red" || HNC="magenta" # Colorize hostname based on local/ssh
+PS1="%{$fg[green]%}%n%{$reset_color%} in %{$fg[blue]%}% $DIR %{$reset_color%}% at %{$fg[$HNC]%}%m %{$reset_color%}% $ERROR $NEWLINE$CHAR "
 
 # Move/delete betweeen words and directories (delimited by /)
 autoload -U select-word-style
@@ -66,10 +66,13 @@ bindkey "\e[3~" delete-char                     # Map delete
 
 # Tmux
 alias tmuxn='tmux new-session -s $$'
-_trap_exit() { tmux kill-session -t $$; }
-trap _trap_exit EXIT
+
 # If not using kitty and not on ssh session, run tmux on startup if not already running
-[ "$TERM" != "xterm-kitty" ] && [ "$TERM" != "tmux-256color" ] && [ ! -n "$SSH_CLIENT"] && tmuxn
+if [ "$TERM" != "xterm-kitty" ] && [ "$TERM" != "tmux-256color" ] && [ ! -n "$SSH_CLIENT"]; then
+    _trap_exit() { tmux kill-session -t $$; }
+    trap _trap_exit EXIT
+    tmuxn
+fi
 
 # Source external files
 source ~/.config/aliasrc

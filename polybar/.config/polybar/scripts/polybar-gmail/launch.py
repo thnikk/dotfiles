@@ -18,7 +18,7 @@ args = parser.parse_args()
 DIR = Path(__file__).resolve().parent
 CREDENTIALS_PATH = Path(DIR, 'credentials.json')
 
-unread_prefix = '%{F' + args.color + '}' + args.prefix + ' %{F-}'
+unread_prefix = '%{F' + args.color + '}' + args.prefix + '%{T3} %{T-}%{F-}'
 error_prefix = '%{F' + args.color + '}\uf06a %{F-}'
 count_was = 0
 

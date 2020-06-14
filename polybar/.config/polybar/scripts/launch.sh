@@ -9,7 +9,7 @@ if [ $? -ne 0 ]; then
         polybar bar1 &
         polybar bar2 &
     else
-        polybar default &
+        polybar -c ~/.config/polybar/config.alt default &
     fi
 fi
 

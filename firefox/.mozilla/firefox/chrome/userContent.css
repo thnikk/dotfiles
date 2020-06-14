@@ -4,7 +4,7 @@
 :root { scrollbar-color: #4C566A #1c1f26 !important; }
 
 /* Change background color for about:blank */
-@-moz-document url-prefix(about:blank) {*{background-color:#1c1f26;}}
+/*@-moz-document url-prefix(about:blank) {*{background-color:#1c1f26;}}*/
 
 /* Tweetdeck css */
 @-moz-document domain(tweetdeck.twitter.com) {

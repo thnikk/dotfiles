@@ -1,8 +1,9 @@
 #!/usr/bin/dash
 
-STATE="$HOME/.cache/polynet"
-[ -f $STATE ] || echo "0" > "$STATE"
-STATEVAL="$(cat $STATE)"
+STATE="$HOME/.cache/polybar/net"
+[ -d "$HOME/.cache/polybar" ] || mkdir -p "$HOME/.cache/polybar"
+[ -f "$STATE" ] || echo "0" > "$STATE"
+STATEVAL="$(cat "$STATE")"
 
 j=0
 # Check all networking devices
@@ -22,28 +23,27 @@ for i in /sys/class/net/*; do
     fi
 done
 
+getspeed(){
+    logfile="${XDG_CACHE_HOME:-$HOME/.cache}/netlog"
+    [ -f "$logfile" ] && touch "$logfile"
+    prevdata="$(cat "$logfile")" || echo "0 0" > "$logfile"
+
+    rxcurrent="$(($(paste -d '+' /sys/class/net/[ew]*/statistics/rx_bytes)))"
+    txcurrent="$(($(paste -d '+' /sys/class/net/[^lo]*/statistics/tx_bytes)))"
+
+    rxMiB="$(((rxcurrent-${prevdata%% *})/1024/1024))"
+    txMiB="$(((txcurrent-${prevdata##* })/1024/1024))"
+
+    echo "$rxcurrent $txcurrent" > "$logfile"
+    echo "$rxMiB/$txMiB"
+}
+
 if [ $j -eq "0" ];then
     echo "Disconnected"
 else
     case $STATEVAL in
         0)
-            logfile="${XDG_CACHE_HOME:-$HOME/.cache}/netlog"
-            [ -f "$logfile" ] && touch "$logfile"
-            prevdata="$(cat "$logfile")" || echo "0 0" > "$logfile"
-
-            rxcurrent="$(($(paste -d '+' /sys/class/net/[ew]*/statistics/rx_bytes)))"
-            txcurrent="$(($(paste -d '+' /sys/class/net/[^lo]*/statistics/tx_bytes)))"
-
-            rxMiB="$(((rxcurrent-${prevdata%% *})/1024/1024))"
-            txMiB="$(((txcurrent-${prevdata##* })/1024/1024))"
-
-            uicon="%{F#747c84}%{F-}"
-            dicon="%{F#747c84}%{F-}"
-            udicon="%{F#747c84}%{F-}"
-
-            echo "$rxcurrent $txcurrent" > "$logfile"
-            echo "$IPADDR $rxMiB/$txMiB"
-            ;;
+            getspeed;;
         1)
             echo "$(iw wlp3s0 info | grep -Po '(?<=ssid).*' | tr -d ' ')"
             ;;
