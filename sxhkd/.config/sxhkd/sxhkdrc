@@ -98,4 +98,4 @@ super+shift+b
 
 # Looking Glass Resize
 super+shift+f
-	i3-msg '[class="looking-glass-client"]' focus && i3-msg resize set width 1939px height 1084px
+	i3-msg '[class="looking-glass-client"]' focus && i3-msg resize set width 1939px height 1099px

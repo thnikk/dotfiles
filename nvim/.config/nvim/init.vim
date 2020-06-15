@@ -97,7 +97,7 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePost *.rst !make html
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-autocmd BufWritePost *polybar/config !pkill -USR1 polybar
+autocmd BufWritePost *polybar/config* !pkill -USR1 polybar
 autocmd BufWritePost *polybar/config/scripts/* !pkill -USR1 polybar
 autocmd BufWritePost picom.conf !pkill -USR1 picom
 autocmd BufWritePost flexget/config.yml !flexget execute

@@ -318,7 +318,7 @@ label-unfocused-background = ${colors.background}
 ; focused = Active workspace on focused monitor
 label-focused-padding-right = 1
 label-focused-foreground = ${colors.background}
-label-focused-background = ${colors.red}
+label-focused-background = ${colors.blue}
 
 ; visible = Active workspace on unfocused monitor
 label-visible-foreground = ${colors.background}

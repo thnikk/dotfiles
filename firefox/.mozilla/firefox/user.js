@@ -31,4 +31,4 @@ user_pref("ui.key.menuAccessKeyFocuses", false);
 // New tabs should open in the background
 user_pref("browser.tabs.loadInBackground", true);
 // Links should open in the same tab by default
-user_pref("browser.link.open_newwindow", 1);
+//user_pref("browser.link.open_newwindow", 1);

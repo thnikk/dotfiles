@@ -149,7 +149,7 @@ toolbarbutton[label*="Tree Style Tab"]:before{ content: "☰" !important; }
 
 
 /* Remove tab border */
-#tabbrowser-tabs { color: var(--color-fg); font-family: Gohu Gohufont; font-style: normal; font-size:11px; border:none !important; }
+#tabbrowser-tabs { color: var(--color-fg); font-family: Operator Mono Light, Fira Code; font-style: normal; font-size:14px; border:none !important; }
 /* Remove tab separators */
 .tabbrowser-tab::before, .tabbrowser-tab::after{ display: none !important; }
 /* Set background for current tab */
