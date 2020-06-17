@@ -27,7 +27,7 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "Show colors in vim
 Plug 'tpope/vim-surround' "Complete tags
 Plug 'mhinz/vim-startify' "Start screen
 Plug 'vim-syntastic/syntastic' "Shows syntax errors
-Plug 'neoclide/coc.nvim', {'branch': 'release'} "Code completion
+"Plug 'neoclide/coc.nvim', {'branch': 'release'} "Code completion
 call plug#end()
 
 " Tab completion for coc
@@ -66,6 +66,8 @@ set linebreak "Word wrap
 set number relativenumber "Set line numbers to relative
 set noswapfile "Disable annoying swap behavior
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disables automatic commenting on newline:
+let g:indentLine_leadingSpaceChar='·'
+let g:indentLine_leadingSpaceEnabled='1'
 
 "Key mappings
 "Move between wrapped lines with arrow keys

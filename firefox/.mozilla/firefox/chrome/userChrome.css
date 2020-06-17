@@ -161,8 +161,8 @@ toolbarbutton[label*="Tree Style Tab"]:before{ content: "☰" !important; }
 .tab-content { padding: 0 5px !important; margin-top: -1px !important; }
 
 /* Tab height */
-#tabbrowser-tabs { --tab-min-height: 25px !important; }
-#TabsToolbar { height: 25px !important; }
+#tabbrowser-tabs { --tab-min-height: 20px !important; }
+#TabsToolbar { height: 20px !important; }
 .tab-label { line-height: 1.5em !important; }
 
 /* Disable new tab button */
