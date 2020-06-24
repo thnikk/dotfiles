@@ -1,0 +1,6 @@
+[submodule "zsh/.config/zsh/fast-syntax-highlighting"]
+	path = zsh/.config/zsh/fast-syntax-highlighting
+	url = https://github.com/zdharma/fast-syntax-highlighting
+[submodule "zsh/.config/zsh/zsh-autosuggestions"]
+	path = zsh/.config/zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

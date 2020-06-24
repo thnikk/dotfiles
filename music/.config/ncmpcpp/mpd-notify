@@ -16,12 +16,14 @@ CACHE="$(find "$CDIR" -name "*over*" | sed '1q')"
 [ -z "$CACHE" ] && CACHE="$(find "$CDIR" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | sed '1q')"
 # If the variable is empty, try to pull the cover art from the file with ffmpeg
 if [ -z "$CACHE" ]; then
+    echo "Cover art not found, checking for embedded art..."
     # Export embedded cover art here
     ECACHE="$HOME/.cache/embed.jpg"
     # Delete existing cover art
     rm -f "$ECACHE"
     # Pull cover art from playing file
-    ffmpeg -y -i "$HOME/Music/$(echo "$FULLOUT" | awk -F'//' '{print $4}')" "$ECACHE"
+    #ffmpeg -y -i "$HOME/Music/$(echo "$FULLOUT" | awk -F'//' '{print $4}')" "$ECACHE"
+    exiftool -picture -b "$HOME/Music/$(echo "$FULLOUT" | awk -F'//' '{print $4}')" > "$ECACHE"
     COVER="$ECACHE"
 else
     # Otherwise, select the embedded file
@@ -35,9 +37,8 @@ ALBUM="$(echo "$FULLOUT" | awk -F'//' '{print $3}')"
 
 CCOVER="$HOME/.cache/croppedCover.jpg"
 # Crop album art to 1:1
-rm "$CCOVER"
-magick "$COVER" -gravity center -crop 1:1 "$CCOVER"
-#mogrify "$COVER" -gravity center -crop 1:1
+rm "$CCOVER" 2>/dev/null
+magick "$COVER" -gravity center -crop 1:1 -resize 100x100 "$CCOVER"
 
 # Notify
 [ -f "$CCOVER" ] && dunstify -r 1 "$TITLE" "$ARTIST\n$ALBUM" -i "$CCOVER" || dunstify -r 1 "$TITLE" "$ARTIST\n$ALBUM"

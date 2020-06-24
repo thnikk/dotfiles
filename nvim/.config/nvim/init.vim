@@ -48,6 +48,10 @@ set termguicolors
 colorscheme thnikk
 let g:lightline = { 'colorscheme': 'nord', 'component': { 'percent': ''}, }
 
+" Make delete not cut (use x instead.)
+nnoremap d "_d
+vnoremap d "_d
+
 "General settings
 filetype plugin on "Enable filetype plugin
 syntax on "Enable syntax highlighting

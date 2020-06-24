@@ -27,6 +27,16 @@ user_pref("ui.key.menuAccessKeyFocuses", false);
 // New tabs should open in the background
 user_pref("browser.tabs.loadInBackground", true);
 // Links should open in the same tab by default
-//user_pref("browser.link.open_newwindow", 1);
+user_pref("browser.link.open_newwindow", 3);
 
-user_pred("devtools.debugger.prompt-connection", false);
+// Don't prompt when openning debugger
+user_pref("devtools.debugger.prompt-connection", false);
+
+// Don't show notification when entering fullscreen
+user_pref("full-screen-api.warning.timeout", 0);
+
+// Force hardware video decoding
+user_pref("media.hardware-video-decoding.force-enabled",true);
+
+// Force GPU Acceleration
+user_pref("gfx.webrender.all", true);

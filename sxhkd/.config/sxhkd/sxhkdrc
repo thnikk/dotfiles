@@ -17,8 +17,10 @@ super + e
 # Web browser
 super + b
 	sh -c $BROWSER
-super + b
+super + c
 	sh -c cura
+super + m
+	sh -c "$TERMINAL neomutt"
 
 # make sxhkd reload its configuration files:
 super + Escape

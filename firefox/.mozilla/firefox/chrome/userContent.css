@@ -3,6 +3,15 @@
 :root:not(:hover) { scrollbar-color: transparent transparent !important; }
 :root { scrollbar-color: #4C566A #1c1f26 !important; }
 
+@-moz-document url("about:blank"), url("about:newtab") {
+    html, body {
+        -moz-appearance: none !important;
+        background-color: rgba(0,0,0,0)!important;
+        background-image: none !important;
+        opacity: 0!important;
+    }
+}
+
 /* Change background color for about:blank */
 /*@-moz-document url-prefix(about:blank) {*{background-color:#1c1f26;}}*/
 

@@ -167,6 +167,11 @@ toolbarbutton[label*="Tree Style Tab"]:before{ content: "☰" !important; }
 
 /* Disable new tab button */
 #tabs-newtab-button { display:none !important; }
+toolbarbutton#scrollbutton-up, toolbarbutton#scrollbutton-down {display:none !important;}
+/* This should do the same thing */
+toolbarbutton[id^="scrollbutton"] {
+    display: none !important;
+}
 
 /* Disable close tab button */
 #tabbrowser-tabs .tabbrowser-tab .tab-close-button { display:none!important; }

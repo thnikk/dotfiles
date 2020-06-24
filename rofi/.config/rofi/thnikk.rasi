@@ -6,8 +6,8 @@
     green:                       rgba ( 163, 190, 140, 100 % );
     alternative-foreground:      rgba (239, 241, 245, 50%);
     red:                         rgba ( 191, 97, 106, 80% );
-    background:                  rgba ( 58, 76, 84, 0 % );
-    normal-background:           rgba ( 43, 48, 59, 100 % );
+    background: rgba (28, 31, 38, 95%);
+    normal-background: @background;
     selected-normal-background:  rgba ( 255, 255, 255, 5 % );
     border-color:                @foreground;
     background-color:            rgba ( 0, 0, 0, 0 % );
@@ -19,7 +19,7 @@
 #window {
     background-color: @normal-background;
     width: 600px;
-    border: 2px;
+/*    border: 2px;*/
     border-radius: 0px;
     border-color: @red;
 }

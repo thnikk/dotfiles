@@ -42,6 +42,9 @@ alias da='DF add'
 alias dc='DF commit -m '
 alias dp='DF push'
 
+# Sync website
+alias websync='rsync -av --update ~/Documents/Dev/web-html/ root@vultr:/var/www/site/'
+
 # Misc
 alias wid="xprop WM_CLASS"
 alias ddd="sudo dd bs=2M status=progress"

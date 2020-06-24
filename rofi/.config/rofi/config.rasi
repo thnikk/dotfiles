@@ -1,6 +1,6 @@
 configuration {
     theme: "~/.config/rofi/thnikk.rasi";
-    font: "Gotham Rounded Book 12";
+    font: "Futura Bk BT 12";
     /*font: "Operator Mono 14";*/
     width: 30;
     lines: 10;
