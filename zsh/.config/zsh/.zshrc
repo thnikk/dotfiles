@@ -40,7 +40,8 @@ ERROR="%F{red}%(?..[%?])%f"                         # Show last command's exit c
 CHAR="%F{green}→%f "                                #
 #DIR="%(4~|…/%2~|%~)"                               # Set dir to only show a max depth of 2
 [ -n "$SSH_CLIENT" ] && HNC="red" || HNC="magenta"  # Colorize hostname based on local/ssh
-PS1='%F{green}%n%f in %F{blue}$(shrink_path -f)%f at %F{$HNC}%m%f $ERROR$NEWLINE$CHAR'
+[ "$USER" = "root" ] && UC="red" || UC="green"
+PS1='%F{$UC}%n%f in %F{blue}$(shrink_path -f)%f at %F{$HNC}%m%f $ERROR$NEWLINE$CHAR'
 
 # Move/delete betweeen words and directories (delimited by /)
 autoload -U select-word-style
@@ -70,7 +71,7 @@ bindkey "\e[3~" delete-char                     # Map delete to delete
 # Alias to start with shell ID
 alias tmuxn='tmux new-session -s $$'
 # If not using kitty and not on ssh session, run tmux on startup if not already running
-if [ "$TERM" != "xterm-kitty" ] && [ "$TERM" != "tmux-256color" ] && [ ! -n "$SSH_CLIENT"]; then
+if [ "$TERM" != "xterm-kitty" ] && [ "$TERM" != "tmux-256color" ] && [ -n "$SSH_CLIENT"]; then
     # Kill tmux with terminal ID if shell is closed
     _trap_exit() { tmux kill-session -t $$; }
     trap _trap_exit EXIT

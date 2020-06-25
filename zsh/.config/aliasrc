@@ -36,11 +36,12 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m '
 alias gp='git push'
-alias DF='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias DF='git -C ~/.dot'
 alias ds='DF status'
 alias da='DF add'
 alias dc='DF commit -m '
 alias dp='DF push'
+alias DU='DF fetch --all && DF reset --hard origin/master'
 
 # Sync website
 alias websync='rsync -av --update ~/Documents/Dev/web-html/ root@vultr:/var/www/site/'
@@ -50,6 +51,7 @@ alias wid="xprop WM_CLASS"
 alias ddd="sudo dd bs=2M status=progress"
 # systemctl aliases
 alias SS="sudo systemctl"
+alias SSDR="sudo systemctl daemon-reload"
 alias SU="systemctl --user"
 # VFIO aliases
 alias lsvfio="sudo lspci -vv | grep vfio -B 12"
