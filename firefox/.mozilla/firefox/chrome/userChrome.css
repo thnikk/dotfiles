@@ -147,6 +147,9 @@ toolbarbutton[label*="Stylus"]:before{ color: var(--color-cyan); }
 
 toolbarbutton[label*="Tree Style Tab"]:before{ content: "☰" !important; }
 
+.tab-icon-image{
+    margin-left: -3px;
+}
 
 /* Remove tab border */
 #tabbrowser-tabs { color: var(--color-fg); font-family: Operator Mono Light, Fira Code; font-style: normal; font-size:14px; border:none !important; }
@@ -183,7 +186,7 @@ toolbarbutton[id^="scrollbutton"] {
 /* Reduce icon's right margin for less wasted space */
 .tabbrowser-tab:not([pinned]) .tab-icon-image { margin-right: 5px !important; }
 /* Max width of tab */
-.tabbrowser-tab:not([pinned]) { max-width: 150px !important; }
+.tabbrowser-tab:not([pinned]) { max-width: 100% !important; }
 .tabbrowser-tab:not([pinned]):not([fadein]) { max-width: 0.1px !important; }
 
 /* Set color of tab bar background */
