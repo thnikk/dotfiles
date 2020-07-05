@@ -19,34 +19,25 @@ Plug 'tpope/vim-surround' "Highlights quotes/brackets/parantheses
 Plug 'kovetskiy/sxhkd-vim' "Syntax highlighting
 Plug 'mboughaba/i3config.vim' "Syntax highlighting for i3 config
 Plug 'airblade/vim-gitgutter' "Shows changes from last commit in NL gutter
-Plug 'chriskempson/base16-vim' "Main colorsheme
-Plug 'arcticicestudio/nord-vim' "Colorscheme (required for lightline)
 Plug 'itchyny/lightline.vim' "Bottom bar
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md preview
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "Show colors in vim
 Plug 'tpope/vim-surround' "Complete tags
 Plug 'mhinz/vim-startify' "Start screen
 Plug 'vim-syntastic/syntastic' "Shows syntax errors
-"Plug 'neoclide/coc.nvim', {'branch': 'release'} "Code completion
 call plug#end()
-
-" Tab completion for coc
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
 
 "Hexokinase configuration (show color in hex code bg)
 let g:Hexokinase_highlighters = [ 'background' ]
 
 "Colors
-set termguicolors
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 colorscheme thnikk
-let g:lightline = { 'colorscheme': 'nord', 'component': { 'percent': ''}, }
+let g:lightline = { 'colorscheme': 'thnikk', 'component': { 'percent': ''}, }
 
 " Make delete not cut (use x instead.)
 nnoremap d "_d
@@ -107,6 +98,9 @@ autocmd BufWritePost *polybar/config* !pkill -USR1 polybar
 autocmd BufWritePost *polybar/config/scripts/* !pkill -USR1 polybar
 autocmd BufWritePost picom.conf !pkill -USR1 picom
 autocmd BufWritePost flexget/config.yml !flexget execute
+autocmd BufWritePost */st/config.h make
 
 "Italicize comments
 highlight Comment gui=italic cterm=italic
+
+au VimLeave * call nvim_cursor_set_shape("vertical-bar")

@@ -33,7 +33,7 @@ mopen = ""
 mclose = ""
 
 [colors]
-background = #1c1f26
+background = #dd1c1f26
 background-alt = #2b303b
 foreground = #d8dee9
 foreground-alt = #747C84
@@ -85,7 +85,7 @@ font-2 = Material Icons:pixelsize=12;4
 # This font only exists to create smaller spaces after icons.
 font-3 = Operator Mono Light:pixelsize=6;
 
-modules-left =  i3 bspwm keypad mpd
+modules-left =  i3 bspwm  mpd
 modules-center = time date weather gmail mpc
 modules-right = rec update pulseaudio cputemp cpu mem kbd net bat
 
@@ -116,7 +116,7 @@ tray-position = right
 tray-background = ${colors.background-alt}
 
 ; Override module placement
-modules-left = i3 bspwm
+modules-left = i3 bspwm keypad
 modules-right = cputemp cpu gpu mem
 modules-center =
 

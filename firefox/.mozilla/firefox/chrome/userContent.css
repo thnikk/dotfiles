@@ -3,18 +3,6 @@
 :root:not(:hover) { scrollbar-color: transparent transparent !important; }
 :root { scrollbar-color: #4C566A #1c1f26 !important; }
 
-@-moz-document url("about:blank"), url("about:newtab") {
-    html, body {
-        -moz-appearance: none !important;
-        background-color: rgba(0,0,0,0)!important;
-        background-image: none !important;
-        opacity: 0!important;
-    }
-}
-
-/* Change background color for about:blank */
-/*@-moz-document url-prefix(about:blank) {*{background-color:#1c1f26;}}*/
-
 /* Tweetdeck css */
 @-moz-document domain(tweetdeck.twitter.com) {
     /* Fix gaps between buttons */
@@ -38,42 +26,3 @@
 		width: 105%!important;
 	}
 }
-
-/*
-@-moz-document domain(tweetdeck.twitter.com) {
-	.app-columns {
-		display: flex;
-		flex-flow: row wrap;
-	}
-
-	.column {
-		flex: 1 20% !important;
-		height:50% !important;
-	}
-
-	.column-header {
-		height: 30px !important;
-		line-height: 30px !important;
-
-	}
-
-	.column-title {
-		font-size: 1em !important;
-	}
-
-	.js-column-scroller {
-		width: 105%!important;
-	}
-
-	.column-content {
-		top: 30px !important;
-	}
-
-	.icon-sliders {
-		font-size: 18px !important;
-	}
-
-	.column-settings-link {
-		margin-top: -4px
-	}
-}*/

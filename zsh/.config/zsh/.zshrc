@@ -9,6 +9,10 @@ HISTFILE=~/.cache/zsh_history # Move hist file to cache dir
 HISTSIZE=50000
 SAVEHIST=10000
 
+# Enable command correction
+setopt correct
+export SPROMPT="Correct %R to %r? [Yes, No, Abort, Edit] "
+
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 setopt autocd		            # Automatically cd into typed directory.
@@ -38,6 +42,7 @@ setopt promptsubst                                  # Re-eval commands in prompt
 NEWLINE=$'\n'                                       # Create newline variable
 ERROR="%F{red}%(?..[%?])%f"                         # Show last command's exit code
 CHAR="%F{green}→%f "                                #
+#CHAR="%F{green}->%f "                                #
 #DIR="%(4~|…/%2~|%~)"                               # Set dir to only show a max depth of 2
 [ -n "$SSH_CLIENT" ] && HNC="red" || HNC="magenta"  # Colorize hostname based on local/ssh
 [ "$USER" = "root" ] && UC="red" || UC="green"

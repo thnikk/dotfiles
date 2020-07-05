@@ -67,5 +67,5 @@ external_editor = "vim"
 use_console_editor = "yes"
 colors_enabled = "yes"
 ; Use this script for notifications and redirect all output to /dev/null
-execute_on_player_state_change = ~/.config/ncmpcpp/mpd-notify >/dev/null 2>&1 &
+;execute_on_player_state_change = ~/.config/ncmpcpp/mpd-notify >/dev/null 2>&1 &
 

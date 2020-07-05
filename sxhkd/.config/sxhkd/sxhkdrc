@@ -3,12 +3,21 @@
 # terminal emulator
 super + Return
 	sh -c $TERMINAL
+super + shift + Return
+	alacritty
+super + ctrl + Return
+	st
 
 # program launcher
 super + d
 	sh -c $LAUNCHER
+super + shift + d
+	dmenu_run -fn 'Futura Bk BT:pixelsize=18' -nb '#1c1f26' -nf '#d8dee9' -sb '#4C566A' -sf '#d8dee9'
 super + a
 	~/.local/bin/lsAnime2
+
+super + g
+	gimp
 
 # File manager
 super + e
@@ -17,8 +26,6 @@ super + e
 # Web browser
 super + b
 	sh -c $BROWSER
-super + c
-	sh -c cura
 super + m
 	sh -c "$TERMINAL neomutt"
 
@@ -27,13 +34,13 @@ super + Escape
 	pkill -USR1 -x sxhkd && notify-send "Restarting SXHKD"
 
 @ctrl+alt+p
-	sleep 1 && xdotool type "On top of fire extinguisher opposite of front door."
+	sleep 1 && xdotool type "On top of fire extinguisher box opposite of front door."
 
 # Brightness control
 XF86MonBrightnessUp
-	light -A 10% && dunstify -r 1 "Brightness: $(light)%"
+	light -A 10 && dunstify -r 1 "Brightness: $(light)%"
 XF86MonBrightnessDown
-	light -U 10% && dunstify -r 1 "Brightness: $(light)%"
+	light -U 10 && dunstify -r 1 "Brightness: $(light)%"
 # Volume control
 XF86AudioRaiseVolume
 	pamixer -i 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
@@ -62,7 +69,7 @@ super+x
 
 # Picom
 super+c
-	sh -c $COMPOSITOR
+	picom
 super+shift+c
 	pkill picom
 

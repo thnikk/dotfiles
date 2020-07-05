@@ -1,8 +1,12 @@
+# Shorten name
+alias mutt='neomutt'
+
 # ls aliases
 alias ls='ls --color=auto'
 alias ll='ls -llh'
 alias la='ls -llha'
 
+# File management aliases
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -vI'

@@ -28,13 +28,8 @@ workspace 10 output $monitor_one
 
 ### Window Rules ###
 # Use xprop for window info, case sensitive
-for_window [class="Gnome-system-monitor|Virt-manager|Eog|Nautilus|Thunar|Nemo|Yad|Deluge|Pavucontrol|Gucharmap|Nitrogen|nitrogen|kunst|Kunst|Wine|Minecraft Launcher|minecraft-launcher|File-roller|Trackma-gtk"] floating enable
-for_window [title="BSG Launcher|The Ditzy Demons Are In Love With Me (18+ DLC)"] floating enable
 for_window [window_role="pop-up|bubble|task_dialog|Preferences|dialog|menu"] floating enable
 for_window [class="looking-glass-client"] floating disable
-for_window [class="mpv"] fullscreen enable
-# Float all pop-up windows
-for_window [window_role="pop-up"] floating enable
 
 ### Workspace assignment ###
 for_window [class="TelegramDesktop|discord"] move workspace number 2
@@ -47,8 +42,8 @@ exec_always --no-startup-id autotiling # i3 specific autotitling
 exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc # Start i3-sepcific sxhkd first
 exec --no-startup-id sxhkd # Then general sxhkd
 # Always restart picom to avoid focused window being stuck at 100% opacity
-exec_always --no-startup-id pkill -USR1 picom
 exec --no-startup-id ~/.config/i3/startup.sh # Start desktop-specific programs
+exec --no-startup-id picom
 
 font pango:Operator Mono Book 10
 
@@ -62,5 +57,5 @@ floating_modifier $mod
 # class        			            border  backgr. text    indicator child_border
 client.unfocused                    #2b303b #2b303b #c0c5ce #2b303b   #2b303b
 client.focused_inactive             #2b303b #2b303b #c0c5ce #2b303b   #2b303b
-client.focused                      #bf616a #bf616a #eff1f5 #bf616a   #bf616a
+client.focused                      #bf616a #bf616a #eff1f5 #1b303b   #bf616a
 

@@ -60,10 +60,10 @@ bottom = true
 #tray-position = right
 #tray-padding = 1
 
-border-top      = 0
-border-bottom   = 0
-border-left     = 0
-border-right    = 0
+border-top-size      = 0
+border-bottom-size   = 0
+border-left-size     = 0
+border-right-size    = 0
 border-color    = ${colors.blank}
 radius          = 0
 line-size       = 2
@@ -88,6 +88,7 @@ font-2 = Material Icons:pixelsize=12;4
 font-3 = Operator Mono Light:pixelsize=6;
 
 modules-left =  i3 bspwm keypad mpc
+modules-right-padding-left = 10
 modules-right = gmail weather rec update kbd net bat date
 
 cursor-click = pointer
@@ -148,7 +149,7 @@ click-left = $TERMINAL neomutt
 inherit = module/general
 type = custom/script
 format = <label>
-label = "%{A1:~/.local/bin/ukp 2k:}2K%{A} %{A1:~/.local/bin/ukp 4k:}4K%{A} %{A1:~/.local/bin/ukp 7k:}7K%{A} %{A1:~/.local/bin/ukp 2kt:}2KT%{A} %{A1:~/.local/bin/ukp 4kt:}4KT %{A}%{A1:~/.local/bin/ukp fb:}FB%{A}"
+label = "%{A1:~/.local/bin/ukp 2k:}2K%{A} %{A1:~/.local/bin/ukp 4k:}4K%{A} %{A1:~/.local/bin/ukp 7k:}7K%{A} %{A1:~/.local/bin/ukp 2kt:}2KT%{A} %{A1:~/.local/bin/ukp 4kt:}4KT %{A}%{A1:~/.local/bin/ukp fb:}FB%{A} "
 exec = echo 1
 exec-if = ls /dev/ttyACM*
 
@@ -307,7 +308,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-pin-workspaces = true
+;pin-workspaces = true
 
 label-mode-foreground = ${colors.foreground}
 label-mode-background = ${colors.red}
@@ -321,8 +322,8 @@ label-focused-foreground = ${colors.background}
 label-focused-background = ${colors.blue}
 
 ; visible = Active workspace on unfocused monitor
-label-visible-foreground = ${colors.background}
-label-visible-background = ${colors.foreground-alt}
+label-visible-foreground = ${colors.foreground}
+label-visible-background = ${colors.background-alt}
 label-visible-padding-right = 1
 
 ; urgent = Workspace with urgency hint set

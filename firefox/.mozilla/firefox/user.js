@@ -19,7 +19,7 @@ user_pref("browser.tabs.warnOnClose", false);
 user_pref("general.autoScroll", true);
 
 // Set theme to compact
-user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
+// user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
 
 // Disable alt for menu
 user_pref("ui.key.menuAccessKeyFocuses", false);
