@@ -7,12 +7,16 @@ export HOST="$(cat /etc/hostname)"
 
 # Default Programs
 export EDITOR="nvim"
-export TERMINAL="kitty -1"
+export TERMINAL="kitty"
 export BROWSER="firefox"
 export READER="zathura"
 export COMPOSITOR="picom"
 export LAUNCHER="rofi -show drun"
-export WM="i3"
+if [ "$HOST" = "thnikk-laptop" ]; then
+    export WM="i3"
+else
+    export WM="i3"
+fi
 export FM="$TERMINAL lf"
 
 # Make man more readable by adding colors
@@ -54,7 +58,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 export PATH="$PATH:$HOME/.local/bin:~/.platformio/penv/bin:$HOME/.local/bin/$HOST"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
 # language (just in case)
 export LANG=en_US.UTF-8

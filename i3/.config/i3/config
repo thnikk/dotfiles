@@ -43,7 +43,7 @@ exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc # Start i3-sepcific sxh
 exec --no-startup-id sxhkd # Then general sxhkd
 # Always restart picom to avoid focused window being stuck at 100% opacity
 exec --no-startup-id ~/.config/i3/startup.sh # Start desktop-specific programs
-exec --no-startup-id picom
+#exec --no-startup-id picom
 
 font pango:Operator Mono Book 10
 

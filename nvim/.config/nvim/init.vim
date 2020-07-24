@@ -30,6 +30,11 @@ call plug#end()
 "Hexokinase configuration (show color in hex code bg)
 let g:Hexokinase_highlighters = [ 'background' ]
 
+"Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 "Colors
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -60,6 +65,7 @@ set expandtab "Convert tab to spaces
 set linebreak "Word wrap
 set number relativenumber "Set line numbers to relative
 set noswapfile "Disable annoying swap behavior
+set updatetime=100
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disables automatic commenting on newline:
 let g:indentLine_leadingSpaceChar='·'
 let g:indentLine_leadingSpaceEnabled='1'
@@ -93,7 +99,7 @@ autocmd BufWritePre * %s/\s\+$//e
 "Restart programs on config change
 autocmd BufWritePost *.rst !make html
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd && notify-send "Restarting sxhkd"
 autocmd BufWritePost *polybar/config* !pkill -USR1 polybar
 autocmd BufWritePost *polybar/config/scripts/* !pkill -USR1 polybar
 autocmd BufWritePost picom.conf !pkill -USR1 picom
@@ -103,4 +109,3 @@ autocmd BufWritePost */st/config.h make
 "Italicize comments
 highlight Comment gui=italic cterm=italic
 
-au VimLeave * call nvim_cursor_set_shape("vertical-bar")

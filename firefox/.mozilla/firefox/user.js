@@ -40,3 +40,6 @@ user_pref("media.hardware-video-decoding.force-enabled",true);
 
 // Force GPU Acceleration
 user_pref("gfx.webrender.all", true);
+
+// Fix mouse with context menu
+user_pref("ui.context_menus.after_mouseup", true);

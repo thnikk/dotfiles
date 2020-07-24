@@ -1,19 +1,34 @@
 #!/bin/sh
 
-while read file
+while read -r file
 do
-    EXT=$(echo $file | awk -F "." '{print $NF}')
+    EXT=$(echo "$file" | awk -F "." '{print $NF}')
     case "$1" in
+    # Press ctrl+c to copy the file to the clipboard
     "C-c")
-        xclip -selection clipboard -t image/$TYPE -i $file ;;
+        xclip -selection clipboard -t "image/$EXT" -i "$file";;
+    # ctrl+1 to set the wallpaper for monitor 1
     "C-1")
         # Convert file to png if not already
-        [ $EXT != "png" ] && convert $file ~/.config/wall.png || cp $file ~/.config/wall.png
+        if [ "$EXT" != "png" ]; then
+            convert "$file" ~/.config/wall.png
+        else
+            cp "$file" ~/.config/wall.png
+        fi
         # Set two wallpapers if two monitors are connected
-        [ $(xrandr | grep " connected" | wc -l) -eq 2 ] && feh --bg-fill ~/.config/wall.png ~/.config/wall2.png || feh --bg-fill ~/.config/wall.png
+        if [ "$(xrandr | grep -c " connected")" -eq 2 ]; then
+            feh --bg-fill ~/.config/wall.png ~/.config/wall2.png
+        else
+            feh --bg-fill ~/.config/wall.png
+        fi
         ;;
+    # ctrl+2 to set the wallpaper for monitor 2
     "C-2")
-        [ $EXT != "png" ] && convert $file ~/.config/wall2.png || cp $file ~/.config/wall2.png
+        if [ "$EXT" != "png" ]; then
+            convert "$file" ~/.config/wall2.png
+        else
+            cp "$file" ~/.config/wall2.png
+        fi
         feh --bg-fill ~/.config/wall.png ~/.config/wall2.png
         ;;
     esac

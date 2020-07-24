@@ -10,6 +10,18 @@ PREREQUISITES
 - Gohufont
 - Compact theme
 */
+
+.tabbrowser-tab[multiselected]:-moz-lwtheme {
+    font-weight: bolder;
+    background: rgba(255,255,255, 0.1) !important;
+}
+
+/* I don't know where to put this yet */
+.tab-stack { min-height: 0px !important; }
+#tabbrowser-tabs, #tabbrowser-arrowscrollbox, #tabbrowser-tabs[positionpinnedtabs] > #tabbrowser-arrowscrollbox > .tabbrowser-tab[pinned] { min-height: 0px !important; }
+#tabbrowser-tabs { min-height: 0px; }
+#tabbrowser-tabs { min-height: 0px !important; }
+
 @-moz-document url(chrome://browser/content/browser.xul)
 {
 #main-window,
@@ -50,11 +62,15 @@ PREREQUISITES
 
 /* Variables */
 :root {
+    --tab-font: Operator Mono Light, Fira Code, mono;
     --tab-toolbar-navbar-overlap: 0px !important; /* fix for full screen mode */
-    --tab-min-height: 28px !important;
+    --tab-min-height: 26px !important;
+    --urlbar-height: 26px !important;
+    --urlbar-toolbar-height: 26px !important;
     --tab-font-size: 14px;
     --favicon-margin: 0px;
     --color-dark: #1c1f26;
+    --nav-color: #2b303b;
     --my-tab-min-width: 38px;
     --toolbarbutton-border-radius: 0px !important;
     --urlbar-height: 28px !important;
@@ -78,6 +94,8 @@ PREREQUISITES
     --stop-icon: "";
 }
 
+.toolbarbutton-1, .tabbrowser-tab[visuallyselected="true"]:-moz-lwtheme, #urlbar:-moz-lwtheme { color: var(--color-fg) !important; }
+
 #urlbar-container {
     margin-inline: 0px !important;
     padding-block: 0px !important;
@@ -99,11 +117,11 @@ PREREQUISITES
     margin-inline: 0px !important;
     padding-block: 0px !important;
 }*/
-/* Hide URL bar when not in use (new tab or F6 to focus)*/
+/* Hide URL bar when not in use (new tab or F6 to focus) */
 #nav-bar:not([customizing="true"]):not([inFullscreen]) {
-    margin-top: -28px !important;
+    margin-top: calc(var(--tab-min-height) * -1) !important;
     background: #232323;
-    transition: transform 50ms ease-out !important;
+    transition: transform 0ms !important;
     z-index: -1;
 }
 #navigator-toolbox:focus-within :-moz-any(#nav-bar) {
@@ -113,7 +131,7 @@ PREREQUISITES
 
 /* Fix active tab being stupid */
 .tab-background { display: none; height: 0px; }
-.tab-content { height: 26px; }
+.tab-content { height: 27px; }
 .tab-loading-burst { display: none !important; }
 
 
@@ -127,7 +145,7 @@ PREREQUISITES
     display:none;
 }
 #urlbar:-moz-lwtheme > #urlbar-background, #navigator-toolbox #searchbar:-moz-lwtheme {
-    background: var(--color-dark) !important;
+    background: transparent !important;
     border: none !important;
 }
 .urlbar-icon {
@@ -176,7 +194,13 @@ PREREQUISITES
 #alltabs-button { display: none; } /* Remove all tabs button */
 /* Removes extension icons and badges */
 
-.toolbarbutton-icon { display: none; padding: 0px; }
+/*Hide all toolbar icons*/
+.chromeclass-toolbar-additional > * > .toolbarbutton-icon { display: none; padding: 0px; }
+.chromeclass-toolbar-additional > .toolbarbutton-icon { display: none; padding: 0px; }
+.toolbarbutton-badge-stack > .toolbarbutton-icon { display: none; padding: 0px; }
+/*Hide "firefox" and similar text next to lock icon.*/
+#identity-icon-label { display:none; }
+
 .toolbarbutton-badge { display: none; padding: 0px; }
 .toolbarbutton-badge-stack { padding: 0px !important; }
 /* Set extension icons */
@@ -192,11 +216,10 @@ PREREQUISITES
 .private-browsing-indicator:before { content: var(--full-icon); color: var(--color-magenta); }
 /* Set colors for extension icons */
 toolbarbutton:before{ font-family: Material Icons; padding: 5px; font-size:var(--icon-size) !important; }
-toolbarbutton[id*="checkerplus"]:before{ color: var(--color-red); }
 toolbarbutton[id*="darkreader"]:before{ color: var(--color-blue); }
-toolbarbutton[id*="ublock"]:before{ color: var(--color-green); }
+toolbarbutton[id*="ublock"]:before{ color: var(--color-red); }
 toolbarbutton[label*="Violentmonkey"]:before{ color: var(--color-magenta); }
-toolbarbutton[label*="Stylus"]:before{ color: var(--color-cyan); }
+toolbarbutton[label*="Vim"]:before{ color: var(--color-green); }
 toolbarbutton[id*="back-button"]:before{ content: var(--back-icon) !important; }
 toolbarbutton[id*="forward-button"]:before{ content: var(--forward-icon) !important; }
 toolbarbutton[id*="reload-button"]:before{ content: var(--reload-icon) !important; }
@@ -204,16 +227,17 @@ toolbarbutton[id*="stop-button"]:before{ content: var(--stop-icon) !important; }
 toolbarbutton[id*="PanelUI-menu-button"]:before{ content: var(--menu-icon) !important; }
 
 #notification-popup-box { padding: 0px !important; }
-#identity-icon, #tracking-protection-icon-box, #blocked-permissions-container { display: none; }
+#identity-icon, #tracking-protection-icon-box, #blocked-permissions-container { list-style-image: none !important; width: 1px !important; height: 1px !important; }
 #identity-box, #tracking-protection-icon-container { padding-inline: 0px !important; }
 #identity-box:before, #tracking-protection-icon-container:before { font-family: Material Icons; font-size:12px; padding: 4px; opacity: 0.5; }
 #tracking-protection-icon-container:before { content: ""; }
 #identity-box:before { content: ""; }
+/*#permissions-granted-icon { display: none !important; }*/
 
 .tab-icon-image{ margin-left: var(--favicon-margin); }
 
 /* Remove tab border */
-#tabbrowser-tabs { color: var(--color-fg); font-family: Operator Mono Light, Fira Code; font-style: normal; font-size:var(--tab-font-size); border:none !important; }
+#tabbrowser-tabs { z-index: 1 !important; box-shadow: 0 0 5px rgba(0,0,0,0.5); color: var(--color-fg); font-family: var(--tab-font); font-style: normal; font-size:var(--tab-font-size); border:none !important; }
 /* Remove tab separators */
 .tabbrowser-tab::before, .tabbrowser-tab::after{ display: none !important; }
 /* Set background for current tab */
@@ -263,7 +287,7 @@ toolbarbutton[id^="scrollbutton"] {
 
 /* Set color of nav bar */
 #nav-bar {
-    background: var(--color-dark) !important;
+    background: var(--nav-color) !important;
     border: none !important;
     box-shadow: none !important;
     margin-top: -1px !important; border-top-width: -1px !important;

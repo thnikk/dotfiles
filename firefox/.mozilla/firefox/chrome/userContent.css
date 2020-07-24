@@ -26,3 +26,13 @@
 		width: 105%!important;
 	}
 }
+
+/* 4chan css */
+@-moz-document domain(4channel.org) {
+    html{ font-size: 100% !important; }
+    @media only screen and (min-width: 1400px) {
+        html{
+            font-size: 120% !important;
+        }
+    }
+}

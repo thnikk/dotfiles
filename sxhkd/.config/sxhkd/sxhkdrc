@@ -13,26 +13,31 @@ super + d
 	sh -c $LAUNCHER
 super + shift + d
 	dmenu_run -fn 'Futura Bk BT:pixelsize=18' -nb '#1c1f26' -nf '#d8dee9' -sb '#4C566A' -sf '#d8dee9'
+
 super + a
 	~/.local/bin/lsAnime2
-
 super + g
 	gimp
+super + u
+	~/.local/bin/umsd
 
-# File manager
+# File manager (e for explorer)
 super + e
 	sh -c $FM
 
-# Web browser
+# Browser
 super + b
 	sh -c $BROWSER
+
+# Mail
 super + m
 	sh -c "$TERMINAL neomutt"
 
-# make sxhkd reload its configuration files:
+# make sxhkd reload its configuration files (works for all running instances):
 super + Escape
 	pkill -USR1 -x sxhkd && notify-send "Restarting SXHKD"
 
+# Save me 2 seconds a day
 @ctrl+alt+p
 	sleep 1 && xdotool type "On top of fire extinguisher box opposite of front door."
 
@@ -81,15 +86,15 @@ super+n
 
 # Screenshots
 Print
-	maim ~/Pictures/Screenshots/$(date +%s).png
+	maim ~/Pictures/Screenshots/$(date +%s).png && dunstify -r 4 "Saving screenshot to ~/Pictures/Screenshots"
 ctrl+shift+1
-	maim | xclip -selection clipboard -t image/png
+	maim | xclip -selection clipboard -t image/png && dunstify -r 4 "Saving screenshot to clipboard"
 ctrl+shift+2
-	maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+	maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png && dunstify -r 4 "Saving window screenshot to clipboard"
 ctrl+shift+4
-	maim -s | xclip -selection clipboard -t image/png
+	maim -s | xclip -selection clipboard -t image/png && dunstify -r 4 "Saving area screenshot to clipboard"
 ctrl+shift+~
-	sharenix -m c | xargs -I {} dunstify -r 1 "{}"
+	sharenix -m c | xargs -I {} dunstify -r 1 "{}" && dunstify -r 4 "Uploaing clipboard with sharenix"
 
 # Screencast
 ctrl+Print
@@ -102,6 +107,7 @@ ctrl+shift+Print
 super+shift+{minus,plus}
 	~/.VFIOinput/controller_toggle.sh {0,1}
 
+# Hide polybar
 super+shift+b
 	polybar-msg cmd toggle
 

@@ -1,4 +1,4 @@
-#/usr/bin/env sh
+#!/usr/bin/env sh
 
 ping -c1 google.com >/dev/null 2>/dev/null || exit 1
 
