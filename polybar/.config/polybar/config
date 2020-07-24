@@ -29,6 +29,8 @@ vol1 = "%{T3} %{T-}"
 vol2 = "%{T3} %{T-}"
 vol3 = "%{T3} %{T-}"
 mail = "%{T3} %{T-}"
+vm = "%{T3} %{T-}"
+twitch = "%{T3} %{T-}"
 mopen = ""
 mclose = ""
 
@@ -85,14 +87,15 @@ font-2 = Material Icons:pixelsize=12;4
 # This font only exists to create smaller spaces after icons.
 font-3 = Operator Mono Light:pixelsize=6;
 
-modules-left =  i3 bspwm  mpd
-modules-center = time date weather gmail mpc
+modules-left =  i3 bspwm mpd keypad
+modules-center = time date weather unread mpc twitch
 modules-right = rec update pulseaudio cputemp cpu mem kbd net bat
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/bar1]
+enable-ipc = true
 inherit = bar/default
 monitor = ${monitor.main}
 height = 30
@@ -107,6 +110,7 @@ font-1 = Source Han Sans JP:size=10:antialias=true;1
 font-2 = Material Icons:pixelsize=12;3
 
 [bar/bar2]
+enable-ipc = true
 ; Follow bar 1 since same system
 inherit = bar/bar1
 monitor = ${monitor.secondary}
@@ -116,13 +120,15 @@ tray-position = right
 tray-background = ${colors.background-alt}
 
 ; Override module placement
-modules-left = i3 bspwm keypad
-modules-right = cputemp cpu gpu mem
+modules-left = i3 bspwm
+modules-right = cputemp mem
 modules-center =
 
 [module/general]
 interval = 60
 format-background = ${colors.background}
+format-prefix-foreground = ${colors.foreground-alt}
+format = <label>
 format-padding = 0
 
 [module/volnew]
@@ -132,11 +138,19 @@ exec = ~/.config/polybar/scripts/volume.sh
 tail = true
 interval = 0.1
 
-[module/gmail]
+[module/twitch]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/polybar-gmail/launch.py -p "" -ns
-tail = true
+format = <label>
+format-prefix = ${icons.twitch}
+format-prefix-foreground = ${colors.foreground-alt}
+exec = ~/.config/polybar/scripts/twitch.sh
+;exec-if = ~/.config/polybar/scripts/twitch.sh
+
+[module/unread]
+type = custom/script
+exec = ~/.config/polybar/scripts/unread.sh -p
+interval = 1
 click-left = $TERMINAL neomutt
 
 [module/keypad]
@@ -257,12 +271,9 @@ interval = 5
 [module/vm]
 inherit = module/general
 type = custom/script
-format = <label>
-label = %output%
-exec = sudo virsh list --name
-exec-if = sudo virsh list --all | grep running
-tail = false
-interval = 3
+format-prefix = ${icons.vm}
+exec = ~/.config/polybar/scripts/vm.sh -p
+interval = 5
 
 [module/xwindow]
 inherit = module/general
@@ -400,8 +411,8 @@ exec = ~/.config/polybar/scripts/hwmon.sh cpu
 interval = 5
 tail = false
 ;format-background = ${colors.background}
-format-prefix = ${icons.cpu}
-format-prefix-foreground = ${colors.foreground-alt}
+;format-prefix = ${icons.cpu}
+;format-prefix-foreground = ${colors.foreground-alt}
 
 [module/gpu]
 inherit = module/general

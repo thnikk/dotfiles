@@ -12,7 +12,7 @@ polybar bar1 &
 polybar bar2 &
 #polybar tray &
 elif [ $1 == 1 ]; then
-polybar default &
+polybar -c ~/.config/polybar/config.alt default &
 fi
 
 echo "Bars launched..."
