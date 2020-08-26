@@ -2,6 +2,8 @@
 
 # This simple script returns the available fan speed and temperature for a named hwmon device. Some screwy stuff can happen with reassigned hwmon numbers, so this prevents any trouble between reboots caused by a kernel upgrade or hardware change.
 
+# Writren in bash for arrays and variable appending, though both could be replaced with POSIX versions easily.
+
 # Return info for cpu if not defined
 DEVICES="k10temp coretemp amdgpu"
 OUTPUT=""
@@ -23,24 +25,30 @@ hwCheck() {
             [ -z "$OUTPUT" ] || OUTPUT+="$SEP"
             if [ "$1" = "k10temp" ] || [ "$1" = "coretemp" ]; then
                 OUTPUT+="%{F#747C84}%{F-}%{T3} %{T-}"
-                [ -z "$CPULOAD" ] || OUTPUT+="L$CPULOAD% "
+                [ -z "$CPULOAD" ] || OUTPUT+="L$CPULOAD%%{T3} %{T-}"
             fi
             if [ "$1" = "amdgpu" ]; then
                 OUTPUT+="%{F#747C84}%{F-}%{T3} %{T-}"
-                [ -z "$AMDGPULOAD" ] || OUTPUT+="L$AMDGPULOAD% "
+                [ -z "$AMDGPULOAD" ] || OUTPUT+="L$AMDGPULOAD%%{T3} %{T-}"
             fi
             # Echo temp
             [ -f "$d/temp1_input" ] && OUTPUT+="T$(( $(cat "$d/temp1_input")/1000 ))C"
             # Add space if fan speed exists
             [ -f "$d/temp1_input" ] && [ -f "$d/fan1_max" ] && OUTPUT+="%{T3} %{T-}"
             # Echo fan speed percentage
-            [ -f "$d/fan1_max" ] && OUTPUT+="F$(( $(( $(cat "$d/fan1_input")*100 ))/$(cat "$d/fan1_max") ))%"
+            [ -f "$d/fan1_max" ] && OUTPUT+="F$(( $(( $(cat "$d/fan1_input")*100 ))/$(cat "$d/fan1_max") ))% "
         fi
     done 2>/dev/null # Ignore errors
 }
 
 for i in $DEVICES; do
     hwCheck "$i"
+    if [ "$i" = "amdgpu" ] && [ -f "/tmp/radeoninfo" ]; then
+        OUTPUT+="L"
+        LOAD="$(cat /tmp/radeoninfo | awk '{print $5}' | awk -F'.' '{print $1}')"
+        [ "${#LOAD}" -lt 2 ] && OUTPUT+="0"
+        OUTPUT+="$LOAD%"
+    fi
 done
 
 echo "$OUTPUT"

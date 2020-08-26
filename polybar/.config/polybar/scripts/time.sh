@@ -1,19 +1,12 @@
 #!/usr/bin/dash
 
-DATE=$(date +%a,\ %b\ %-d)
-DAY=$(date +%d)
+#FULLDATE="$(date "+%I:%M %a %m-%d-%y")"
+#TIME="$(echo "$FULLDATE" | awk '{print $1}')"
+#DOW="$(echo "$FULLDATE" | awk '{print $2}')"
+#DATE="$(echo "$FULLDATE" | awk '{print $3}')"
+TIME="$(date "+%I:%M")"
+DOW="$(date "+%a")"
+DATE="$(date "+%m-%d-%y")"
+SPACE=${1:-" "}
 
-case $DAY in
-    *11 | *12 | *13 ) EXTRA="th"
-        ;;
-    *1) EXTRA="st"
-        ;;
-    *2) EXTRA="nd"
-        ;;
-    *3) EXTRA="rd"
-        ;;
-    *) EXTRA="th"
-        ;;
-esac
-
-echo "$DATE$EXTRA"
+echo "$DOW $DATE $TIME"

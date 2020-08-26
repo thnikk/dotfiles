@@ -1,32 +1,22 @@
 #!/bin/bash
 
-DIM="#747C84"
-RED="#BF616A"
 ICON=""
 
 unread="$(find "${XDG_DATA_HOME:-$HOME/.local/share}"/mail/*/[Ii][Nn][Bb][Oo][Xx]/new/* -type f 2>/dev/null | wc -l )"
 
 if [ "$unread" -gt 0 ]; then
-    COLOR="$RED"
-    SCOLOR='\e[31m'
+    COLOR="#BF616A"
 else
-    COLOR="$DIM"
-    SCOLOR='\e[90m'
+    COLOR="#747C84"
 fi
 
-# Shell colors
-# \e[31m = red
-# \e[39m = white
-# \e[90m = dim
-
-if [ "$1" = "-p" ]; then
-    OUTPUT+="%{F$COLOR}$ICON%{F-}"
-    pidof mbsync >/dev/null 2>&1 && OUTPUT+="%{T3} %{T-}~"
-    [ "$unread" -gt 0 ] && OUTPUT+="%{T3} %{T-}$unread"
+OUTPUT+="%{F$COLOR}$ICON%{F-}"
+if pidof mbsync >/dev/null 2>&1; then
+    OUTPUT+="~"
 else
-    OUTPUT+="$SCOLOR$ICON\e[39m"
-    pidof mbsync >/dev/null 2>&1 && OUTPUT+="~"
-    [ "$unread" -gt 0 ] && OUTPUT+="$unread"
+    OUTPUT+=" "
 fi
+[ "$unread" -gt 0 ] && OUTPUT+="$unread"
 
-echo -e "$OUTPUT"
+#echo -e "$OUTPUT"
+echo -e "$unread"

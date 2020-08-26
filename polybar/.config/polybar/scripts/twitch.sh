@@ -1,25 +1,36 @@
 #!/bin/bash
 
-count=0
+# Pass through first argument as space
+SPACE=${1:-" "}
 
-# Print all live streams on the same line
-for x in "$HOME/.cache/stream_notify/live"/*; do
-    # If this loop is run through more than once, add a space between streams.
-    [ "$count" -gt 0 ] && OUTPUT+=" "
-    if ! grep -q "\*" <<< "$x"; then
-        fullname="$(basename "$x")"
-        case "$fullname" in
-            # Create shorthand name for streamers
-            dangheesling) name="DG" ;;
-            darksydephil) name="DSP" ;;
-            northernlion) name="NL" ;;
-            *) name="$1" ;;
-        esac
-        OUTPUT+="%{A1:xdg-open https\:\/\/twitch.tv\/$fullname:}$name%{A}"
+# Create output variable that we append text to later
+OUTPUT=""
+# Define location of config
+CONFIG="$HOME/.config/stream_notify/config"
+
+# If the config file doesn't exist, prompt the user to make it.
+[ ! -f "$CONFIG" ] && echo "Please create a config file at $CONFIG with one streamer name per line." && exit 1
+
+# Read all names from config file
+while read -r line; do
+    # Create shorthand name for streamers, otherwise just use the full name
+    case "$line" in
+        dangheesling) name="D" ;;
+        darksydephil) name="P" ;;
+        northernlion) name="N" ;;
+        *) name="$1" ;;
+    esac
+    # Append click action to open stream
+    OUTPUT+="%{A1:xdg-open https\:\/\/twitch.tv\/$line:}"
+    # Append name (dim if not live)
+    if [ "$(ls ~/.cache/stream_notify/live | grep -c "$line")" -gt 0 ]; then
+        OUTPUT+="$name"
     else
-        [ "$count" = 0 ] && exit 1
+        OUTPUT+="%{F#747C84}$name%{F-}"
     fi
-    count=$(( count + 1 ))
-done
+    # Append closing tag for click action and trailing space
+    OUTPUT+="%{A-}$SPACE"
+done < ~/.config/stream_notify/config
 
-printf "%s" "$OUTPUT"
+# Print and remove final trailing space
+printf "%s" "${OUTPUT/%$SPACE/}"

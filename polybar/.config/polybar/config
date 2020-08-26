@@ -35,7 +35,7 @@ mopen = ""
 mclose = ""
 
 [colors]
-background = #dd1c1f26
+background = #1c1f26
 background-alt = #2b303b
 foreground = #d8dee9
 foreground-alt = #747C84
@@ -53,7 +53,7 @@ blank = #00000000
 enable-ipc = true
 override-redirect = false
 wm-restack = bspwm
-height = 26
+height = 30
 offset-x = 0%
 offset-y = 0%
 fixed-center = true
@@ -62,47 +62,45 @@ bottom = true
 #tray-position = right
 #tray-padding = 1
 
-border-top      = 0
-border-bottom   = 0
-border-left     = 0
-border-right    = 0
+border-top-size      = 0
+border-bottom-size   = 0
+border-left-size     = 0
+border-right-size    = 0
 border-color    = ${colors.blank}
 radius          = 0
 line-size       = 2
 
-background = ${colors.background}
+background = ${colors.background-alt}
 foreground = ${colors.foreground}
 
 padding-left = 0
-padding-right = 1
+padding-right = 0
 
-module-margin-left = 0
-module-margin-right = 0
+separator = "%{B#1c1f26}%{F#747C84}|%{F-}%{B-}"
 
-separator = "%{T3} %{T-}%{F#747C84}|%{F-}%{T3} %{T-}"
-
-font-0 = Operator Mono Light:pixelsize=12;2
+font-0 = Operator Mono Light:pixelsize=14;2
 font-1 = Source Han Sans JP:size=10:antialias=true;2
-font-2 = Material Icons:pixelsize=12;4
+font-2 = Material Icons:pixelsize=12;3
 # This font only exists to create smaller spaces after icons.
 font-3 = Operator Mono Light:pixelsize=6;
 
-modules-left =  i3 bspwm mpd keypad
-modules-center = time date weather unread mpc twitch
-modules-right = rec update pulseaudio cputemp cpu mem kbd net bat
+modules-left =  i3 bspwm mpc keypad
+modules-right = twitch vm rec weather unread update vol hwinfo mem kbd net bat time
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/bar1]
-enable-ipc = true
+enable-ipc = false
 inherit = bar/default
 monitor = ${monitor.main}
 height = 30
+background = ${colors.background-alt}
 
 ; Override module positioning
-modules-right = vm update pulseaudio kbd net
-
+modules-left = i3 bspwm mpc keypad
+modules-center =
+modules-right = twitch vm unread update vol kbd net time
 
 ; Make fonts bigger
 font-0 = Operator Mono Book:pixelsize=14;2
@@ -117,26 +115,30 @@ monitor = ${monitor.secondary}
 
 ; Override tray positioning
 tray-position = right
-tray-background = ${colors.background-alt}
+tray-background = ${colors.background}
 
 ; Override module placement
 modules-left = i3 bspwm
-modules-right = cputemp mem
-modules-center =
+modules-right = hwinfo mem
+modules-center = gm
 
 [module/general]
 interval = 60
 format-background = ${colors.background}
 format-prefix-foreground = ${colors.foreground-alt}
 format = <label>
-format-padding = 0
+format-padding = 6px
 
-[module/volnew]
+[module/vol]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/volume.sh
+format-prefix = ${icons.vol3}
+exec = ~/.config/polybar/scripts/vol.sh
 tail = true
-interval = 0.1
+interval = 1
+click-left = pamixer -t
+scroll-up = pamixer -i 5
+scroll-down = pamixer -d 5
 
 [module/twitch]
 inherit = module/general
@@ -144,11 +146,14 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.twitch}
 format-prefix-foreground = ${colors.foreground-alt}
-exec = ~/.config/polybar/scripts/twitch.sh
+exec = ~/.config/polybar/scripts/twitch.sh "%{T3} %{T-}"
 ;exec-if = ~/.config/polybar/scripts/twitch.sh
 
 [module/unread]
 type = custom/script
+inherit = module/general
+format = <label>
+format-prefix = ${icons.mail}
 exec = ~/.config/polybar/scripts/unread.sh -p
 interval = 1
 click-left = $TERMINAL neomutt
@@ -157,7 +162,7 @@ click-left = $TERMINAL neomutt
 inherit = module/general
 type = custom/script
 format = <label>
-label = "%{A1:~/.local/bin/ukp 2k:}2K%{A} %{A1:~/.local/bin/ukp 4k:}4K%{A} %{A1:~/.local/bin/ukp 7k:}7K%{A} %{A1:~/.local/bin/ukp 2kt:}2KT%{A} %{A1:~/.local/bin/ukp 4kt:}4KT %{A}%{A1:~/.local/bin/ukp fb:}FB%{A}"
+label = "%{A1:~/.local/bin/ukp 2k:}2K%{A} %{A1:~/.local/bin/ukp 4k:}4K%{A} %{A1:~/.local/bin/ukp 7k:}7K%{A} %{A1:~/.local/bin/ukp macro:}Macro%{A} %{A1:~/.local/bin/ukp 2kt:}2KT%{A} %{A1:~/.local/bin/ukp 4kt:}4KT %{A}%{A1:~/.local/bin/ukp fb:}FB%{A}"
 exec = echo 1
 exec-if = ls /dev/ttyACM*
 
@@ -192,7 +197,7 @@ label = %output%
 exec = echo " Gamemode "
 exec-if = gamemoded -s | grep "gamemode is active"
 interval = 1
-format-background = ${colors.blue}
+format-background = ${colors.red}
 
 [module/ds4]
 inherit = module/general
@@ -243,7 +248,7 @@ format = <label>
 format-prefix = ${icons.clock}
 format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
-exec = date +%I:%M
+exec = ~/.config/polybar/scripts/time.sh "%{T3} %{T-}"
 interval = 60
 
 [module/date]
@@ -273,6 +278,7 @@ inherit = module/general
 type = custom/script
 format-prefix = ${icons.vm}
 exec = ~/.config/polybar/scripts/vm.sh -p
+exec-if = sh -c "[ $HOST = thnikk-desktop ]"
 interval = 5
 
 [module/xwindow]
@@ -313,13 +319,13 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-pin-workspaces = true
+pin-workspaces = false
 
 label-mode-foreground = ${colors.foreground}
 label-mode-background = ${colors.red}
 
 label-unfocused-padding-right = 1
-label-unfocused-background = ${colors.background-alt}
+label-unfocused-background = ${colors.background}
 
 ; focused = Active workspace on focused monitor
 label-focused-padding-right = 1
@@ -327,8 +333,8 @@ label-focused-foreground = ${colors.background}
 label-focused-background = ${colors.blue}
 
 ; visible = Active workspace on unfocused monitor
-label-visible-foreground = ${colors.background}
-label-visible-background = ${colors.foreground-alt}
+label-visible-foreground = ${colors.foreground}
+label-visible-background = #3b404b
 label-visible-padding-right = 1
 
 ; urgent = Workspace with urgency hint set
@@ -352,25 +358,19 @@ click-left = mpc toggle
 scroll-up = mpc vol +5
 scroll-down = mpc vol -5
 
-[module/cpu]
-inherit = module/general
-type = internal/cpu
-interval = 5
-label = %percentage:2%%
-
 [module/net]
 inherit = module/general
 type = custom/script
 exec = ~/.config/polybar/scripts/net.sh
 format-prefix = ${icons.eth}
 format-prefix-foreground = ${colors.foreground-alt}
-interval = 1
+interval = 60
 
 [module/pulseaudio]
 inherit = module/general
 type = internal/pulseaudio
 format-volume = <ramp-volume><label-volume>
-label-volume = %percentage:3%
+label-volume = %percentage:2%
 label-muted = ${icons.vol0}
 format-muted-foreground = ${colors.foreground-alt}
 format-muted = <label-muted>MUT
@@ -404,7 +404,7 @@ type = custom/script
 exec = ~/.config/polybar/scripts/weather.sh
 interval = 5
 
-[module/cputemp]
+[module/hwinfo]
 inherit = module/general
 type = custom/script
 exec = ~/.config/polybar/scripts/hwmon.sh cpu
@@ -446,6 +446,9 @@ menu-0-2-exec = systemctl suspend
 [settings]
 screenchange-reload = true
 pseudo-transparency = true
+format-spacing = 0
+format-margin = 0
+format-offset = 0
 
 [global/wm]
 margin-top = 5

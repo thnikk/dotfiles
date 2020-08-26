@@ -1,15 +1,22 @@
 #!/usr/bin/dash
 
-# Restart polybar (this is faster than pgrepping and launching.)
+# Terminate already running bar instances
 pkill -USR1 polybar
-# If restart fails, start polybar
-if [ $? -ne 0 ]; then
-    if [ "$HOST" = "thnikk-desktop" ]; then
-        # Since this is specific to my configuration:
-        polybar bar1 &
-        polybar bar2 &
-    else
-        polybar -c ~/.config/polybar/config.alt default &
-    fi
-fi
 
+# If restart fails, start polybar
+#if [ $? -ne 0 ]; then
+    #case $HOST in
+        #*desktop)
+            #echo "Spawning desktop bar."
+            #polybar bar1 &
+            #polybar bar2 & ;;
+        #*laptop)
+            #echo "Spawning laptop bar."
+##            polybar -c ~/.config/polybar/config.alt default & ;;
+            #polybar default & ;;
+    #esac
+#fi
+
+if [ $? -ne 0 ]; then
+    polybar default &
+fi

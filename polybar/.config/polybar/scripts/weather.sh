@@ -2,7 +2,7 @@
 # (Slightly less than) simple script for pulling nicely formatted weather data for polybar based on IP address.
 
 # Temp formats
-C="m"
+# Use m for celsius and u for farenheight
 F="u"
 # Change to desired format
 ACTIVE=$F
@@ -13,7 +13,7 @@ ACTIVE=$F
     curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g'  > ~/.cache/weather
 
 # Check for weather info every hour if connected to network
-[ $(wget -q --spider http://google.com) ] &&
+[ "$(wget -q --spider http://google.com)" ] &&
     [ "$(stat -c %y ~/.cache/weather 2>/dev/null | cut -d':' -f1)" != "$(date '+%Y-%m-%d %H')" ] &&
 	curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g'  > ~/.cache/weather
 # Alternate method
@@ -29,12 +29,10 @@ TEMP=$(echo "$PULL" | awk -F '+' '{print $2}' | sed 's/°//g' )
 
 # Replace weather description with material icons
 case $ICON in
-	Sunny | Partlycloudy) ICON=
-	;;
-	Cloudy) ICON=
-	;;
-	*) ICON=?
-	;;
+	*"unny"* ) ICON="";;
+	*"loudy"*) ICON="";;
+    *"haze"*) ICON="";;
+	*) ICON="?";;
 esac
 
 
