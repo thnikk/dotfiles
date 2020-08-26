@@ -42,7 +42,7 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '!'
 zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:git*' formats "%F{red}(%u%c)%f"
+zstyle ':vcs_info:git*' formats "%F{red}%u%c%f"
 precmd () { vcs_info }
 
 ## Prompt
