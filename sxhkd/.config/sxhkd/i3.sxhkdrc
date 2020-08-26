@@ -1,14 +1,14 @@
 # Shift focus
 super+{h,j,k,l}
-    i3-msg focus {left,down,up,right}
+    ~/.local/bin/i3-move-cursor.sh focus {left,down,up,right}
 super+{Left,Down,Up,Right}
-    i3-msg focus {left,down,up,right}
+    ~/.local/bin/i3-move-cursor.sh focus {left,down,up,right}
 
 # Move focused window
 super+shift+{h,j,k,l}
-    i3-msg move {left,down,up,right}
+    ~/.local/bin/i3-move-cursor.sh move {left,down,up,right}
 super+shift+{Left,Down,Up,Right}
-    i3-msg move {left,down,up,right}
+    ~/.local/bin/i3-move-cursor.sh move {left,down,up,right}
 
 # Split
 super+{backslash,minus}
@@ -48,3 +48,6 @@ super+shift+r
 # Close i3
 super+shift+e
     i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'
+
+super+o
+    i3-msg open

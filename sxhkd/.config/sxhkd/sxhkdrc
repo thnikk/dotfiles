@@ -28,10 +28,26 @@ super + e
 # Browser
 super + b
 	sh -c $BROWSER
+super + shift + b
+	sh -c firefox-developer-edition
 
 # Mail
 super + m
 	sh -c "$TERMINAL neomutt"
+
+# Mahjong
+super + ctrl + m
+	chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"
+
+# Music
+super + n
+	sh -c "$TERMINAL ncmpcpp"
+super + shift + n
+	sh -c "$TERMINAL ncmpcpp -h desktop"
+
+# Edit config files
+super + ctrl + c
+	sh -c "$TERMINAL edit_config"
 
 # make sxhkd reload its configuration files (works for all running instances):
 super + Escape
@@ -43,9 +59,9 @@ super + Escape
 
 # Brightness control
 XF86MonBrightnessUp
-	light -A 10 && dunstify -r 1 "Brightness: $(light)%"
+	xbacklight -inc 10 && dunstify -r 1 "Brightness: $(xbacklight -get)%"
 XF86MonBrightnessDown
-	light -U 10 && dunstify -r 1 "Brightness: $(light)%"
+	xbacklight -dec 10 && dunstify -r 1 "Brightness: $(xbacklight -get)%"
 # Volume control
 XF86AudioRaiseVolume
 	pamixer -i 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
@@ -78,11 +94,9 @@ super+c
 super+shift+c
 	pkill picom
 
-# Switch resolution
-super+m
-	~/.local/bin/res_switch
-super+n
-	~/.local/bin/normie
+# Switch resolution using device specific script
+super + shift + m
+	res_switch
 
 # Screenshots
 Print
@@ -95,6 +109,10 @@ ctrl+shift+4
 	maim -s | xclip -selection clipboard -t image/png && dunstify -r 4 "Saving area screenshot to clipboard"
 ctrl+shift+~
 	sharenix -m c | xargs -I {} dunstify -r 1 "{}" && dunstify -r 4 "Uploaing clipboard with sharenix"
+# Preview image from clipboard
+super+shift+p
+	xclip -sel c -o > /tmp/preview.png && sxiv /tmp/preview.png
+
 
 # Screencast
 ctrl+Print
@@ -111,6 +129,6 @@ super+shift+{minus,plus}
 super+shift+b
 	polybar-msg cmd toggle
 
-# Looking Glass Resize
+# Resize to 1920x1080
 super+shift+f
-	i3-msg '[class="looking-glass-client"]' focus && i3-msg resize set width 1939px height 1099px
+	i3-msg resize set width 1939px height 1099px
