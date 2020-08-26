@@ -11,7 +11,6 @@ if [ "$HOSTNAME" = "thnikk-desktop" ]; then
     telegram-desktop &
     discord &
     i3-msg 'workspace 1' &
-    ff &
 else
     echo "Not on desktop, closing."
 fi

@@ -19,7 +19,7 @@
 #window {
     background-color: @normal-background;
     width: 600px;
-/*    border: 2px;*/
+    border: 2px;
     border-radius: 0px;
     border-color: @red;
 }

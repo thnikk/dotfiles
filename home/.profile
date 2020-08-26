@@ -17,7 +17,7 @@ if [ "$HOST" = "thnikk-laptop" ]; then
 else
     export WM="i3"
 fi
-export FM="$TERMINAL lf"
+export FM="nautilus"
 
 # Make man more readable by adding colors
 export LESS_TERMCAP_mb=$'\e[1;32m'

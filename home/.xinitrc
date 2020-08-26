@@ -19,4 +19,4 @@ dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XA
 [ -f ~/.xprofile ] && ~/.xprofile
 
 # Launch WM from env var
-exec $WM
+exec "$WM"

@@ -8,6 +8,7 @@ xmodmap -e "keysym Caps_Lock = Escape" &
 if [ "$HOST" = "thnikk-desktop" ]; then
     ~/.screenlayout/dual.sh &
     feh --bg-fill .config/wall.png .config/wall2.png &
+    # Fixes starting volume for pulseaudio
     fixAudio &
 else
     xinput disable "Synaptics TM3075-002" & # Disable trackpad
