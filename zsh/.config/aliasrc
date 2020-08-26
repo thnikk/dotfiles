@@ -1,3 +1,34 @@
+# Fix unzip
+unz() {
+    # Unzip to directory matching input name excluding extension and delete archive.
+    unzip "$1" -d "${1%%.*}" && rm "$1"
+}
+
+ex () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1 -d "${1%%.*}";;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *.tar.zst)   unzstd $1    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+
 # Shorten name
 alias mutt='neomutt'
 
@@ -5,6 +36,8 @@ alias mutt='neomutt'
 alias ls='ls --color=auto'
 alias ll='ls -llh'
 alias la='ls -llha'
+# MORE SPEED
+alias sl='ls'
 
 # File management aliases
 alias cp='cp -iv'
@@ -14,8 +47,11 @@ alias rm='rm -vI'
 # Source zshrc
 alias zs='source ~/.config/zsh/.zshrc'
 
+# Quick cd aliases
+alias cdb='cd ~/.local/bin'
+alias cdu='cd ~/Documents/Dev/Sketches/unified'
+
 # Edit files
-alias cb='cd ~/.local/bin'
 alias ic='vim ~/.config/i3/config && i3-msg restart'
 alias sc='vim ~/.config/sway/config && swaymsg reload'
 alias pc='vim ~/.config/polybar/config'

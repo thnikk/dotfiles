@@ -36,6 +36,15 @@ _systemctl_unit_state() {
     _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') )
 }
 
+# Git
+# This is just to add a ! for unstaged and + for staged changes.
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '!'
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:git*' formats "%F{red}(%u%c)%f"
+precmd () { vcs_info }
+
 ## Prompt
 source $HOME/.config/zsh/shrink-path.zsh            # Fish-like directories
 setopt promptsubst                                  # Re-eval commands in prompt with ''
@@ -46,7 +55,7 @@ CHAR="%F{green}→%f "                                #
 #DIR="%(4~|…/%2~|%~)"                               # Set dir to only show a max depth of 2
 [ -n "$SSH_CLIENT" ] && HNC="red" || HNC="magenta"  # Colorize hostname based on local/ssh
 [ "$USER" = "root" ] && UC="red" || UC="green"
-PS1='%F{$UC}%n%f in %F{blue}$(shrink_path -f)%f at %F{$HNC}%m%f $ERROR$NEWLINE$CHAR'
+PS1='%F{$UC}%n%f in %F{blue}$(shrink_path -f)%f${vcs_info_msg_0_} at %F{$HNC}%m%f $ERROR$NEWLINE$CHAR'
 
 # Move/delete betweeen words and directories (delimited by /)
 autoload -U select-word-style
@@ -59,7 +68,8 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 # Keybinds
-bindkey -e                                      # Disables weird esc behavior
+#bindkey -e                                      # Disables weird esc behavior
+bindkey -v
 bindkey '^[[3;5~' kill-word                     # [Ctrl-Backspace] - delete word backward
 bindkey '^H' backward-kill-word                 # [Ctrl-Delete] - delete word forward
 bindkey '^[^?' backward-kill-word               # Alt+backspace
