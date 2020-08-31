@@ -82,6 +82,7 @@ alias da='DF add'
 alias dc='DF commit -m '
 alias dp='DF push'
 alias DU='DF fetch --all && DF reset --hard origin/master'
+alias weather="curl -s 'wttr.in/?format=%C+%t&$ACTIVE' | sed 's/\s*//g'"
 
 # Sync website
 alias websync='rsync -av --update ~/Documents/Dev/web-html/ root@vultr:/var/www/site/'
@@ -104,7 +105,7 @@ alias u7k="pio run -t upload -d ~/Documents/Dev/Sketches/7kKeypad"
 alias uM="pio run -t upload -d ~/Documents/Dev/Sketches/trinketM0Macro"
 alias u2kt="pio run -e 2k -t upload -d ~/Documents/Dev/Sketches/touchPad"
 alias u4kt="pio run -e 4k -t upload -d ~/Documents/Dev/Sketches/touchPad"
-alias pdm="pio device monitor -f printable -f send_on_enter --echo"
+alias pdm="pio device monitor -f printable -f send_on_enter"
 
 # Run vim as root with user config
 alias svim="sudo -E vim"
