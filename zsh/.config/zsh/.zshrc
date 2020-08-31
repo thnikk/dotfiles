@@ -67,27 +67,7 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-# vim mode config
-bindkey -v
-
-# Remove mode switching delay.
-KEYTIMEOUT=5
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||[[ ${KEYMAP} == viins ]] ||[[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
-
-zle -N zle-keymap-select
-
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-
-precmd_functions+=(_fix_cursor)
+source $HOME/.config/zsh/vim.zsh            # Vi mode
 
 # Keybinds
 bindkey '^[[3;5~' kill-word                     # [Ctrl-Backspace] - delete word backward
@@ -101,7 +81,6 @@ bindkey "^[[A" up-line-or-beginning-search      # Up in history
 bindkey "^[[B" down-line-or-beginning-search    # Down in history
 bindkey "^[[Z" reverse-menu-complete            # [Shift+Tab] Move back in completion
 bindkey "\e[3~" delete-char                     # Map delete to delete
-bindkey "^?" backward-delete-char               # Map backsace to backspace (fix for vi mode)
 
 ## Tmux
 # Alias to start with shell ID

@@ -26,6 +26,15 @@ Plug 'vim-syntastic/syntastic' "Shows syntax errors
 Plug 'vimwiki/vimwiki'
 call plug#end()
 
+"Enable persistent undo
+if has("persistent_undo")
+    set undodir=$HOME/.local/nvim/undo
+    set undofile
+endif
+
+"Disable word wrap for email
+au filetype mail :setlocal fo-=t
+
 "Change vimwiki directory
 let g:vimwiki_list = [{'path': '~/.local/wiki',
                       \ 'path_html': '~/.local/wiki_html'}]
