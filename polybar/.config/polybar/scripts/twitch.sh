@@ -22,6 +22,7 @@ while read -r line; do
     esac
     # Append click action to open stream
     OUTPUT+="%{A1:xdg-open https\:\/\/twitch.tv\/$line:}"
+    OUTPUT+="%{A3:streamlink --default-stream 720p --player mpv https\:\/\/twitch.tv\/$line:}"
     # Append name (dim if not live)
     if [ "$(ls ~/.cache/stream_notify/live | grep -c "$line")" -gt 0 ]; then
         OUTPUT+="$name"
@@ -29,7 +30,7 @@ while read -r line; do
         OUTPUT+="%{F#747C84}$name%{F-}"
     fi
     # Append closing tag for click action and trailing space
-    OUTPUT+="%{A-}$SPACE"
+    OUTPUT+="%{A-}%{A-}$SPACE"
 done < ~/.config/stream_notify/config
 
 # Print and remove final trailing space

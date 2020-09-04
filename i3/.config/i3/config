@@ -13,18 +13,18 @@ gaps inner 10
 gaps outer 0
 
 ### Force workspaces on specific monitors ###
-set $monitor_one DisplayPort-1
-set $monitor_two DisplayPort-2
-workspace 1 output $monitor_one
-workspace 2 output $monitor_two
-workspace 3 output $monitor_one
-workspace 4 output $monitor_one
-workspace 5 output $monitor_one
-workspace 6 output $monitor_two
-workspace 7 output $monitor_one
-workspace 8 output $monitor_one
-workspace 9 output $monitor_one
-workspace 10 output $monitor_one
+set $m1 DisplayPort-1
+set $m2 DisplayPort-2
+workspace 1 output $m1
+workspace 2 output $m2
+workspace 3 output $m1
+workspace 4 output $m1
+workspace 5 output $m1
+workspace 6 output $m2
+workspace 7 output $m1
+workspace 8 output $m1
+workspace 9 output $m1
+workspace 10 output $m2
 
 ### Window Rules ###
 # Use xprop for window info, case sensitive

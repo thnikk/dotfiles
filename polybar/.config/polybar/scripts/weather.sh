@@ -12,10 +12,13 @@ ACTIVE=$F
     # If not, make it
     curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g'  > ~/.cache/weather
 
-# Check for weather info every hour if connected to network
-[ "$(wget -q --spider http://google.com)" ] &&
-    [ "$(stat -c %y ~/.cache/weather 2>/dev/null | cut -d':' -f1)" != "$(date '+%Y-%m-%d %H')" ] &&
-	curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g'  > ~/.cache/weather
+# If connected to the internet...
+if [ "$(ping -c 1 google.com)" ]; then
+    # If the file is over an hour old or a check has been forced with "-f"
+    if [ "$(stat -c %y ~/.cache/weather 2>/dev/null | cut -d':' -f1)" != "$(date '+%Y-%m-%d %H')" ] || [ "$1" = "-f" ]; then
+        curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g'  > ~/.cache/weather
+    fi
+fi
 # Alternate method
 #[ "$(date -d"$(stat -c %y ~/.cache/weather | cut -f1 -d" ")" --iso-8601=hours)" != "$(date --iso-8601=hours)" ]
 
@@ -31,7 +34,10 @@ TEMP=$(echo "$PULL" | awk -F '+' '{print $2}' | sed 's/°//g' )
 case $ICON in
 	*"unny"* ) ICON="";;
 	*"loudy"*) ICON="";;
-    *"haze"*) ICON="";;
+	*"ain"*) ICON="";;
+	*"now"*) ICON="";;
+    *"lear"*) ICON="";;
+    *"haze"* | *"Overcast"* | *"Mist"*) ICON="";;
 	*) ICON="?";;
 esac
 
