@@ -9,6 +9,9 @@ do
         xclip -selection clipboard -t "image/$EXT" -i "$file";;
     # ctrl+1 to set the wallpaper for monitor 1
     "C-1")
+        # Make a copy of the file in config folder
+        mkdir -p ~/.config/walls 2>/dev/null
+        cp "$file" ~/.config/walls
         # Convert file to png if not already
         if [ "$EXT" != "png" ]; then
             convert "$file" ~/.config/wall.png

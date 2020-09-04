@@ -28,8 +28,6 @@ super + e
 # Browser
 super + b
 	sh -c $BROWSER
-super + shift + b
-	sh -c firefox-developer-edition
 
 # Mail
 super + m
