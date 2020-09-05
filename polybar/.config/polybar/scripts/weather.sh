@@ -16,11 +16,12 @@ ACTIVE=$F
 if [ "$(ping -c 1 google.com)" ]; then
     # If the file is over an hour old or a check has been forced with "-f"
     if [ "$(stat -c %y ~/.cache/weather 2>/dev/null | cut -d':' -f1)" != "$(date '+%Y-%m-%d %H')" ] || [ "$1" = "-f" ]; then
-        curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g'  > ~/.cache/weather
+        # Save new weather data as variable
+        WEATHER="$(curl -s "wttr.in/?format=%C+%t&$ACTIVE" | sed 's/\s*//g')"
+        # Only overwrite cache if valid new weather info is found
+        echo "$WEATHER" | grep -q "Unknown" || echo "$WEATHER" > ~/.cache/weather
     fi
 fi
-# Alternate method
-#[ "$(date -d"$(stat -c %y ~/.cache/weather | cut -f1 -d" ")" --iso-8601=hours)" != "$(date --iso-8601=hours)" ]
 
 # Cat cache file to variable for pulling additional info
 PULL=$(cat ~/.cache/weather)

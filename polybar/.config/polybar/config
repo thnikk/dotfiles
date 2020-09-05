@@ -85,8 +85,8 @@ font-2 = Material Icons:pixelsize=12;3
 # This font only exists to create smaller spaces after icons.
 font-3 = Operator Mono Light:pixelsize=6;
 
-modules-left =  i3 bspwm mpc keypad
-modules-right = rec weather unread update mem kbd bat time
+modules-left =  i3 bspwm keypad
+modules-right = rec mpc weather unread update mem kbd bat date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -253,13 +253,12 @@ interval = 60
 
 [module/date]
 inherit = module/general
-type = custom/script
-format = <label>
-format-prefix = ${icons.date}
+type = internal/date
+format-prefix = ${icons.clock}
 format-prefix-foreground = ${colors.foreground-alt}
-label = %output%
-exec = ~/.config/polybar/scripts/time.sh
-interval = 60
+label = "%time%"
+time = %I:%M
+time-alt = %a,%{T3} %{T-}%m-%d-%y%{T3} %{T-}%I:%M
 
 ; Custom module for memory values more consistent with other programs
 [module/mem]
@@ -350,7 +349,6 @@ format-prefix = ${icons.mpc}
 format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 exec = mpc current -f %title%
-exec-if = mpc | grep playing
 tail = false
 interval = 1
 
