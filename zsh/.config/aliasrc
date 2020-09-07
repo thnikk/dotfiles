@@ -1,9 +1,4 @@
-# Fix unzip
-unz() {
-    # Unzip to directory matching input name excluding extension and delete archive.
-    unzip "$1" -d "${1%%.*}" && rm "$1"
-}
-
+# Extract archives with ex
 ex () {
   if [ -f $1 ] ; then
     case $1 in
@@ -76,6 +71,7 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m '
 alias gp='git push'
+alias gd='git diff'
 alias DF='git -C ~/.dot'
 alias ds='DF status'
 alias da='DF add'
@@ -95,7 +91,7 @@ alias SS="sudo systemctl"
 alias SSDR="sudo systemctl daemon-reload"
 alias SU="systemctl --user"
 # VFIO aliases
-alias lsvfio="sudo lspci -vv | grep vfio -B 12"
+alias lsvfio="lspci -nnk | grep 'Kernel driver in use: vfio-pci' -B 2"
 alias lsevdev="ls /dev/input/by-id"
 
 # Keypads
