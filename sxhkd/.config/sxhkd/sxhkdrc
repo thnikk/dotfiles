@@ -94,7 +94,7 @@ super+shift+c
 
 # Switch resolution using device specific script
 super + shift + m
-	res_switch
+	~/.local/bin/toggle-loopback.sh
 
 # Screenshots
 Print
@@ -105,6 +105,8 @@ ctrl+shift+2
 	maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png && dunstify -r 4 "Saving window screenshot to clipboard"
 ctrl+shift+4
 	maim -s | xclip -selection clipboard -t image/png && dunstify -r 4 "Saving area screenshot to clipboard"
+shift+Print
+	maim -s ~/Pictures/Screenshots/$(date +%s)-selection.png && dunstify -r 4 "Saving selection to ~/Pictures/Screenshots"
 ctrl+shift+~
 	sharenix -m c | xargs -I {} dunstify -r 1 "{}" && dunstify -r 4 "Uploaing clipboard with sharenix"
 # Preview image from clipboard

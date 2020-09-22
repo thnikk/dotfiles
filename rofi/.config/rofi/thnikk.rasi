@@ -13,9 +13,6 @@
     background-color:            rgba ( 0, 0, 0, 0 % );
     highlight: none;
 }
-#icon {
-    size: 64px;
-}
 #window {
     background-color: @normal-background;
     width: 600px;
@@ -51,6 +48,9 @@
     background-color: @selected-normal-background;
     text-color: @foreground;
 }
+element-icon {
+    size:             2ch ;
+}
 #inputbar {
     spacing:    0;
     padding: 8px;
@@ -74,8 +74,5 @@
     str:        "→";
     margin:     0px 5px 0px 0px ;
     text-color: @green;
-}
-element-text,element-icon {
-    background-color: #FFFFFF;
 }
 /* vim:ft=css
