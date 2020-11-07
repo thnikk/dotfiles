@@ -1,6 +1,10 @@
 "Remap leader to comma
 let mapleader =","
 
+let g:indentLine_setConceal = 0
+
+set title
+
 "Plug setup
 "Install plug if needed
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))

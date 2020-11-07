@@ -12,11 +12,7 @@ export BROWSER="firefox"
 export READER="zathura"
 export COMPOSITOR="picom"
 export LAUNCHER="rofi -show drun"
-if [ "$HOST" = "thnikk-laptop" ]; then
-    export WM="i3"
-else
-    export WM="i3"
-fi
+export WM="i3"
 export FM="nautilus"
 
 # Make man more readable by adding colors
@@ -40,9 +36,10 @@ export QT_IM_MODULE=ibus
 export GLFW_IM_MODULE=ibus
 
 # Set theme for QT apps
-export QT_STYLE_OVERRIDE=adwaita
-#export QT_QPA_PLATFORMTHEME=gtk2
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
+#export QT_STYLE_OVERRIDE=adwaita
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_SCALE_FACTOR=1
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 # Clean home
 export LESSHISTFILE="-"
@@ -64,8 +61,9 @@ export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 export LANG=en_US.UTF-8
 
 # Start graphical environment on tty1 if not running
-if [ "$WM" = "sway" ]; then
-    [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec sway
-else
-    [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
+if [ "$(tty)" = "/dev/tty2" ] && ! pgrep -x sway >/dev/null; then
+    export MOZ_ENABLE_WAYLAND=1
+    export QT_QPA_PLATFORM=wayland
+    exec sway
 fi

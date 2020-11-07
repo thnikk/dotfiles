@@ -131,7 +131,7 @@ PREREQUISITES
 
 /* Fix active tab being stupid */
 .tab-background { display: none; height: 0px; }
-.tab-content { height: 27px; }
+.tab-content { height: 27px; border: 1px; border-color: #000000; }
 .tab-loading-burst { display: none !important; }
 
 

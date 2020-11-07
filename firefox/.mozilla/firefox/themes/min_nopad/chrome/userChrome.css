@@ -1,0 +1,165 @@
+:root {
+    --tab-line-color: none !important;
+    --color-red: #bf616a;
+    --color-blue: #81a1c1;
+    --color-magenta: #b48ead;
+    --color-yellow: #ebcb8b;
+    --color-cyan:#88c0d0;
+    --color-green:#a3be8c;
+    --color-fg:#D8DEE9;
+}
+
+
+@-moz-document url(chrome://browser/content/browser.xul)
+{
+   #main-window,
+   browser[type="content-primary"],
+   browser[type="content"],
+   tabbrowser#content,
+   #content,
+   browser[type="content"] > html
+   {
+      background: #1c1f26 !important;
+   }
+}
+
+/* Disable tab arrows */
+toolbarbutton#scrollbutton-up, toolbarbutton#scrollbutton-down {display:none !important;}
+toolbarbutton[id^="scrollbutton"] {
+    display: none !important;
+}
+
+toolbarbutton#alltabs-button {display:none !important;}
+
+/* Hide URL bar when not in use (new tab or F6 to focus) */
+#nav-bar:not([customizing="true"]):not([inFullscreen]) {
+    margin-top: -100px;
+    margin-bottom: 68px;
+    transition: transform 100ms !important;
+    z-index: 3;
+}
+#navigator-toolbox:focus-within :-moz-any(#nav-bar) {
+    transform: translateY(100px);
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5) !important;
+    z-index: 10;
+}
+
+#navigator-toolbox {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5) !important;
+    z-index: 10;
+}
+
+#nav-bar {
+    background: #1c1f26 !important;
+    box-shadow: none !important;
+}
+#urlbar-background {
+    background: #2b303b !important;
+    border: none !important;
+}
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+  box-shadow: 0px 0px 10px rgba(0,0,0,.5) !important;
+}
+
+/* Disable tab loading animation
+.tab-throbber[busy]::before, .tab-throbber[busy]:not([progress])::before {
+    display: none !important;
+}*/
+/* Disable animation when tab is fully loaded */
+.tab-loading-burst {
+    display: none !important;
+}
+
+/* */
+#tabbrowser-tabs {
+    z-index: 10;
+    /*box-shadow: 0px 0px 5px rgba(0,0,0,0.5);*/
+}
+#TabsToolbar {
+    background: #1c1f26;
+}
+
+.tabbrowser-tab {
+    border-radius: 0px !important;
+}
+.tabbrowser-tab::after {
+    display: none !important;
+}
+
+.tab-background {
+    display: none !important;
+}
+
+.tab-content {
+    border-radius: 0px;
+    background: rgba(200,220,255,0.1);
+    padding: 0 5px !important;
+    margin: 0px 0px 0px 0px;
+    font-size: 12px !important;
+    box-shadow: inset 0px 0px 1px rgba(0,0,0,1);
+}
+.tab-label-container {
+    padding: 2px;
+}
+.tab-content:hover {
+    background: rgba(200,220,255,0.2);
+}
+.tab-content[selected="true"] {
+    background: rgba(200,220,255,0.2);
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5) !important;
+}
+/* Remove bottom border */
+#navigator-toolbox {
+    border:none !important;
+}
+
+
+/* */
+#tabs-newtab-button, #new-tab-button, .tab-close-button {
+    display: none !important;
+}
+
+scrollbox {
+    padding-right: 6px;
+}
+
+spacer[part=overflow-start-indicator],spacer[part=overflow-end-indicator] { border: none !important; }
+
+.toolbarbutton-animatable-box, .toolbarbutton-1 {
+    fill: rgba(255,255,255,0.5) !important;
+}
+
+/* Change hover backgorund of navbar buttons */
+.toolbarbutton-1 {
+  --toolbarbutton-hover-background: rgba(255,255,255,0.1) !important;
+  --toolbarbutton-active-background: rgba(255,255,255,0.1) !important;
+}
+
+/* Fix alignment of favicon */
+.tab-icon-image {
+    margin-top: 0px !important;
+}
+
+
+/* Set extension icons */
+* .webextension-browser-action:before { content:"";}
+* .webextension-browser-action { border-radius: 5px; margin: 2px !important; }
+* .webextension-browser-action:hover { background: rgba(255,255,255,0.1); }
+* .webextension-browser-action:active { background: rgba(255,255,255,0.2); }
+.webextension-browser-action > * > .toolbarbutton-icon { display: none; padding: 0px; }*/
+.toolbarbutton-badge { display: none !important; }
+.toolbarbutton-badge {
+    margin-top: -20px !important;
+    background: rgba(255,255,255,0.2) !important;
+    margin-inline-end: 0px !important;
+    padding: 2px 3px 0px 3px !important;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5) !important;
+}
+.webextension-browser-action > .toolbarbutton-badge-stack { padding: 0px !important; }
+
+/* Set colors for extension icons */
+toolbarbutton:before{ font-family: "Font Awesome 5 Free Solid", "Font Awesome 5 Free" !important; font-weight: 900; padding: 5px; font-size:10px; !important; }
+toolbarbutton[id*="darkreader"]:before{ color: var(--color-blue); }
+toolbarbutton[id*="ublock"]:before{ color: var(--color-red); }
+toolbarbutton[label*="Violentmonkey"]:before{ color: var(--color-magenta); }
+toolbarbutton[label*="Vim"]:before{ color: var(--color-green); }

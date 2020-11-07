@@ -29,6 +29,7 @@ workspace 10 output $m2
 ### Window Rules ###
 # Use xprop for window info, case sensitive
 for_window [window_role="pop-up|bubble|task_dialog|Preferences|dialog|menu"] floating enable
+for_window [title="KLAUNCH"] floating enable
 for_window [class="looking-glass-client"] floating disable
 for_window [title="MahjongSoul"] floating disable
 
@@ -40,8 +41,10 @@ for_window [title="MusicPlayer"] move workspace number 2
 ### Launch at startup ###
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh # Start polybar
 exec_always --no-startup-id autotiling # i3 specific autotitling
+exec_always --no-startup-id ~/.local/bin/i3-autoname-workspaces/i3-autoname-workspaces.py
 exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc # Start i3-sepcific sxhkd first
 exec --no-startup-id sxhkd # Then general sxhkd
+exec --no-startup-id QT_STYLE_OVERRIDE=Adwaita trackma-qt
 # Always restart picom to avoid focused window being stuck at 100% opacity
 exec --no-startup-id ~/.config/i3/startup.sh # Start desktop-specific programs
 exec --no-startup-id ~/.local/bin/pcrestart.sh

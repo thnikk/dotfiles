@@ -14,4 +14,4 @@ case $ENGINE in
 esac
 
 # Echo output
-echo "%{A1:ibus engine $CLICK | xargs notify-send:}$SHORT%{A}"
+[ "$1" = "-p" ] && echo "%{A1:ibus engine $CLICK | xargs notify-send:}$SHORT%{A}" || echo "$SHORT"

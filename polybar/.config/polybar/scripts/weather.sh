@@ -33,18 +33,15 @@ TEMP=$(echo "$PULL" | awk -F '+' '{print $2}' | sed 's/°//g' )
 
 # Replace weather description with material icons
 case $ICON in
-	*"unny"* ) ICON="";;
-	*"loudy"*) ICON="";;
-	*"ain"*) ICON="";;
-	*"now"*) ICON="";;
-    *"lear"*) ICON="";;
-    *"haze"* | *"Overcast"* | *"Mist"*) ICON="";;
+	*"unny"* ) ICON="";;
+	*"loudy"*) ICON="";;
+	*"ain"*) ICON="";;
+	*"now"*) ICON="";;
+    "Clear"*) ICON="";;
+    *"haze"* | *"Overcast"* | *"Mist"*) ICON="";;
 	*) ICON="?";;
 esac
 
 
-# Apply color to icon
-ICON=$(echo "$ICON" | awk '{$1 = "%{F#747c84}"$1"%{F-}"; print}')
-
 # Return full string
-echo "$ICON%{T3} %{T-}$TEMP"
+[ "$1" = "-p" ] && echo "%{F#747c84}$ICON%{F-}%{T3} %{T-}$TEMP" || echo "$ICON $TEMP"

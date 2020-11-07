@@ -1,0 +1,47 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Operator Mono", "Font Awesome 5 Free Solid", "Font Awesome 5 Free Brand", "Font Awesome 5 Free";
+    font-size: 15px;
+    min-height: 0;
+}
+
+.modules-right {
+    background: #1c1f26;
+}
+.modules-left {
+    background: #1c1f26;
+}
+
+window#waybar, #custom-name {
+    background: #2b303b;
+}
+
+#workspaces button {
+    padding: 0px 0px 0px 5px;
+    background: transparent;
+    color: #d8dee9;
+}
+
+#workspaces button.focused {
+    background: #8fa1b3;
+    color: #1c1f26;
+}
+
+#mode, #clock, #battery, #custom-weather, #cpu, #memory, #temperature, #custom-unread, #custom-updates, #custom-kb, #mpd, #custom-battery, #tray, #custom-name, #custom-temp {
+    padding: 0px 10px 0px 10px;
+    color: #d8dee9
+}
+
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+

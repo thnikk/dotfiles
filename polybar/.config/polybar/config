@@ -9,26 +9,26 @@ main = DisplayPort-1
 secondary = DisplayPort-2
 
 [icons]
-eth = "%{T3} %{T-}"
-kbd = "%{T3} %{T-}"
-mpc = "%{T3} %{T-}"
-cpu = "%{T3} %{T-}"
-mem = "%{T3} %{T-}"
-upd = "%{T3} %{T-}"
-vol = "%{T3} %{T-}"
-clock = "%{T3} %{T-}"
+eth = "%{T3} %{T-}"
+kbd = "%{T3} %{T-}"
+mpc = "%{T3} %{T-}"
+cpu = "%{T3} %{T-}"
+mem = "%{T3} %{T-}"
+upd = "%{T3} %{T-}"
+vol = "%{T3} %{T-}"
+clock = "%{T3} %{T-}"
 date = "%{T3} %{T-}"
-temp = "%{T3} %{T-}"
-hot = "%{T3} %{T-}"
-fan = "%{T3} %{T-}"
-drv = "%{T3} %{T-}"
-bat = "%{T3} %{T-}"
+temp = "%{T3} %{T-}"
+hot = "%{T3} %{T-}"
+fan = "%{T3} %{T-}"
+drv = "%{T3} %{T-}"
+bat = "%{T3} %{T-}"
 gpu = "%{T3} %{T-}"
 vol0 = "%{T3} %{T-}"
 vol1 = "%{T3} %{T-}"
 vol2 = "%{T3} %{T-}"
 vol3 = "%{T3} %{T-}"
-mail = "%{T3} %{T-}"
+mail = "%{T3} %{T-}"
 vm = "%{T3} %{T-}"
 twitch = "%{T3} %{T-}"
 mopen = ""
@@ -79,14 +79,14 @@ padding-right = 0
 
 separator = "%{B#1c1f26}%{F#747C84}|%{F-}%{B-}"
 
-font-0 = Operator Mono Light:pixelsize=14;2
-font-1 = Source Han Sans JP:size=10:antialias=true;2
-font-2 = Material Icons:pixelsize=12;3
-# This font only exists to create smaller spaces after icons.
+font-0 = Operator Mono Medium:pixelsize=14;3
+font-1 = Source Han Sans JP:style=Bold:size=12:antialias=true;3
+font-2 = Font Awesome 5 Free:style=Solid:pixelsize=12;3
+font-4 = Font Awesome 5 Brands:pixelsize=12;3
 font-3 = Operator Mono Light:pixelsize=6;
 
 modules-left =  i3 bspwm keypad
-modules-right = rec mpc weather unread update mem kbd bat date
+modules-right = rec mpc weather unread update cpu temp mem kbd bat date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -185,7 +185,7 @@ format = <label>
 format-prefix = ${icons.kbd}
 format-prefix-foreground = ${colors.foreground-alt}
 label = "%output%"
-exec = /home/thnikk/.config/polybar/scripts/kb.sh
+exec = /home/thnikk/.config/polybar/scripts/kb.sh -p
 exec-if = pgrep ibus-daemon
 interval = 1
 
@@ -399,8 +399,36 @@ click-left = kitty yay &
 [module/weather]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/weather.sh
+exec = ~/.config/polybar/scripts/weather.sh -p
 interval = 5
+
+[module/cpu]
+inherit = module/general
+type = internal/cpu
+label=%percentage:2%%
+format-prefix = ${icons.cpu}
+interval = 0.5
+
+; For easier use, use the helper script to symlink your cpu and gpu temperature files to ~/.config/polybar/<device>temp
+[module/cputemp]
+inherit = module/general
+type = internal/temperature
+interval = 0.5
+thermal-zone = 0
+hwmon-path = /home/thnikk/.config/polybar/cputemp
+label=%temperature-c:2%
+base-temperature = 20
+warn-temperature = 80
+format-prefix = ${icons.temp}
+exec-if = test ~/.config/polybar/cputemp
+
+[module/temp]
+inherit = module/general
+type = custom/script
+exec = ~/.config/polybar/scripts/temp.sh
+interval = 5
+tail = false
+format-prefix = ${icons.temp}
 
 [module/hwinfo]
 inherit = module/general
@@ -409,7 +437,7 @@ exec = ~/.config/polybar/scripts/hwmon.sh cpu
 interval = 5
 tail = false
 ;format-background = ${colors.background}
-;format-prefix = ${icons.cpu}
+format-prefix = ${icons.cpu}
 ;format-prefix-foreground = ${colors.foreground-alt}
 
 [module/gpu]

@@ -39,7 +39,7 @@ super + ctrl + m
 
 # Music
 super + n
-	sh -c "$TERMINAL ncmpcpp"
+	sh -c "$TERMINAL --title ncmpcpp ncmpcpp"
 super + shift + n
 	sh -c "$TERMINAL ncmpcpp -h desktop"
 

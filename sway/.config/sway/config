@@ -1,0 +1,74 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Disables mouse hovering making the hovered window active
+focus_follows_mouse no
+
+### Gaps ###
+#for_window [class="^.*"] border pixel 2
+default_border pixel 2
+gaps inner 10
+gaps outer 0
+
+### Input configuration
+input "type:keyboard" {
+    repeat_delay 300
+    repeat_rate 50
+#    xkb_file ~/.config/xkb/config
+}
+# Disable trackpad
+input "1739:0:Synaptics_TM3075-002" {
+    events disabled
+}
+
+set $gnome-schema org.gnome.desktop.interface
+### First-time startup
+exec --no-startup-id {
+    gsettings set $gnome-schema gtk-theme 'Adapta-BlueGrey-Nokto'
+    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+    gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
+    /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+    /usr/lib/kdeconnectd
+    udiskie
+    swayidle -w before-sleep 'swaylock-pixel'
+    ibus-daemon -drx
+    trackma-qt
+}
+# Launch every time
+exec_always --no-startup-id {
+    autotiling
+    ~/.local/bin/sway/sway.keybinds
+    ~/.config/sway/sway.display
+    ~/.local/bin/sway/sway-autoname-workspaces.py
+    ~/.local/bin/sway/inactive-window-transparency.py
+}
+
+font pango:Operator Mono Medium 10
+floating_modifier $mod normal
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Window decoration colors
+# Border is top color of titlebar
+# Background is color of title background
+# Indicator is split color
+# class        			            border  backgr. text    indicator child_border
+client.unfocused                    #2b303b #2b303b #c0c5ce #2b303b   #2b303b
+client.focused_inactive             #2b303b #2b303b #c0c5ce #2b303b   #2b303b
+client.focused                      #bf616a #bf616a #eff1f5 #1b303b   #bf616a
+
+
+# Status Bar:
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    swaybar_command waybar
+}
+
+#include /etc/sway/config.d/*

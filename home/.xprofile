@@ -7,6 +7,7 @@ xmodmap -e "keysym Caps_Lock = Escape" &
 # Restore monitor layout
 if [ "$HOST" = "thnikk-desktop" ]; then
     ~/.screenlayout/dual.sh &
+    sleep 1
     feh --bg-fill .config/wall.png .config/wall2.png &
     # Fixes starting volume for pulseaudio
     fixAudio &
