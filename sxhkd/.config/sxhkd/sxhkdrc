@@ -68,6 +68,9 @@ XF86AudioLowerVolume
 XF86AudioMute
 	pactl set-sink-mute 0 toggle
 
+super+F12
+	~/.local/bin/thnikk-desktop/toggle-inputs.sh
+
 # Music control
 {F8,F9,F10}
 	mpc {toggle,prev,next}

@@ -9,30 +9,21 @@ main = DisplayPort-1
 secondary = DisplayPort-2
 
 [icons]
-eth = "%{T3} %{T-}"
-kbd = "%{T3} %{T-}"
-mpc = "%{T3} %{T-}"
-cpu = "%{T3} %{T-}"
-mem = "%{T3} %{T-}"
-upd = "%{T3} %{T-}"
-vol = "%{T3} %{T-}"
-clock = "%{T3} %{T-}"
-date = "%{T3} %{T-}"
-temp = "%{T3} %{T-}"
-hot = "%{T3} %{T-}"
-fan = "%{T3} %{T-}"
-drv = "%{T3} %{T-}"
-bat = "%{T3} %{T-}"
-gpu = "%{T3} %{T-}"
-vol0 = "%{T3} %{T-}"
-vol1 = "%{T3} %{T-}"
-vol2 = "%{T3} %{T-}"
-vol3 = "%{T3} %{T-}"
-mail = "%{T3} %{T-}"
-vm = "%{T3} %{T-}"
-twitch = "%{T3} %{T-}"
-mopen = ""
-mclose = ""
+eth = " "
+kbd = " "
+mpc = " "
+cpu = " "
+mem = " "
+upd = " "
+vol = " "
+clock = " "
+date = " "
+temp = " "
+hot = " "
+fan = " "
+drv = " "
+bat = " "
+mail = " "
 
 [colors]
 background = #1c1f26
@@ -77,9 +68,9 @@ foreground = ${colors.foreground}
 padding-left = 0
 padding-right = 0
 
-separator = "%{B#1c1f26}%{F#747C84}|%{F-}%{B-}"
+;separator = "%{B#1c1f26}%{F#747C84}|%{F-}%{B-}"
 
-font-0 = Operator Mono Medium:pixelsize=14;3
+font-0 = Operator Mono Medium:pixelsize=12;2
 font-1 = Source Han Sans JP:style=Bold:size=12:antialias=true;3
 font-2 = Font Awesome 5 Free:style=Solid:pixelsize=12;3
 font-4 = Font Awesome 5 Brands:pixelsize=12;3
@@ -125,9 +116,9 @@ modules-center = gm
 [module/general]
 interval = 60
 format-background = ${colors.background}
-format-prefix-foreground = ${colors.foreground-alt}
+;format-prefix-foreground = ${colors.foreground-alt}
 format = <label>
-format-padding = 6px
+format-padding = 10px
 
 [module/vol]
 inherit = module/general
@@ -154,7 +145,7 @@ type = custom/script
 inherit = module/general
 format = <label>
 format-prefix = ${icons.mail}
-exec = ~/.config/polybar/scripts/unread.sh -p
+exec = ~/.config/polybar/scripts/unread.sh
 interval = 1
 click-left = $TERMINAL neomutt
 
@@ -163,6 +154,7 @@ inherit = module/general
 type = custom/script
 format = <label>
 label = "%{A1:~/.local/bin/ukp 2k:}2K%{A} %{A1:~/.local/bin/ukp 4k:}4K%{A} %{A1:~/.local/bin/ukp 7k:}7K%{A} %{A1:~/.local/bin/ukp macro:}Macro%{A} %{A1:~/.local/bin/ukp 2kt:}2KT%{A} %{A1:~/.local/bin/ukp 4kt:}4KT %{A}%{A1:~/.local/bin/ukp fb:}FB%{A}"
+format-background = ${colors.background-alt}
 exec = echo 1
 exec-if = ls /dev/ttyACM*
 
@@ -183,9 +175,8 @@ inherit = module/general
 type = custom/script
 format = <label>
 format-prefix = ${icons.kbd}
-format-prefix-foreground = ${colors.foreground-alt}
 label = "%output%"
-exec = /home/thnikk/.config/polybar/scripts/kb.sh -p
+exec = /home/thnikk/.config/polybar/scripts/kb.sh
 exec-if = pgrep ibus-daemon
 interval = 1
 
@@ -215,7 +206,6 @@ inherit = module/general
 type = custom/script
 format = <label>
 format-prefix = ${icons.bat}
-format-prefix-foreground = ${colors.foreground-alt}
 format-foreground = ${colors.foreground}
 exec = ~/.config/polybar/scripts/battery.sh
 exec-if = test -d /sys/class/power_supply/BAT0
@@ -241,21 +231,10 @@ label = %output%
 exec = ~/.config/polybar/scripts/df.sh
 interval = 1
 
-[module/time]
-inherit = module/general
-type = custom/script
-format = <label>
-format-prefix = ${icons.clock}
-format-prefix-foreground = ${colors.foreground-alt}
-label = %output%
-exec = ~/.config/polybar/scripts/time.sh "%{T3} %{T-}"
-interval = 60
-
 [module/date]
 inherit = module/general
 type = internal/date
 format-prefix = ${icons.clock}
-format-prefix-foreground = ${colors.foreground-alt}
 label = "%time%"
 time = %I:%M
 time-alt = %a,%{T3} %{T-}%m-%d-%y%{T3} %{T-}%I:%M
@@ -266,7 +245,6 @@ inherit = module/general
 type = custom/script
 format = <label>
 format-prefix = ${icons.mem}
-format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 exec = ~/.config/polybar/scripts/mem.sh
 interval = 5
@@ -291,7 +269,6 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 format-prefix = "${icons.kbd}"
-format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.blue}
 
 label-layout = %layout%
@@ -333,12 +310,17 @@ label-focused-background = ${colors.blue}
 
 ; visible = Active workspace on unfocused monitor
 label-visible-foreground = ${colors.foreground}
-label-visible-background = #3b404b
+label-visible-background = ${colors.background}
 label-visible-padding-right = 1
+label-visible-overline = ${colors.blue}
+
 
 ; urgent = Workspace with urgency hint set
 label-urgent-background = ${colors.red}
 label-urgent-padding-right = 1
+
+; Used for menus
+label-mode-padding = 1
 
 ; Same as internal module default, but is disabled when song isn't playing
 [module/mpc]
@@ -346,7 +328,6 @@ inherit = module/general
 type = custom/script
 format = <label>
 format-prefix = ${icons.mpc}
-format-prefix-foreground = ${colors.foreground-alt}
 label = %output%
 exec = mpc current -f %title%
 tail = false
@@ -389,17 +370,16 @@ type = custom/script
 format = <label>
 label = "%output%"
 format-prefix = ${icons.upd}
-format-prefix-foreground = ${colors.foreground-alt}
 exec = ~/.config/polybar/scripts/update.sh
 exec-if = ping -c1 google.com
 interval = 60
 
-click-left = kitty yay &
+click-left = kitty paru &
 
 [module/weather]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/weather.sh -p
+exec = ~/.config/polybar/scripts/weather.sh
 interval = 5
 
 [module/cpu]
@@ -409,19 +389,6 @@ label=%percentage:2%%
 format-prefix = ${icons.cpu}
 interval = 0.5
 
-; For easier use, use the helper script to symlink your cpu and gpu temperature files to ~/.config/polybar/<device>temp
-[module/cputemp]
-inherit = module/general
-type = internal/temperature
-interval = 0.5
-thermal-zone = 0
-hwmon-path = /home/thnikk/.config/polybar/cputemp
-label=%temperature-c:2%
-base-temperature = 20
-warn-temperature = 80
-format-prefix = ${icons.temp}
-exec-if = test ~/.config/polybar/cputemp
-
 [module/temp]
 inherit = module/general
 type = custom/script
@@ -429,45 +396,6 @@ exec = ~/.config/polybar/scripts/temp.sh
 interval = 5
 tail = false
 format-prefix = ${icons.temp}
-
-[module/hwinfo]
-inherit = module/general
-type = custom/script
-exec = ~/.config/polybar/scripts/hwmon.sh cpu
-interval = 5
-tail = false
-;format-background = ${colors.background}
-format-prefix = ${icons.cpu}
-;format-prefix-foreground = ${colors.foreground-alt}
-
-[module/gpu]
-inherit = module/general
-type = custom/script
-exec = ~/.config/polybar/scripts/hwmon.sh gpu
-format-prefix = ${icons.gpu}
-format-prefix-foreground = ${colors.foreground-alt}
-interval = 1
-tail = false
-
-[module/powermenu]
-inherit = module/general
-type = custom/menu
-
-expand-right = false
-format-background = ${colors.background}
-label-open = ${icons.mopen}
-label-open-foreground = ${colors.foreground-alt}
-label-close = ${icons.mclose}
-label-close-foreground = ${colors.foreground-alt}
-label-separator = " "
-label-foreground = ${colors.background}
-
-menu-0-0 = ""
-menu-0-0-exec = systemctl reboot
-menu-0-1 = ""
-menu-0-1-exec = systemctl poweroff
-menu-0-2 = ""
-menu-0-2-exec = systemctl suspend
 
 [settings]
 screenchange-reload = true

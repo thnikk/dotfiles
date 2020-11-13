@@ -2,13 +2,13 @@
 [
 {
     "position": "bottom", // Waybar position (top|bottom|left|right)
-    "output":"!DP-3",
+    "output":"!DP-3", // Prevent main bar from showing on secondary monitor (ignored if output doesn't exist.)
     "height": 30, // Waybar height (to be removed for auto height)
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": [],
     "modules-right": [ "mpd", "custom/weather", "custom/unread", "custom/updates", "custom/temp", "memory", "custom/kb", "custom/battery", "tray", "clock"],
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        //"format": "<span style=\"italic\">{}</span>"
     },
     "mpd": {
         "format": " {title}",

@@ -9,7 +9,7 @@ focus_follows_mouse no
 
 ### Gaps ###
 for_window [class="^.*"] border pixel 2
-gaps inner 10
+gaps inner 20
 gaps outer 0
 
 ### Force workspaces on specific monitors ###
@@ -47,12 +47,27 @@ exec --no-startup-id sxhkd # Then general sxhkd
 exec --no-startup-id QT_STYLE_OVERRIDE=Adwaita trackma-qt
 # Always restart picom to avoid focused window being stuck at 100% opacity
 exec --no-startup-id ~/.config/i3/startup.sh # Start desktop-specific programs
-exec --no-startup-id ~/.local/bin/pcrestart.sh
+exec --no-startup-id picom
+exec_always --no-startup-id ~/.local/bin/pcrestart.sh
 
-font pango:Operator Mono Book 0
+font pango:Operator Mono Book 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+set $powermenu Powermenu (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$powermenu" {
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym Shift+s exec systemctl shutdown, mode "default"
+    bindsym l exec i3lock-pixel, mode "default"
+    bindsym e exec i3-msg exit, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym q mode "default"
+}
+bindsym $mod+Shift+e mode "$powermenu"
 
 # Window decoration colors
 # Border is top color of titlebar

@@ -6,7 +6,8 @@ xmodmap -e "clear lock" &
 xmodmap -e "keysym Caps_Lock = Escape" &
 # Restore monitor layout
 if [ "$HOST" = "thnikk-desktop" ]; then
-    ~/.screenlayout/dual.sh &
+    ~/.screenlayout/dual_landscape.sh &
+    sudo ddcutil setvcp 60 0x0f --sn C8LMTF091196 &
     sleep 1
     feh --bg-fill .config/wall.png .config/wall2.png &
     # Fixes starting volume for pulseaudio

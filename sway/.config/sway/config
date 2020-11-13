@@ -32,8 +32,8 @@ input "1739:0:Synaptics_TM3075-002" {
 set $gnome-schema org.gnome.desktop.interface
 ### First-time startup
 exec --no-startup-id {
-    gsettings set $gnome-schema gtk-theme 'Adapta-BlueGrey-Nokto'
-    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+    gsettings set $gnome-schema gtk-theme 'Matcha-dark-azul'
+    gsettings set $gnome-schema icon-theme 'Flat-Remix-Blue-Dark'
     gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
     /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
     /usr/lib/kdeconnectd
@@ -48,12 +48,26 @@ exec_always --no-startup-id {
     ~/.local/bin/sway/sway.keybinds
     ~/.config/sway/sway.display
     ~/.local/bin/sway/sway-autoname-workspaces.py
-    ~/.local/bin/sway/inactive-window-transparency.py
+    #~/.local/bin/sway/inactive-window-transparency.py
 }
 
 font pango:Operator Mono Medium 10
 floating_modifier $mod normal
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+set $powermenu Powermenu (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$powermenu" {
+    bindsym r exec systemctl reboot, mode "default"
+    bindsym s exec systemctl suspend, mode "default"
+    bindsym Shift+s exec systemctl shutdown, mode "default"
+    bindsym l exec i3lock-pixel, mode "default"
+    bindsym e exec i3-msg exit, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym q mode "default"
+}
+bindsym $mod+Shift+e mode "$powermenu"
 
 # Window decoration colors
 # Border is top color of titlebar

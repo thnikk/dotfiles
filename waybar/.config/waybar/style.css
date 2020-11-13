@@ -18,7 +18,7 @@ window#waybar, #custom-name {
 }
 
 #workspaces button {
-    padding: 0px 0px 0px 5px;
+    padding: 0px 10px 0px 10px;
     background: transparent;
     color: #d8dee9;
 }
@@ -34,8 +34,7 @@ window#waybar, #custom-name {
 }
 
 #mode {
-    background: #64727D;
-    border-bottom: 3px solid white;
+    background: #2b303b;
 }
 
 @keyframes blink {

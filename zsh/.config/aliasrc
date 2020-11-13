@@ -84,6 +84,7 @@ alias tc='vim ~/.tmux.conf && tmux source-file ~/.tmux.conf'
 alias ac='vim ~/.config/aliasrc && source ~/.config/aliasrc'
 alias bsc='vim ~/.config/bspwm/bspwmrc'
 alias sxc='vim ~/.config/sxhkd/sxhkdrc'
+alias sxci='vim ~/.config/sxhkd/i3.sxhkdrc'
 
 # yay-like pacman alias
 alias pin='sudo pacman -Syu'
