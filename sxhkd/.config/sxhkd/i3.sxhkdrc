@@ -1,14 +1,14 @@
 # Shift focus
 super+{h,j,k,l}
-    ~/.local/bin/i3-move-cursor.sh focus {left,down,up,right}
+    ~/.config/i3/i3-move-cursor.sh focus {left,down,up,right}
 super+{Left,Down,Up,Right}
-    ~/.local/bin/i3-move-cursor.sh focus {left,down,up,right}
+    ~/.config/i3/i3-move-cursor.sh focus {left,down,up,right}
 
 # Move focused window
 super+shift+{h,j,k,l}
-    ~/.local/bin/i3-move-cursor.sh move {left,down,up,right}
+    ~/.config/i3/i3-move-cursor.sh move {left,down,up,right}
 super+shift+{Left,Down,Up,Right}
-    ~/.local/bin/i3-move-cursor.sh move {left,down,up,right}
+    ~/.config/i3/i3-move-cursor.sh move {left,down,up,right}
 
 # Lock session
 super+ctrl+l
