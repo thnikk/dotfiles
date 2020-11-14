@@ -41,7 +41,7 @@ for_window [title="MusicPlayer"] move workspace number 2
 ### Launch at startup ###
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh # Start polybar
 exec_always --no-startup-id autotiling # i3 specific autotitling
-exec_always --no-startup-id ~/.local/bin/i3-autoname-workspaces/i3-autoname-workspaces.py
+exec_always --no-startup-id ~/.config/i3/i3-autoname-workspaces/i3-autoname-workspaces.py
 exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc # Start i3-sepcific sxhkd first
 exec --no-startup-id sxhkd # Then general sxhkd
 exec --no-startup-id QT_STYLE_OVERRIDE=Adwaita trackma-qt
