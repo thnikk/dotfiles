@@ -7,6 +7,7 @@
     --color-cyan:#88c0d0;
     --color-green:#a3be8c;
     --color-fg:#D8DEE9;
+    --color-fg-alt:#747C84;
 }
 
 
@@ -143,9 +144,10 @@ spacer[part=overflow-start-indicator],spacer[part=overflow-end-indicator] { bord
 
 /* Set extension icons */
 * .webextension-browser-action:before { content:"";}
+* .webextension-browser-action { color: var(--color-fg-alt) !important;}
 * .webextension-browser-action { border-radius: 5px; margin: 2px !important; }
-* .webextension-browser-action:hover { background: rgba(255,255,255,0.1); }
-* .webextension-browser-action:active { background: rgba(255,255,255,0.2); }
+* .webextension-browser-action:hover { background: rgba(255,255,255,0.0); }
+* .webextension-browser-action:active { background: rgba(255,255,255,0.0); }
 .webextension-browser-action > * > .toolbarbutton-icon { display: none; padding: 0px; }*/
 .toolbarbutton-badge { display: none !important; }
 .toolbarbutton-badge {

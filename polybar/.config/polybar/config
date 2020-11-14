@@ -74,7 +74,7 @@ font-0 = Operator Mono Medium:pixelsize=12;2
 font-1 = Source Han Sans JP:style=Bold:size=12:antialias=true;3
 font-2 = Font Awesome 5 Free:style=Solid:pixelsize=12;3
 font-4 = Font Awesome 5 Brands:pixelsize=12;3
-font-3 = Operator Mono Light:pixelsize=6;
+font-3 = Operator Mono Medium:pixelsize=6;
 
 modules-left =  i3 bspwm keypad
 modules-right = rec mpc weather unread update cpu temp mem kbd bat date
@@ -118,7 +118,7 @@ interval = 60
 format-background = ${colors.background}
 ;format-prefix-foreground = ${colors.foreground-alt}
 format = <label>
-format-padding = 10px
+format-padding = 2
 
 [module/vol]
 inherit = module/general
