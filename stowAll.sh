@@ -6,5 +6,3 @@ which stow || exit
 for d in *; do
     [ -d "$d" ] && stow "$d"
 done
-
-ln -s "$HOME/.profile" "$HOME/.zprofile"

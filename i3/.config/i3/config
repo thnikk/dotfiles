@@ -59,7 +59,7 @@ set $powermenu Powermenu (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s
 mode "$powermenu" {
     bindsym r exec systemctl reboot, mode "default"
     bindsym s exec systemctl suspend, mode "default"
-    bindsym Shift+s exec systemctl shutdown, mode "default"
+    bindsym Shift+s exec systemctl poweroff, mode "default"
     bindsym l exec i3lock-pixel, mode "default"
     bindsym e exec i3-msg exit, mode "default"
 
