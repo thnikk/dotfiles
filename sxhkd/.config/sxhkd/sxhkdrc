@@ -101,7 +101,7 @@ super+c
 super+shift+c
 	pkill picom
 
-# Switch resolution using device specific script
+# Toggle mic loopback
 super + shift + m
 	~/.local/bin/toggle-loopback.sh
 
