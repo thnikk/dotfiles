@@ -13,7 +13,7 @@ export READER="zathura"
 export COMPOSITOR="picom"
 export LAUNCHER="rofi -show drun"
 export WM="i3"
-export FM="nautilus"
+export FM="nemo"
 
 # Make man more readable by adding colors
 export LESS_TERMCAP_mb=$'\e[1;32m'

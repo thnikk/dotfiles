@@ -10,6 +10,9 @@ super+shift+{h,j,k,l}
 super+shift+{Left,Down,Up,Right}
     ~/.config/i3/i3-move-cursor.sh move {left,down,up,right}
 
+alt+space
+    ~/.local/bin/toggle_lang.sh
+
 # Lock session
 super+ctrl+l
     ~/.local/bin/i3lock-pixel

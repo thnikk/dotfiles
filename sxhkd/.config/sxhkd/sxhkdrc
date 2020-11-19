@@ -20,10 +20,12 @@ super + g
 	gimp
 super + u
 	~/.local/bin/umsd
+super + t
+	~/.local/bin/open_stream.sh
 
 # File manager (e for explorer)
 super + e
-	sh -c $FM
+	nemo
 
 # Browser
 super + b
@@ -80,6 +82,10 @@ ctrl+{F8,F9,F10}
 	mpc -h desktop {toggle,prev,next}
 ctrl+shift+{F9,F10}
 	mpc -h desktop volume {-5,+5}
+
+# VM Volume control
+shift+{F11,F12}
+	~/.local/bin/thnikk-desktop/vm_vol.sh -v win -c {-10,10}
 
 # MQTT
 ctrl+{F1,F2,F3,F4}

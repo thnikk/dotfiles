@@ -77,6 +77,7 @@ WINDOW_ICONS = {
     'processing-app-base': fa.icons['infinity'],
     'looking-glass-client': fa.icons['desktop'],
     'cura': fa.icons['align-left'],
+    'prusa-slicer': fa.icons['align-right'],
     'zathura': fa.icons['file'],
 }
 

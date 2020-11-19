@@ -29,24 +29,24 @@ ex () {
 # 1) auto-cd if given a directory instead of a file
 # 2) Automatically request root permissions if the user isn't able to modify the file
 # It's a small QOL improvement since I always use vim on a directory or root file.
-vim () {
-    # Cd to directory if it doesn't exist
-    if [ -d "$1" ]; then
-        cd "$1" || exit
-    # If it's a file
-    elif [ -f "$1" ]; then
-        # open normally if user has privileges
-        if groups | grep -q "$(stat -c "%G" "$1")"; then
-            nvim "$1"
-        # otherwise open with root
-        else
-            sudo nvim "$1"
-        fi
-    # If the file doesn't exist, create it
-    else
-        nvim "$1"
-    fi
-}
+#vim () {
+    ## Cd to directory if it doesn't exist
+    #if [ -d "$1" ]; then
+        #cd "$1" || exit
+    ## If it's a file
+    #elif [ -f "$1" ]; then
+        ## open normally if user has privileges
+        #if groups | grep -q "$(stat -c "%G" "$1")"; then
+            #nvim "$1"
+        ## otherwise open with root
+        #else
+            #sudo nvim "$1"
+        #fi
+    ## If the file doesn't exist, create it
+    #else
+        #nvim "$1"
+    #fi
+#}
 
 
 # Shorten name
