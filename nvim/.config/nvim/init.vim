@@ -20,7 +20,7 @@ Plug 'preservim/nerdcommenter' "Easily comment blocks of code
 Plug 'tpope/vim-surround' "Highlights quotes/brackets/parantheses
 Plug 'kovetskiy/sxhkd-vim' "Syntax highlighting for sxhkd config
 Plug 'mboughaba/i3config.vim' "Syntax highlighting for i3 config
-Plug 'airblade/vim-gitgutter' "Shows changes from last commit in NL gutter
+Plug 'airblade/vim-gitgutter' "Shows changes since last commit in NL gutter
 Plug 'itchyny/lightline.vim' "Bottom bar
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md preview
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "Show colors in vim

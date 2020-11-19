@@ -48,6 +48,7 @@ exec --no-startup-id QT_STYLE_OVERRIDE=Adwaita trackma-qt
 # Always restart picom to avoid focused window being stuck at 100% opacity
 exec --no-startup-id ~/.config/i3/startup.sh # Start desktop-specific programs
 exec --no-startup-id picom
+exec --no-startup-id [ -f ~/.cache/conky_disable ] || conky
 exec_always --no-startup-id ~/.local/bin/pcrestart.sh
 
 font pango:Operator Mono Book 10

@@ -5,3 +5,4 @@ client_secrets.json
 .stignore
 nohup.out
 .zcompdump
+history.log
