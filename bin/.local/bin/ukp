@@ -1,0 +1,48 @@
+#!/bin/bash
+# Personal keypad uploading script
+
+SKETCHES=$HOME/Documents/Dev/Sketches
+CACHE=~/.cache/ukp.log
+
+# Upload with avrdude
+ufb(){
+    notify-send.sh --replace=9 "Uploading..."
+    [[ $(ls /tmp | grep arduino) ]] && for f in /tmp/arduino*; do
+        echo $f
+        ls $f | grep newXinput.ino.hex && cp newXinput.ino.hex $HOME/.cache/fightboard.hex
+    done
+    avrdude -v -patmega32u4 -cavr109 -P$(ls /dev/ttyACM*) -b57600 -D -Uflash:w:$HOME/.cache/fightboard.hex:i 2> $CACHE && notify-send.sh --replace=9 "Complete" || notify-send.sh --replace=9 "Something went wrong, check the log."
+}
+
+# Upload with platformio
+upio(){
+    notify-send.sh --replace=9 "Uploading..."
+    pio run -e $ENV -t upload -d $DIR > $CACHE && notify-send.sh --replace=9 "Complete!" || notify-send.sh --replace=9 "Something went wrong, check the log."
+}
+
+case $1 in
+    2k | 4k)
+        DIR=$SKETCHES/trinketM0
+        ENV=$1
+        upio
+        ;;
+    macro)
+        DIR=$SKETCHES/trinketM0Macro
+        ENV=adafruit_trinket_m0
+        upio
+        ;;
+    7k)
+        DIR=$SKETCHES/7kKeypad
+        ENV=5v
+        upio
+        ;;
+    2kt | 4kt)
+        DIR=$SKETCHES/touchPad
+        ENV=${1::-1}
+        upio
+        ;;
+    fb)
+        ufb
+        ;;
+esac
+

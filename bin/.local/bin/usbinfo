@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if ! which fzf &>/dev/null; then
+    echo "Please install fzf"
+    exit
+fi
+
+lsusb | fzf | awk '{print $6}' | xargs -I {} lsusb -v -d "{}"

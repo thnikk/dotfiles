@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sleep 5
+~/.local/bin/sway/sway-autoname-workspaces.py &
+~/.local/bin/sway/inactive-window-transparency.py &

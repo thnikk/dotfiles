@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# This is a simple shell script for i3/sway keybinds since they can be set at runtime with bindsym
+# Using bash for arrays
+
+# Function for slightly less typing
+set_key(){
+    i3-msg bindsym "$1" "$2 $ADD"
+}
+
+# Switch language
+set_key 'Alt+Space' "exec ~/.local/bin/toggleLang"
+
+# Launch terminal
+set_key '$mod+Return' "exec $TERMINAL"
+set_key '$mod+Shift+Return' "exec alacritty"
+set_key '$mod+Ctrl+Return' "exec st"
+
+set_key '$mod+o' "exec i3-msg open"
+
+# Program launcher
+# Use rofi with monitor set to xwayland0 to use primary display
+set_key '$mod+d' "exec rofi -show drun -m XWAYLAND0"
+# Alternatively, use dmenu
+set_key '$mod+Shift+d' 'exec dmenu_run'
+set_key '$mod+a' "exec ~/.local/bin/lsAnime2 -m XWAYLAND0"
+set_key '$mod+g' "exec gimp"
+set_key '$mod+u' "exec ~/.local/bin/umsd -m XWAYLAND0"
+set_key '$mod+e' "exec $FM"
+set_key '$mod+m' "exec $TERMINAL --title neomutt neomutt"
+set_key '$mod+n' "exec $TERMINAL --title ncmpcpp ncmpcpp"
+set_key '$mod+Ctrl+m' 'exec chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"'
+set_key '$mod+b' "exec $BROWSER"
+
+set_key 'Ctrl+Alt+l' "exec swaylock-pixel"
+
+# Brightness
+set_key "XF86MonBrightnessUp" 'exec xbacklight -inc 10 && dunstify -r 2 Brightness: $(xbacklight -get)%'
+set_key "XF86MonBrightnessDown" 'exec xbacklight -dec 10 && dunstify -r 2 Brightness: $(xbacklight -get)%'
+
+# Volume
+set_key "XF86AudioRaiseVolume" 'exec pamixer -i 5 && dunstify -r 1 Volume: $(pamixer --get-volume)%'
+set_key "XF86AudioLowerVolume" 'exec pamixer -d 5&& dunstify -r 1 Volume: $(pamixer --get-volume)%'
+set_key "XF86AudioMute" 'exec pactl set-sink-mute 0 toggle'
+
+### i3/sway specific
+
+# Kill active window
+set_key '$mod+Shift+q' "kill"
+# Reload config
+set_key '$mod+Shift+r' "reload"
+
+# Workspace management
+i=1
+while [ "$i" -lt 10 ]; do
+    set_key '$mod+'"$i" "workspace number $i"
+    set_key '$mod+Shift+'"$i" "move container to workspace number $i"
+    i=$((i + 1))
+done
+
+# Movement
+vim_nav=("h" "j" "k" "l")
+arrows=("Left" "Down" "Up" "Right")
+direction=("left" "down" "up" "right")
+resize_cmd=("resize shrink width 10px" "resize grow height 10px" "resize shrink height 10px" "resize grow width 10px")
+j=0
+while [ "$j" -lt 4 ]; do
+    set_key '$mod+'"${vim_nav[$j]}" "focus ""${direction[$j]}"
+    set_key '$mod+'"${arrows[$j]}" "focus ""${direction[$j]}"
+    set_key '$mod+Shift+'"${vim_nav[$j]}" "move ""${direction[$j]}"
+    set_key '$mod+Shift+'"${arrows[$j]}" "move ""${direction[$j]}"
+    set_key '$mod+Ctrl+'"${vim_nav[$j]}" "${resize_cmd[$j]}"
+    set_key '$mod+Ctrl+'"${arrows[$j]}" "${resize_cmd[$j]}"
+    j=$((j + 1))
+done
+
+# Layout
+set_key '$mod+backslash' 'splith'
+set_key '$mod+backslash' 'splitv'
+set_key '$mod+w' 'layout tabbed'
+set_key '$mod+s' 'layout toggle split'
+set_key '$mod+f' 'fullscreen'
+set_key '$mod+Shift+space' 'floating toggle'
+set_key '$mod+space' 'focus mode_toggle'
+
+set_key '$mod+Shift+f' 'resize set width 1930px height 1090px'
+
+# MPC controls
+set_key 'F8' 'exec mpc toggle'
+set_key 'F9' 'exec mpc previous'
+set_key 'F10' 'exec mpc next'
+set_key 'Shift+F9' 'exec mpc volume -5'
+set_key 'Shift+F10' 'exec mpc volume +5'
+
+# MQTT
+k=0
+FEED=("light" "shelf" "desk")
+while [ $k -lt 3 ]; do
+    set_key 'Ctrl+F'"$((k+1))" "exec mosquitto_pub -h 10.0.0.29 -t toggle/${FEED[$k]} -n"
+    k=$((k+1))
+done
+

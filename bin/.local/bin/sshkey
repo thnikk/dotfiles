@@ -1,0 +1,16 @@
+#!/bin/bash
+
+input="$1"
+
+if ssh $input "test -e $HOME/.ssh/authorized_keys"; then
+    echo "File exists"
+else
+    echo "Creating file"
+        ssh "$1" "mkdir -p $HOME/.ssh && touch $HOME/.ssh/authorized_keys"
+fi
+if [[ -n "$input" ]]; then
+	cat "$HOME/.ssh/id_rsa.pub" | ssh "$input" >> 'cat >> ~/.ssh/authorized_keys'
+    echo "Appending key to remote's authorized keys"
+else
+	echo "usage: sshkey [user@IP]"
+fi

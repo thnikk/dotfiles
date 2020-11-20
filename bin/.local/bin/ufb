@@ -1,0 +1,18 @@
+#!/bin/bash
+
+LOCAL="$HOME/.cache/fightboard.hex"
+REMOTE="/nfs/server2/Backup/fightboard.hex"
+
+# Move new hex file if it exists
+cp "$(find /tmp/arduino*/*ino.hex 2>/dev/null)" "$LOCAL" 2>/dev/null && echo "Found new hex file! Copying..."
+cp "$(find /tmp/arduino*/*ino.hex 2>/dev/null)" "$REMOTE" 2>/dev/null && echo "Copying to server as well..."
+rm "$(find /tmp/arduino*/*ino.hex 2>/dev/null)" 2>/dev/null
+if [ -f "$LOCAL" ]; then
+    FILE=$LOCAL
+    echo "Using local hex file"
+else
+    FILE=$LOCAL
+    cp "$REMOTE" "$LOCAL"
+    echo "Using hex file from server"
+fi
+ls /dev/ttyACM* >/dev/null 2>/dev/null && avrdude -v -patmega32u4 -cavr109 -P"$(ls /dev/ttyACM* 2>/dev/null)" -b57600 -D -Uflash:w:$FILE:i &>/dev/null || echo "No keypad found, exiting."
