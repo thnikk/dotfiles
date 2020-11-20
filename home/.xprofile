@@ -23,8 +23,23 @@ xset r rate 300 50 &	# Speed xrate up
 unclutter &
 picom &
 
-# Universal
 ibus-daemon -drx &
+if [ ! -f ~/.cache/ibus.check ]; then
+    # Add anthy to engines
+    gsettings set org.freedesktop.ibus.general preload-engines "['xkb:us::eng', 'anthy']"
+    # (this one may be unnecessary)
+    gsettings set org.freedesktop.ibus.general engines-order "['xkb:us::eng', 'anthy']"
+    # Remove keybind
+    gsettings set org.freedesktop.ibus.general.hotkey next-engine "[]"
+    # Change default input mode to hiragana
+    gsettings set org.freedesktop.ibus.engine.anthy.common input-mode 0
+    # Disable tray icon (preferences still accessible as application)
+    gsettings set org.freedesktop.ibus.panel show-icon-on-systray false
+    mkdir -p ~/.cache 2>/dev/null
+    touch ~/.cache/ibus.check
+fi
+
+# Universal
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 /usr/lib/kdeconnectd &
 udiskie &

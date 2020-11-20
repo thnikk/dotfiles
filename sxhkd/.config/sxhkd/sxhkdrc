@@ -22,6 +22,8 @@ super + u
 	~/.local/bin/umsd
 super + t
 	~/.local/bin/open_stream.sh
+super + y
+	mpv --speed=2 --ytdl "$(xsel -b)"
 
 # File manager (e for explorer)
 super + e
