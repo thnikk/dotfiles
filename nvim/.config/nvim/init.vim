@@ -23,7 +23,7 @@ Plug 'mboughaba/i3config.vim' "Syntax highlighting for i3 config
 Plug 'airblade/vim-gitgutter' "Shows changes since last commit in NL gutter
 Plug 'itchyny/lightline.vim' "Bottom bar
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md preview
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "Show colors in vim
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-syntastic/syntastic' "Shows syntax errors
 Plug 'vimwiki/vimwiki'
 call plug#end()
@@ -43,7 +43,7 @@ let g:vimwiki_list = [{'path': '~/.local/wiki',
 let g:vimwiki_global_ext = 0
 
 "Hexokinase configuration (show color in hex code bg)
-let g:Hexokinase_highlighters = [ 'background' ]
+"let g:Hexokinase_highlighters = [ 'background' ]
 
 "Syntastic
 let g:syntastic_always_populate_loc_list = 1
