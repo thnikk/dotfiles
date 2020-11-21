@@ -3,8 +3,8 @@
 # Get temperature for a device
 get_temp(){
     FILE=$(echo "$1" | awk '{print $NF}')
-    TEMP="$(cat $FILE)"
-    echo "$TEMP/1000" | bc
+    TEMP="$(cat "$FILE")"
+    echo "$(( TEMP/1000 ))"
 }
 
 OUTPUT=()
@@ -23,6 +23,7 @@ while IFS= read -r line; do
         *coretemp*Package*)
             OUTPUT+=("C$(get_temp "$line")")
             ;;
+        *) ;;
     esac
 done <<< "$(for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name) $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done)"
 
