@@ -106,8 +106,8 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.twitch}
 format-prefix-foreground = ${colors.foreground-alt}
-exec = ~/.config/polybar/scripts/twitch.sh "%{T3} %{T-}"
-;exec-if = ~/.config/polybar/scripts/twitch.sh
+exec = ~/.config/polybar/scripts/twitch.sh
+
 
 [module/unread]
 type = custom/script
@@ -115,8 +115,11 @@ inherit = module/general
 format = <label>
 format-prefix = ${icons.mail}
 exec = ~/.config/polybar/scripts/unread.sh
-interval = 1
+interval = 10
+# Open neomutt in terminal if module is clicked
 click-left = $TERMINAL neomutt
+# Don't run if neomutt isn't installed
+exec-if = which neomutt
 
 [module/keypad]
 inherit = module/general

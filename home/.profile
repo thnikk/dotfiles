@@ -52,7 +52,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 
 # Add to path
 [ ! -d "$HOME/.local/bin/$HOST" ] && mkdir "$HOME/.local/bin/$HOST"
-export PATH="$PATH:$HOME/.local/bin:~/.platformio/penv/bin:$HOME/.local/bin/$HOST"
+export PATH="$PATH:$HOME/.local/bin:~/.platformio/penv/bin:$HOME/.local/bin/$HOST:$HOME/.local/bin/appimage"
 
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"

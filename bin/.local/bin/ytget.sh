@@ -6,14 +6,13 @@ CACHE="$CACHEDIR/cache"
 DLFILE="$CACHEDIR/downloaded"
 
 # Check if 2 args are given, otherwise quit
-if [ "$#" -lt 2 ]; then
-    echo "Usage: ytget <playlist url> <dir>"
+if [ "$#" -lt 1 ]; then
+    echo "Usage: ytget <playlist url> <dir (optional)>"
     exit
 fi
 
 [ -d "$CACHEDIR" ] || mkdir -p "$CACHEDIR"
 [ -f "$DLFILE" ] || touch "$DLFILE"
-[ -d "$2" ] || mkdir "$2"
 
 curl -s "https://www.youtube.com/feeds/videos.xml?playlist_id=$(echo "$1" | awk -F '=' '{print $NF}')" | grep -E 'title|link|name' | grep -v 'media' | grep '>'> "$CACHE"
 
@@ -26,6 +25,9 @@ echo "Artist: $ARTIST"
 TITLE=""
 TAGTITLE=""
 LINK=""
+DIR=${2:-$HOME/Downloads/$ARTIST-$ALBUM}
+echo "Downloading to $DIR"
+mkdir -p "$DIR"
 
 while IFS= read -r line; do
     if [[ "$line" == *"link"* ]]; then
@@ -34,7 +36,7 @@ while IFS= read -r line; do
 
         # Download
         if ! grep -q "$TITLE" "$DLFILE"; then
-            youtube-dlc --extract-audio --audio-format mp3 --audio-quality 0 -o "$2/$TITLE.%(ext)s" -i "$LINK"
+            youtube-dlc --extract-audio --audio-format mp3 --audio-quality 0 -o "$DIR/$TITLE.%(ext)s" -i "$LINK"
             eyeD3 -t "$TAGTITLE" -a "$ARTIST" -A "$ALBUM" "$2/$TITLE.mp3"
         fi
         echo "$TITLE" >> "$DLFILE"

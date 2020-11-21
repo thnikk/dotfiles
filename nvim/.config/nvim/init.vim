@@ -60,6 +60,8 @@ if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
+    "Enable colorizer.lua by default (needs to be after set termguicolors
+    lua require'colorizer'.setup()
 endif
 colorscheme thnikk
 let g:lightline = { 'colorscheme': 'thnikk', 'component': { 'percent': ''}, }
@@ -120,6 +122,8 @@ map <leader>r :set nu! norelativenumber!<CR>
 "Hide/show lightline
 map <leader>l :set laststatus=1<CR>
 map <leader>L :set laststatus=2<CR>
+"Clear highlighting from search
+nnoremap <esc><esc> :noh<return>
 
 "On save
 "Clean trailing whitespace on save.

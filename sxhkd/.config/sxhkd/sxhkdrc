@@ -15,11 +15,11 @@ super + shift + d
 	dmenu_run -fn 'Futura Bk BT:pixelsize=18' -nb '#1c1f26' -nf '#d8dee9' -sb '#4C566A' -sf '#d8dee9'
 
 super + a
-	~/.local/bin/lsAnime2
+	~/.local/bin/ls_anime.sh
 super + g
 	gimp
 super + u
-	~/.local/bin/umsd
+	~/.local/bin/unmount_removable_media.sh
 super + t
 	~/.local/bin/open_stream.sh
 super + y
@@ -105,7 +105,7 @@ super+shift+c
 
 # Toggle mic loopback
 super + shift + m
-	~/.local/bin/toggle-loopback.sh
+	~/.local/bin/toggle_loopback.sh
 
 # Screenshots
 Print

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Fixes chrome asking about restoring previous session
 
 # Check for any chrome or chromium folder
 for d in ~/.config/*chrom*; do
