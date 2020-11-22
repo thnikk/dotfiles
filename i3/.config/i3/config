@@ -39,7 +39,7 @@ for_window [class="Slic3r.pl|cura|Cura"] move workspace number 4
 for_window [title="MusicPlayer"] move workspace number 2
 
 ### Launch at startup ###
-exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh # Start polybar
+exec_always --no-startup-id ~/.local/bin/polybar/launch.sh # Start polybar
 exec_always --no-startup-id autotiling # i3 specific autotitling
 exec_always --no-startup-id ~/.config/i3/i3-autoname-workspaces/i3-autoname-workspaces.py
 exec --no-startup-id sxhkd -c ~/.config/sxhkd/i3.sxhkdrc # Start i3-sepcific sxhkd first
@@ -61,7 +61,7 @@ mode "$powermenu" {
     bindsym r exec systemctl reboot, mode "default"
     bindsym s exec systemctl suspend, mode "default"
     bindsym Shift+s exec systemctl poweroff, mode "default"
-    bindsym l exec i3lock-pixel, mode "default"
+    bindsym l exec i3lock-fancy-rapid 15 pixel, mode "default"
     bindsym e exec i3-msg exit, mode "default"
 
     bindsym Return mode "default"

@@ -93,7 +93,7 @@ format-padding = 1
 inherit = module/general
 type = custom/script
 format-prefix = ${icons.vol3}
-exec = ~/.config/polybar/scripts/vol.sh
+exec = ~/.local/bin/polybar/vol.sh
 tail = true
 interval = 1
 click-left = pamixer -t
@@ -106,7 +106,7 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.twitch}
 format-prefix-foreground = ${colors.foreground-alt}
-exec = ~/.config/polybar/scripts/twitch.sh
+exec = ~/.local/bin/polybar/twitch.sh
 
 
 [module/unread]
@@ -114,7 +114,7 @@ type = custom/script
 inherit = module/general
 format = <label>
 format-prefix = ${icons.mail}
-exec = ~/.config/polybar/scripts/unread.sh
+exec = ~/.local/bin/polybar/unread.sh
 interval = 10
 # Open neomutt in terminal if module is clicked
 click-left = $TERMINAL neomutt
@@ -148,7 +148,7 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.kbd}
 label = "%output%"
-exec = ~/.config/polybar/scripts/kb.sh
+exec = ~/.local/bin/polybar/kb.sh
 exec-if = pgrep ibus-daemon
 interval = 1
 
@@ -179,7 +179,7 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.bat}
 format-foreground = ${colors.foreground}
-exec = ~/.config/polybar/scripts/battery.sh
+exec = ~/.local/bin/polybar/battery.sh
 exec-if = test -d /sys/class/power_supply/BAT0
 interval = 60
 
@@ -208,7 +208,7 @@ type = custom/script
 format = <label>
 format-prefix = ${icons.mem}
 label = %output%
-exec = ~/.config/polybar/scripts/mem.sh
+exec = ~/.local/bin/polybar/mem.sh
 interval = 5
 
 ; Custom module for listing active VMs
@@ -216,7 +216,7 @@ interval = 5
 inherit = module/general
 type = custom/script
 format-prefix = ${icons.vm}
-exec = ~/.config/polybar/scripts/vm.sh -p
+exec = ~/.local/bin/polybar/vm.sh -p
 exec-if = sh -c "[ $HOST = thnikk-desktop ]"
 interval = 5
 
@@ -291,6 +291,7 @@ format = <label>
 format-prefix = ${icons.mpc}
 label = %output%
 exec = mpc current -f %title%
+exec-if = systemctl --user is-active --quiet mpd
 tail = false
 interval = 1
 
@@ -301,7 +302,7 @@ scroll-down = mpc vol -5
 [module/net]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/net.sh
+exec = ~/.local/bin/polybar/net.sh
 format-prefix = ${icons.eth}
 format-prefix-foreground = ${colors.foreground-alt}
 interval = 60
@@ -331,7 +332,7 @@ type = custom/script
 format = <label>
 label = "%output%"
 format-prefix = ${icons.upd}
-exec = ~/.config/polybar/scripts/update.sh
+exec = ~/.local/bin/polybar/update.sh
 exec-if = ping -c1 google.com
 interval = 60
 
@@ -340,7 +341,7 @@ click-left = kitty paru &
 [module/weather]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/weather.sh
+exec = ~/.local/bin/polybar/weather.sh
 interval = 5
 
 [module/cpu]
@@ -348,12 +349,12 @@ inherit = module/general
 type = internal/cpu
 label=%percentage:2%%
 format-prefix = ${icons.cpu}
-interval = 0.5
+interval = 1
 
 [module/temp]
 inherit = module/general
 type = custom/script
-exec = ~/.config/polybar/scripts/temp.sh
+exec = ~/.local/bin/polybar/temp.sh
 exec-if = ls /sys/class/hwmon/*
 interval = 5
 tail = false
