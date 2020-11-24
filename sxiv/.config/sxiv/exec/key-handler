@@ -1,38 +1,43 @@
-#!/bin/sh
+#!/bin/bash
+
+# This aint elegant, but it werks
+ND=$(xrandr --listactivemonitors | sed 1q | awk '{print $2}')
+set_wall() {
+# Create variable
+RES=()
+# Load variable with resolutions
+while IFS= read -r line; do
+    RES+=("$line")
+done <<< "$(xrandr --listactivemonitors | sed 1d | awk '{print $3}' | sed 's/\/.*x/x/g' | awk -F'/' '{print $1}')"
+# Get number of displays
+SET_FILES=()
+FINAL_WALL=()
+# Echo
+echo "Number of displays: ${#RES[@]}"
+for ((i=1;i<(( ND+1 ));i++)); do
+    echo "Display $i: ${RES[i]}"
+    if [ "$i" -eq "$1" ]; then
+        SAVE="$HOME/.config/wall${i}.jpg"
+        echo "Saving resized file to $SAVE with resolution of ${RES[i]}"
+        echo "convert $2 -resize ${RES[i]} $SAVE"
+        convert "$2" -resize "${RES[$(( i-1 ))]}" "$SAVE"
+        SET_FILES+=("$SAVE")
+    fi
+    FINAL_WALL+=($HOME/.config/wall${i}.jpg)
+done
+
+echo "${FINAL_WALL[*]}"
+feh --bg-fill ${FINAL_WALL[*]}
+}
 
 while read -r file
 do
-    EXT=$(echo "$file" | awk -F "." '{print $NF}')
-    case "$1" in
-    # Press ctrl+c to copy the file to the clipboard
-    "C-c")
-        xclip -selection clipboard -t "image/$EXT" -i "$file";;
-    # ctrl+1 to set the wallpaper for monitor 1
-    "C-1")
-        # Make a copy of the file in config folder
-        mkdir -p ~/.config/walls 2>/dev/null
-        cp "$file" ~/.config/walls
-        # Convert file to png if not already
-        if [ "$EXT" != "png" ]; then
-            convert "$file" ~/.config/wall.png
-        else
-            cp "$file" ~/.config/wall.png
-        fi
-        # Set two wallpapers if two monitors are connected
-        if [ "$(xrandr | grep -c " connected")" -eq 2 ]; then
-            feh --bg-fill ~/.config/wall.png ~/.config/wall2.png
-        else
-            feh --bg-fill ~/.config/wall.png
-        fi
-        ;;
-    # ctrl+2 to set the wallpaper for monitor 2
-    "C-2")
-        if [ "$EXT" != "png" ]; then
-            convert "$file" ~/.config/wall2.png
-        else
-            cp "$file" ~/.config/wall2.png
-        fi
-        feh --bg-fill ~/.config/wall.png ~/.config/wall2.png
-        ;;
-    esac
+    # If the keypress after ctrl+x is a number <= # of displays:
+    if (( $1>=0 && $1<10 )); then
+        [ $1 -le $ND ] && set_wall "$1" "$file"
+    else
+        case "$1" in
+            "c") xclip -selection clipboard -t "image/$EXT" -i "$file";;
+        esac
+    fi
 done

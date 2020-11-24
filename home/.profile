@@ -61,7 +61,11 @@ export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 export LANG=en_US.UTF-8
 
 # Start graphical environment on tty1 if not running
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null && exec startx
+if [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x Xorg >/dev/null; then
+    export MOZ_USE_XINPUT2=1
+    export MOZ_X11_EGL=1
+    exec startx
+fi
 if [ "$(tty)" = "/dev/tty2" ] && ! pgrep -x sway >/dev/null; then
     export MOZ_ENABLE_WAYLAND=1
     export QT_QPA_PLATFORM=wayland

@@ -39,6 +39,9 @@ user_pref("full-screen-api.warning.timeout", 0);
 user_pref("media.hardware-video-decoding.force-enabled",true);
 // Force GPU Acceleration
 user_pref("gfx.webrender.all", true);
+user_pref("media.ffmpeg.dmabuf-textures.enabled", true);
+user_pref("media.ffmpeg.vaapi.enabled", true);
+user_pref("media.ffvpx.enabled", false);
 
 //// Enable wayland support
 //user_pref("gfx.webrender.enabled", true);

@@ -9,12 +9,12 @@ if [ "$HOST" = "thnikk-desktop" ]; then
     ~/.screenlayout/dual_landscape.sh &
     sudo ddcutil setvcp 60 0x0f --sn C8LMTF091196 &
     sleep 1
-    feh --bg-fill .config/wall.png .config/wall2.png &
+    feh --bg-fill .config/wall1.jpg .config/wall2.jpg &
     # Fixes starting volume for pulseaudio
     fixAudio &
 else
     xinput disable "Synaptics TM3075-002" & # Disable trackpad
-    feh --bg-fill .config/wall.png &
+    feh --bg-fill .config/wall1.jpg &
 fi
 # Start programs with session
 dunst &
