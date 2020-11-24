@@ -20,7 +20,7 @@ for ((i=1;i<(( ND+1 ));i++)); do
         SAVE="$HOME/.config/wall${i}.jpg"
         echo "Saving resized file to $SAVE with resolution of ${RES[i]}"
         echo "convert $2 -resize ${RES[i]} $SAVE"
-        convert "$2" -resize "${RES[$(( i-1 ))]}" "$SAVE"
+        convert "$2" -resize "${RES[$(( i-1 ))]}^" -quality 95 "$SAVE"
         SET_FILES+=("$SAVE")
     fi
     FINAL_WALL+=($HOME/.config/wall${i}.jpg)
