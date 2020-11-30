@@ -13,9 +13,9 @@ mpdnotify() {
     # Get directory containing song
     CDIR="$HOME/Music/$(echo "$FULLOUT" | awk -F '//' '{print $4}' | awk 'BEGIN{FS=OFS="/"}{NF--; print}')"
     # Store name of first file containing over (for cover)
-    CACHE="$(find "$CDIR" -name "*over*" | sed '1q')"
+    CACHE="$(find "$CDIR" -name "*over*" | tail -n +1 | sed '1q' )"
     # If nothing is found with cover in the filename, just use the first jpeg.
-    [ -z "$CACHE" ] && CACHE="$(find "$CDIR" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | sed '1q')"
+    [ -z "$CACHE" ] && CACHE="$(find "$CDIR" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | tail -n +1 | sed '1q' )"
     # If the variable is empty, try to pull the cover art from the file with ffmpeg
     if [ -z "$CACHE" ]; then
         echo "Cover art not found, checking for embedded art..."
@@ -40,7 +40,7 @@ mpdnotify() {
     CCOVER="$HOME/.cache/croppedCover.jpg"
     # Crop album art to 1:1
     rm "$CCOVER" 2>/dev/null
-    magick "$COVER" -gravity center -crop 1:1 -resize 100x100 "$CCOVER"
+    magick "$COVER" -gravity center -crop 1:1 -resize 100x100 "$CCOVER" 2>/dev/null
 
     # Notify
     if [ -f "$CCOVER" ]; then

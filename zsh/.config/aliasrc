@@ -102,6 +102,8 @@ sshkey() {
 # Shorten name
 alias mutt='neomutt'
 
+alias open='xdg-open'
+
 # ls aliases
 alias ls='ls --color=auto'
 alias ll='ls -llh'

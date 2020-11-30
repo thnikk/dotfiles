@@ -72,5 +72,8 @@ wait
 
 notmuch new 2>/dev/null
 
+emacsclient -e "(mu4e-update-index)" >/dev/null 2>&1 ||
+    mu index
+
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$HOME/.config/mutt/.mailsynclastrun"
