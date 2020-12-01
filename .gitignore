@@ -12,4 +12,6 @@ appimage/
 anime-rpc
 ff
 looking-glass-client
-__pycache__
+__pycache__/
+plugged/
+plug.vim

@@ -6,3 +6,4 @@ which stow || exit
 for d in *; do
     [ -d "$d" ] && stow "$d"
 done
+

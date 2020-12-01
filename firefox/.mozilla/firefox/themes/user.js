@@ -1,1 +1,0 @@
-../../.dot/firefox/.mozilla/firefox/user.js

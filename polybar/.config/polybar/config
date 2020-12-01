@@ -186,11 +186,9 @@ interval = 1
 inherit = module/general
 type = custom/script
 format = <label>
-format-prefix = ${icons.bat}
 format-foreground = ${colors.foreground}
 exec = ~/.local/bin/polybar/battery.sh
-exec-if = test -d /sys/class/power_supply/BAT0
-interval = 60
+interval = 10
 
 [module/storage]
 inherit = module/general
