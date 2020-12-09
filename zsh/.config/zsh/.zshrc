@@ -99,3 +99,4 @@ source ~/.config/aliasrc
 # Plugins
 source ~/.config/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source ~/.config/zsh/zsh-command-time/command-time.plugin.zsh

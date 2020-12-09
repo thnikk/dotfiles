@@ -18,37 +18,41 @@ default_border pixel 2
 gaps inner 10
 gaps outer 0
 
+for_window [app_id=^firefox$] max_render_time 4
+for_window [app_id=^kitty$] max_render_time 1
+
 ### Input configuration
 input "type:keyboard" {
     repeat_delay 300
     repeat_rate 50
 #    xkb_file ~/.config/xkb/config
 }
-# Disable trackpad
-input "1739:0:Synaptics_TM3075-002" {
-    events disabled
-}
 
+seat seat0 xcursor_theme Breeze_Snow
 set $gnome-schema org.gnome.desktop.interface
 ### First-time startup
 exec --no-startup-id {
-    gsettings set $gnome-schema gtk-theme 'Matcha-dark-azul'
-    gsettings set $gnome-schema icon-theme 'Flat-Remix-Blue-Dark'
-    gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
     /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
     /usr/lib/kdeconnectd
     udiskie
-    swayidle -w before-sleep 'swaylock-pixel'
+    swayidle -w before-sleep '~/.local/bin/sway/swaylock-pixel'
     ibus-daemon -drx
     trackma-qt
+    mako
 }
 # Launch every time
 exec_always --no-startup-id {
-    autotiling
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adapta-Nokto-Eta'
+    gsettings set org.gnome.desktop.interface icon-theme 'Flat-Remix-Blue-Dark'
+    gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
+    #autotiling
     ~/.local/bin/sway/sway.keybinds
     ~/.config/sway/sway.display
     ~/.local/bin/sway/sway-autoname-workspaces.py
     #~/.local/bin/sway/inactive-window-transparency.py
+    swaymsg input "$(swaymsg -t get_inputs -p | grep -i 'input.*synaptics' -A 5 | grep Identifier | awk '{print $2}')" events disabled
+    swaymsg border_images.unfocused ~/.config/sway/unfocused.png
+    swaymsg border_images.focused ~/.config/sway/focused.png
 }
 
 font pango:Operator Mono Medium 10
@@ -60,7 +64,7 @@ mode "$powermenu" {
     bindsym r exec systemctl reboot, mode "default"
     bindsym s exec systemctl suspend, mode "default"
     bindsym Shift+s exec systemctl shutdown, mode "default"
-    bindsym l exec i3lock-pixel, mode "default"
+    bindsym l exec ~/.local/bin/sway/swaylock-pixel, mode "default"
     bindsym e exec i3-msg exit, mode "default"
 
     bindsym Return mode "default"
@@ -84,5 +88,23 @@ client.focused                      #bf616a #bf616a #eff1f5 #1b303b   #bf616a
 bar {
     swaybar_command waybar
 }
+
+
+#bar {
+    #position bottom
+
+    ## When the status_command prints a new line to stdout, swaybar updates.
+    ## The default just shows the current date and time.
+    ## status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+    #status_command i3blocks
+    #font pango:Operator Mono Medium, Font Awesome 5 Free 12
+
+    #colors {
+        #statusline #d8dee9
+        #background #1c1f26aa
+        #inactive_workspace #2b303baa #2b303baa #d8dee9
+        #focused_workspace #8fa1b3aa #8fa1b3aa #2b303b
+    #}
+#}
 
 #include /etc/sway/config.d/*

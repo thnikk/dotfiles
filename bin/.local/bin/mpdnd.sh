@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/usr/bin/env sh
 
 mpdnotify() {
 
@@ -55,15 +55,17 @@ mpdnotify() {
 LASTSONG="$(mpc | sed 1q)"
 
 while true; do
-    # Check playing song
-    SONG="$(mpc | sed 1q)"
-    # If the playing song doesn't match what was playing during the last check, notify
-    if [ ! "$SONG" = "$LASTSONG" ]; then
-        echo "Now playing: $SONG"
-        mpdnotify
-    fi
-    # Update lastsong
-    LASTSONG="$SONG"
-    # Only check once per second
-    sleep 1;
+    ## Check playing song
+    #SONG="$(mpc | sed 1q)"
+    ## If the playing song doesn't match what was playing during the last check, notify
+    #if [ ! "$SONG" = "$LASTSONG" ]; then
+        #echo "Now playing: $SONG"
+        #mpdnotify
+    #fi
+    ## Update lastsong
+    #LASTSONG="$SONG"
+    ## Only check once per second
+    #sleep 1;
+    mpc idle player
+    mpdnotify
 done

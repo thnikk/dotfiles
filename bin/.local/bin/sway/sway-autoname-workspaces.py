@@ -26,15 +26,19 @@ WINDOW_ICONS = {
     'zathura': fa.icons['file'],
     'feh': fa.icons['images'],
     'gimp': fa.icons['image'],
+    'gimp-2.10': fa.icons['image'],
     'org.gnome.nautilus': fa.icons['folder-open'],
+    'nemo': fa.icons['folder-open'],
     'steam': fa.icons['steam'],
     'telegram-desktop': fa.icons['telegram-plane'],
     'telegramdesktop': fa.icons['telegram-plane'],
     'processing-app-base': fa.icons['code'],
     'discord': fa.icons['comment-alt'], # Discord icon is broken on waybar
     'looking-glass-client': fa.icons['desktop'],
-    'cura': fa.icons['align-left'],
+    'cura': fa.icons['align-right'],
+    'prusa-slicer': fa.icons['align-left'],
     'mpv': fa.icons['play'],
+    'pavucontrol': fa.icons['volume-up'],
     # Terminal entries
     'ncmpcpp': fa.icons['music'],
     'neomutt': fa.icons['envelope-open'],
@@ -53,7 +57,9 @@ DEFAULT_ICON = fa.icons['asterisk']
 def icon_for_window(window):
     app_id = window.app_id
     name = window.name
-    print("class:%s name:%s"%(app_id,name))
+    # xwayland support
+    window_class = window.window_class
+    print("class:%s xwayland-class:%s name:%s"%(app_id,window_class,name))
     # If an app id exists...
     if app_id is not None and len(app_id) > 0:
         # Force lowercase
@@ -68,10 +74,11 @@ def icon_for_window(window):
         elif app_id in WINDOW_ICONS:
             # Return the icon for the app id
             return WINDOW_ICONS[app_id]
+        elif name in WINDOW_ICONS:
+            # Return the icon for the app id
+            return WINDOW_ICONS[name]
         logging.info("No icon available for window with app_id: %s" % str(app_id))
     else:
-        # xwayland support
-        window_class = window.window_class
         # If the program is using xwayland, check the class instead
         if len(window_class) > 0:
             # Force lowercase
@@ -81,7 +88,7 @@ def icon_for_window(window):
                 # Use the icon for the associated class
                 return WINDOW_ICONS[window_class]
             logging.info(
-                "No icon available for window with class_name: %s" % str(class_name)
+                "No icon available for window with class_name: %s" % str(window_class)
             )
     # If all else fails or something goes unmatched, use the default icon
     return DEFAULT_ICON
@@ -117,6 +124,11 @@ def rename_workspaces(ipc):
 
         # Remove duplicates
         new_name = remove_dupes(new_name)
+
+        # This is a dirty fix for removing trailing spaces for empty workspaces that have had their icons removed
+        if (len(new_name) == 2):
+            new_name = new_name.strip()
+
         ipc.command('rename workspace "%s" to "%s"' % (workspace.name, new_name))
 
 

@@ -122,6 +122,7 @@ map <leader>r :set nu! norelativenumber!<CR>
 "Hide/show lightline
 map <leader>l :set laststatus=1<CR>
 map <leader>L :set laststatus=2<CR>
+map <leader>x :!chmod +x %<CR><CR>
 "Clear highlighting from search
 nnoremap <esc><esc> :noh<return>
 
@@ -133,6 +134,7 @@ autocmd BufWritePost *.rst !make html
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd && notify-send "Restarting sxhkd"
 autocmd BufWritePost *polybar/config* !pkill -USR1 polybar
+autocmd BufWritePost *mako/config* !makoctl reload
 autocmd BufWritePost *polybar/config/scripts/* !pkill -USR1 polybar
 autocmd BufWritePost picom.conf !pkill -USR1 picom
 autocmd BufWritePost */st/config.h make

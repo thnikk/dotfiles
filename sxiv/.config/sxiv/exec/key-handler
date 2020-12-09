@@ -3,31 +3,35 @@
 # This aint elegant, but it werks
 ND=$(xrandr --listactivemonitors | sed 1q | awk '{print $2}')
 set_wall() {
-# Create variable
-RES=()
-# Load variable with resolutions
-while IFS= read -r line; do
-    RES+=("$line")
-done <<< "$(xrandr --listactivemonitors | sed 1d | awk '{print $3}' | sed 's/\/.*x/x/g' | awk -F'/' '{print $1}')"
-# Get number of displays
-SET_FILES=()
-FINAL_WALL=()
-# Echo
-echo "Number of displays: ${#RES[@]}"
-for ((i=1;i<(( ND+1 ));i++)); do
-    echo "Display $i: ${RES[i]}"
-    if [ "$i" -eq "$1" ]; then
-        SAVE="$HOME/.config/wall${i}.jpg"
-        echo "Saving resized file to $SAVE with resolution of ${RES[i]}"
-        echo "convert $2 -resize ${RES[i]} $SAVE"
-        convert "$2" -resize "${RES[$(( i-1 ))]}^" -quality 95 "$SAVE"
-        SET_FILES+=("$SAVE")
-    fi
-    FINAL_WALL+=($HOME/.config/wall${i}.jpg)
-done
+    # Create variable
+    RES=()
+    # Load variable with resolutions
+    while IFS= read -r line; do
+        RES+=("$line")
+    done <<< "$(xrandr --listactivemonitors | sed 1d | awk '{print $3}' | sed 's/\/.*x/x/g' | awk -F'/' '{print $1}')"
+    # Get number of displays
+    SET_FILES=()
+    FINAL_WALL=()
+    # Echo
+    echo "Number of displays: ${#RES[@]}"
+    for ((i=1;i<(( ND+1 ));i++)); do
+        echo "Display $i: ${RES[i]}"
+        if [ "$i" -eq "$1" ]; then
+            SAVE="$HOME/.config/wall${i}.jpg"
+            echo "Saving resized file to $SAVE with resolution of ${RES[i]}"
+            echo "convert $2 -resize ${RES[i]} $SAVE"
+            convert "$2" -resize "${RES[$(( i-1 ))]}^" -quality 95 "$SAVE"
+            SET_FILES+=("$SAVE")
+        fi
+        FINAL_WALL+=($HOME/.config/wall${i}.jpg)
+    done
 
-echo "${FINAL_WALL[*]}"
-feh --bg-fill ${FINAL_WALL[*]}
+    echo "${FINAL_WALL[*]}"
+    if pgrep sway; then
+        swaymsg reload
+    else
+        feh --bg-fill ${FINAL_WALL[*]}
+    fi
 }
 
 while read -r file

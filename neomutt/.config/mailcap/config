@@ -1,0 +1,8 @@
+text/plain; $EDITOR %s ;
+image/*; xdg-open %s ;
+text/html; w3m -T text/html; copiousoutput;
+video/*; setsid mpv --quiet %s &; copiousoutput
+audio/*; mpv %s ;
+application/pdf; zathura %s ;
+application/pgp-encrypted; gpg -d '%s'; copiousoutput;
+application/pgp-keys; gpg --import '%s'; copiousoutput;

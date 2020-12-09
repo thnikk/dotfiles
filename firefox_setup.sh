@@ -10,6 +10,8 @@ for d in "$HOME"/.mozilla/firefox/*.*; do
             ln -s "$HOME/.config/firefox/themes/min_nopad/chrome" "$d"
         elif [ -L "$d/chrome" ]; then
             echo "Link already exists for chrome"
+        else
+            ln -s "$HOME/.config/firefox/themes/min_nopad/chrome" "$d"
         fi
         if [ -f "$d/user.js" ] && [ ! -L "$d/user.js" ]; then
             echo "Existing user.js found. Moving to user.js.old"
@@ -17,6 +19,8 @@ for d in "$HOME"/.mozilla/firefox/*.*; do
             ln -s "$HOME/.config/firefox/user.js" "$d"
         elif [ -L "$d/user.js" ]; then
             echo "Link already exists for user.js"
+        else
+            ln -s "$HOME/.config/firefox/user.js" "$d"
         fi
     fi
 done

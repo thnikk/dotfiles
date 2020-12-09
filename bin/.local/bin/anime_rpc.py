@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# This script will check the currently playing MPRIS status
+# and look for a match in ~/.cache/lsa.cache. If there's a
+# match, it will update discord's RPC status.
 
 import sys
 import time
@@ -58,7 +61,7 @@ def check(checkName):
             datafile = f.readlines()
         for line in datafile:
             if checkName in line:
-                print("File is in anime folder.")
+                print("%s is in anime folder." % (checkName))
                 return True
         print ("File not in anime folder.")
         return False
@@ -103,6 +106,7 @@ def on_player_remove(manager, player):
 
 def internal_clear():
     global to_clear
+    print("Player paused or closed, attempting to clear.")
     if to_clear == 1:
         try:
             RPC.clear()

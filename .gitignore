@@ -15,3 +15,12 @@ looking-glass-client
 __pycache__/
 plugged/
 plug.vim
+database
+log
+pid
+state
+sticker.sql
+bookmarks
+.netrwhist
+pio*
+platformio

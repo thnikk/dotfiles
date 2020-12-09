@@ -60,17 +60,15 @@ super + Escape
 	sleep 1 && xdotool type "On top of fire extinguisher box opposite of front door."
 
 # Brightness control
-XF86MonBrightnessUp
-	xbacklight -inc 10 && dunstify -r 1 "Brightness: $(xbacklight -get)%"
-XF86MonBrightnessDown
-	xbacklight -dec 10 && dunstify -r 1 "Brightness: $(xbacklight -get)%"
+{XF86MonBrightnessUp,XF86MonBrightnessDown}
+	light -{A,U} 10 && dunstify -r 1 "Brightness: $(light -G)%"
 # Volume control
-XF86AudioRaiseVolume
-	pamixer -i 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
-XF86AudioLowerVolume
-	pamixer -d 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+	pamixer -{i,d} 5 && dunstify -r 2 "Volume: $(pamixer --get-volume)%"
 XF86AudioMute
 	pactl set-sink-mute 0 toggle
+XF86AudioMicMute
+	pactl set-source-mute 1 toggle
 
 super+F12
 	~/.local/bin/thnikk-desktop/toggle-inputs.sh

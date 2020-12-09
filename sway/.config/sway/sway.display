@@ -5,11 +5,11 @@ swaymsg "output * scale 1"
 # Get number of displays
 ND="$(swaymsg -t get_outputs | grep -c '"id"')"
 # Set wallpaper for all displays
-swaymsg "output * bg ~/.config/wall.png fill"
+swaymsg "output * bg ~/.config/wall1.jpg fill"
 # If there's more than one display, apply specific settings
 if [ "$ND" -gt 1 ]; then
     # Rotate second display
-    swaymsg "output DP-3 transform 270"
+    #swaymsg "output DP-3 transform 270"
     swaymsg "workspace 1 output DP-2"
     swaymsg "workspace 2 output DP-3"
     swaymsg "workspace 3 output DP-2"
@@ -21,6 +21,6 @@ if [ "$ND" -gt 1 ]; then
     swaymsg "workspace 9 output DP-2"
     swaymsg "workspace 0 output DP-2"
     # If there's more than one display, set the wallpaper for the second
-    swaymsg output DP-3 bg "$HOME/.config/wall2.png" fill
+    swaymsg output DP-3 bg "$HOME/.config/wall2.jpg" fill
 
 fi

@@ -15,7 +15,7 @@ for OUTPUT in $(swaymsg -t get_outputs | jq -r '.[] | select(.active == true) | 
     # Take screenshot of output
     grim -o $OUTPUT $IMAGE
     # Pixelize screenshot
-    convert $IMAGE -resize 10% -scale 1000% "$IMAGE"
+    convert $IMAGE -resize 5% -scale 2000% "$IMAGE"
     # Append new image
     LOCKARGS="${LOCKARGS} --image ${OUTPUT}:${IMAGE}"
     # Append filename to images array for deletion later

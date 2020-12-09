@@ -86,13 +86,13 @@ vim () {
 sshkey() {
     input="$1"
     if ssh $input "test -e $HOME/.ssh/authorized_keys"; then
-        echo "File exists"
+        echo "Destination authorized_keys file exists"
     else
-        echo "Creating file"
+        echo "Creating authorized_keys file on destination"
             ssh "$1" "mkdir -p $HOME/.ssh && touch $HOME/.ssh/authorized_keys"
     fi
-    if [[ -n "$input" ]]; then
-        cat "$HOME/.ssh/id_rsa.pub" | ssh "$input" >> 'cat >> ~/.ssh/authorized_keys'
+    if [ -n "$input" ]; then
+        ssh "$input" 'cat >> ~/.ssh/authorized_keys' < "$HOME/.ssh/id_rsa.pub"
         echo "Appending key to remote's authorized keys"
     else
         echo "usage: sshkey [user@IP]"
@@ -127,7 +127,8 @@ alias cdu='cd ~/Documents/Dev/Sketches/unified'
 alias ic='vim ~/.config/i3/config && i3-msg restart'
 alias sc='vim ~/.config/sway/config && swaymsg reload'
 alias pc='vim ~/.config/polybar/config'
-alias pca='vim ~/.config/polybar/config.alt'
+alias wc='vim ~/.config/waybar/config'
+alias wcs='vim ~/.config/waybar/style.css'
 alias cc='vim ~/.config/picom.conf'
 alias kc='vim ~/.config/kitty/kitty.conf'
 alias zc='vim ~/.config/zsh/.zshrc && source ~/.config/zsh/.zshrc'
@@ -137,6 +138,7 @@ alias ac='vim ~/.config/aliasrc && source ~/.config/aliasrc'
 alias bsc='vim ~/.config/bspwm/bspwmrc'
 alias sxc='vim ~/.config/sxhkd/sxhkdrc'
 alias sxci='vim ~/.config/sxhkd/i3.sxhkdrc'
+alias sk='vim ~/.local/bin/sway/sway.keybinds'
 
 # yay-like pacman alias
 alias pin='sudo pacman -Syu'

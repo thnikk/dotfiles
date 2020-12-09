@@ -96,7 +96,7 @@ format-prefix = ${icons.wifi}
 ; Return the SSID if connected to wifi, local IP if connected via ethernet, or disconnected if not connected to any network.
 exec = iwgetid -r || hostname -i | grep -v "127.0.0.1\|127.0.0.2" | awk '{print $1}' | grep . || echo "Disconnected"
 ; If iwd is running, open iwctl. If NM is running, open nmtui.
-format = %{A1:if systemctl is-active --quiet iwd; then $TERMINAL iwctl; else $TERMINAL nmtui; fi:}<label>%{A}
+click-left = ~/.local/bin/polybar/open_netctl.sh
 
 [module/vol]
 inherit = module/general

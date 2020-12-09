@@ -4,3 +4,6 @@
 [submodule "zsh/.config/zsh/zsh-autosuggestions"]
 	path = zsh/.config/zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh/.config/zsh/zsh-command-time"]
+	path = zsh/.config/zsh/zsh-command-time
+	url = https://github.com/popstas/zsh-command-time

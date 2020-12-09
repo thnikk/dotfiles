@@ -143,7 +143,7 @@ spacer[part=overflow-start-indicator],spacer[part=overflow-end-indicator] { bord
 
 
 /* Set extension icons */
-* .webextension-browser-action:before { content:"";}
+* .webextension-browser-action:before { content:""; color: transparent !important; }
 * .webextension-browser-action { color: var(--color-fg-alt) !important;}
 * .webextension-browser-action { border-radius: 5px; margin: 2px !important; }
 * .webextension-browser-action:hover { background: rgba(255,255,255,0.0); }
@@ -160,8 +160,15 @@ spacer[part=overflow-start-indicator],spacer[part=overflow-end-indicator] { bord
 .webextension-browser-action > .toolbarbutton-badge-stack { padding: 0px !important; }
 
 /* Set colors for extension icons */
-toolbarbutton:before{ font-family: "Font Awesome 5 Free Solid", "Font Awesome 5 Free" !important; font-weight: 900; padding: 5px; font-size:10px; !important; }
-toolbarbutton[id*="darkreader"]:before{ color: var(--color-blue); }
-toolbarbutton[id*="ublock"]:before{ color: var(--color-red); }
-toolbarbutton[label*="Violentmonkey"]:before{ color: var(--color-magenta); }
-toolbarbutton[label*="Vim"]:before{ color: var(--color-green); }
+toolbarbutton:before{
+    font-family: "Font Awesome 5 Free Regular" !important;
+    padding: 5px;
+    font-size: 10px; !important;
+    font-weight: 900;
+   -webkit-text-stroke-width: 2px;
+   -webkit-text-stroke-color: var(--color-fg);
+}
+toolbarbutton[id*="darkreader"]:before{ -webkit-text-stroke-color: var(--color-blue); }
+toolbarbutton[id*="ublock"]:before{ -webkit-text-stroke-color: var(--color-red); }
+toolbarbutton[label*="Violentmonkey"]:before{ -webkit-text-stroke-color: var(--color-magenta); }
+toolbarbutton[label*="Vim"]:before{ -webkit-text-stroke-color: var(--color-green); }

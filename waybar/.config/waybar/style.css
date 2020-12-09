@@ -1,20 +1,20 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Operator Mono", "Font Awesome 5 Free Solid", "Font Awesome 5 Free Brand", "Font Awesome 5 Free";
-    font-size: 15px;
+    font-family: "Operator Mono Lig", "Font Awesome 5 Free Solid", "Font Awesome 5 Free Brand", "Font Awesome 5 Free";
+    font-size: 14px;
     min-height: 0;
-}
-
-.modules-right {
-    background: #1c1f26;
-}
-.modules-left {
-    background: #1c1f26;
+    transition: none;
 }
 
 window#waybar, #custom-name {
-    background: #2b303b;
+    /*background: #2b303b;*/
+    background: rgba(28,31,38,0.4);
+}
+
+#workspaces {
+    /*background: #1c1f26;*/
+    background: rgba(28,31,38,0.8);
 }
 
 #workspaces button {
@@ -28,13 +28,23 @@ window#waybar, #custom-name {
     color: #1c1f26;
 }
 
-#mode, #clock, #battery, #custom-weather, #cpu, #memory, #temperature, #custom-unread, #custom-updates, #custom-kb, #mpd, #custom-battery, #tray, #custom-name, #custom-temp {
+#workspaces button.urgent {
+    background: #bf616a;
+}
+
+#mode, #clock, #battery, #custom-weather, #cpu, #memory, #temperature, #custom-unread, #custom-updates, #custom-kb, #mpd, #custom-battery, #tray, #custom-name, #custom-temp, #network, #custom-network, #custom-fwaudio {
     padding: 0px 10px 0px 10px;
-    color: #d8dee9
+    color: #d8dee9;
+    background: rgba(28,31,38,0.8);
 }
 
 #mode {
-    background: #2b303b;
+    background: #bf616a;
+}
+
+#window {
+    padding: 0px 10px 0px 10px;
+    color: #d8dee9;
 }
 
 @keyframes blink {
