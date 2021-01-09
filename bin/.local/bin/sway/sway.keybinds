@@ -1,68 +1,83 @@
 #!/bin/bash
-
 # This is a simple shell script for i3/sway keybinds since they can be set at runtime with bindsym
 # Using bash for arrays
 
-swaymsg "bindsym --release Ctrl+Alt+p exec sleep 0.5 && ydotool type 'On\ top\ of\ fire\ extinguisher\ box\ opposite\ of\ unit\ door.'"
+# Set mod key and escape $ (prevents shellcheck from complaining about variable expansion)
+MOD="\$mod"
+
+# Explicitly set this one
+swaymsg "bindsym --release Ctrl+Alt+p exec sleep 0.5 && ydotool type On\ top\ of\ fire\ extinguisher\ box\ opposite\ of\ unit\ door."
 
 # Function for slightly less typing
 set_key(){
-    i3-msg bindsym "$1" "$2" >/dev/null || \
+    swaymsg bindsym "$1" "$2" >/dev/null || \
         echo "Could not bindsym $2 to $1"
 }
 
 # Separate function for auto-splitting
 launch(){
-    i3-msg bindsym "$1" "exec ~/.local/bin/split_optimal.sh && $2" >/dev/null || \
+    #i3-msg bindsym "$1" "exec ~/.local/bin/split_optimal.sh && $2" >/dev/null || \
+    swaymsg bindsym "$1" "exec $2" >/dev/null || \
         echo "Could not bindsym $2 to $1"
+}
+
+notify(){
+    notify-send.sh --replace-file=$HOME/.cache/notify-id $1
 }
 
 # Switch language
 set_key 'Alt+Space' "exec ~/.local/bin/toggle_lang.sh"
 
 # Launch terminal
-launch '$mod+Return' "$TERMINAL"
-launch '$mod+Shift+Return' "alacritty"
-launch '$mod+Ctrl+Return' "st"
+launch "$MOD+Return" "$TERMINAL"
+launch "$MOD+Shift+Return" "alacritty"
+launch "$MOD+Ctrl+Return" "st"
 
-set_key '$mod+o' "exec i3-msg open"
+# Open clipboard URL in mpv at 2x speed
+launch "$MOD+c" 'mpv $(wl-paste) --speed=2.0'
 
 # Program launcher
-# Use rofi with monitor set to xwayland0 to use primary display
-launch '$mod+d' "rofi -show drun"
-# Alternatively, use dmenu
-launch '$mod+Shift+d' 'dmenu_run'
-launch '$mod+a' "~/.local/bin/ls_anime.sh"
-launch '$mod+g' "gimp"
-launch '$mod+u' "~/.local/bin/umsd.sh"
-launch '$mod+e' "$FM"
-launch '$mod+m' "$TERMINAL --title neomutt neomutt"
-launch '$mod+n' "$TERMINAL --title ncmpcpp ncmpcpp"
-launch '$mod+Ctrl+m' 'chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"'
-launch '$mod+b' "$BROWSER"
+launch "$MOD+d" "rofi -show drun"
+launch "$MOD+a" "rofi -show anime"
 
-set_key 'Ctrl+Alt+l' "exec ~/.local/bin/sway/swaylock-pixel"
+# Open program directly
+launch "$MOD+g" "gimp"
+launch "$MOD+u" "$HOME/.local/bin/umsd.sh"
+launch "$MOD+e" "$FM"
+launch "$MOD+m" "$TERMINAL --title neomutt neomutt"
+launch "$MOD+n" "$TERMINAL --title ncmpcpp ncmpcpp"
+launch "$MOD+Ctrl+m" 'chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"'
+launch "$MOD+b" "$BROWSER"
+
+# Manually lock screen
+set_key "Ctrl+Alt+l" "exec ~/.local/bin/sway/swaylock-pixel"
 
 # Brightness
-set_key "XF86MonBrightnessUp" 'exec light -A 10 && dunstify -r 2 Brightness: $(light -G)%'
-set_key "XF86MonBrightnessDown" 'exec light -U 10 && dunstify -r 2 Brightness: $(light -G)%'
+# Force whole number (single quotes to avoid expansion)
+get_b='$(echo "$(light -G) / 1" | bc)'
+# Brightness and volume command substitution needs to be escaped to run when the keys are pressed instead of when bound.
+set_key "XF86MonBrightnessUp" "exec light -A 10 && notify-send.sh --replace-file=$HOME/.cache/notify-id Brightness:\ ${get_b}%"
+set_key "XF86MonBrightnessDown" "exec light -U 10 && notify-send.sh --replace-file=$HOME/.cache/notify-id Brightness:\ ${get_b}%"
 
 # Volume
-set_key "XF86AudioRaiseVolume" 'exec pamixer -i 5 && dunstify -r 1 "Volume:$(pamixer --get-volume)%"'
-set_key "XF86AudioLowerVolume" 'exec pamixer -d 5 && dunstify -r 1 "Volume:$(pamixer --get-volume)%"'
-set_key "XF86AudioMute" 'exec pactl set-sink-mute 0 toggle'
+set_key "XF86AudioRaiseVolume" "exec pamixer -i 5 && notify-send.sh --replace-file=$HOME/.cache/notify-id Volume:\ \$(pamixer --get-volume)%"
+set_key "XF86AudioLowerVolume" "exec pamixer -d 5 && notify-send.sh --replace-file=$HOME/.cache/notify-id Volume:\ \$(pamixer --get-volume)%"
+set_key "XF86AudioMute" "exec pactl set-sink-mute 0 toggle"
+set_key "Shift+XF86AudioLowerVolume" "exec $HOME/.local/bin/thnikk-desktop/vm_vol.sh -v win -c -10"
+set_key "Shift+XF86AudioRaiseVolume" "exec $HOME/.local/bin/thnikk-desktop/vm_vol.sh -v win -c 10"
+
 
 ### i3/sway specific
 
 # Kill active window
-swaymsg 'bindsym --release $mod+w kill'
+set_key "$MOD+w" "kill"
 # Reload config
-set_key '$mod+Shift+r' "reload"
+set_key "$MOD+Shift+r" "reload"
 
 # Workspace management
 for(( i=0; i<10; i++ )); do
-    set_key '$mod+'"$i" "workspace number $i"
-    set_key '$mod+Shift+'"$i" "move container to workspace number $i"
+    set_key "$MOD+$i" "workspace number $i"
+    set_key "$MOD+Shift+$i" "move container to workspace number $i"
 done
 
 # Movement
@@ -71,31 +86,36 @@ arrows=("Left" "Down" "Up" "Right")
 direction=("left" "down" "up" "right")
 resize_cmd=("resize shrink width 10px" "resize grow height 10px" "resize shrink height 10px" "resize grow width 10px")
 for (( j=0; j<4; j++ )); do
-    set_key '$mod+'"${vim_nav[$j]}" "focus ""${direction[$j]}"
-    set_key '$mod+'"${arrows[$j]}" "focus ""${direction[$j]}"
-    set_key '$mod+Shift+'"${vim_nav[$j]}" "move ""${direction[$j]}"
-    set_key '$mod+Shift+'"${arrows[$j]}" "move ""${direction[$j]}"
-    set_key '$mod+Ctrl+'"${vim_nav[$j]}" "${resize_cmd[$j]}"
-    set_key '$mod+Ctrl+'"${arrows[$j]}" "${resize_cmd[$j]}"
+    set_key "$MOD+${vim_nav[$j]}" "focus ${direction[$j]}"
+    set_key "$MOD+${arrows[$j]}" "focus ${direction[$j]}"
+    set_key "$MOD+Shift+${vim_nav[$j]}" "move ${direction[$j]}"
+    set_key "$MOD+Shift+${arrows[$j]}" "move ${direction[$j]}"
+    set_key "$MOD+Ctrl+${vim_nav[$j]}" "${resize_cmd[$j]}"
+    set_key "$MOD+Ctrl+${arrows[$j]}" "${resize_cmd[$j]}"
 done
 
 # Layout
-set_key '$mod+backslash' 'splith'
-set_key '$mod+minus' 'splitv'
-set_key '$mod+Shift+a' 'layout tabbed'
-set_key '$mod+Shift+s' 'layout toggle split'
-set_key '$mod+f' 'fullscreen'
-set_key '$mod+Shift+space' 'floating toggle'
-set_key '$mod+space' 'focus mode_toggle'
-set_key '$mod+F12' 'exec ~/.local/bin/thnikk-desktop/toggle-inputs.sh'
+set_key "$MOD+backslash" "splith"
+set_key "$MOD+minus" "splitv"
+set_key "$MOD+Shift+a" "layout tabbed"
+set_key "$MOD+Shift+s" "layout toggle split"
+set_key "$MOD+f" "fullscreen"
+set_key "$MOD+Shift+space" "floating toggle"
+set_key "$MOD+space" "focus mode_toggle"
+set_key "$MOD+F12" "exec $HOME/.local/bin/thnikk-desktop/toggle-inputs.sh"
 
-set_key 'Ctrl+Shift+2' 'exec grimshot copy win'
-set_key 'Ctrl+Shift+4' 'exec grimshot copy area'
-set_key 'Print' 'exec grimshot copy screen'
+# Screenshot
+set_key "Ctrl+Shift+2" "exec grimshot copy win"
+set_key "Ctrl+Shift+4" "exec grimshot copy area"
+set_key "Print" "exec grimshot copy screen"
 
-set_key '$mod+z' 'exec ~/.local/bin/rofi_ukp.sh'
+# Rofi menu for uploading keypad code
+set_key "$MOD+z" "exec $HOME/.local/bin/rofi_ukp.sh"
 
-set_key '$mod+Shift+f' 'resize set width 1930px height 1090px'
+# Get app_id as notification
+set_key "$MOD+i" "exec $HOME/.local/bin/sway/window_identity.sh"
+# Open stream
+set_key "$MOD+t" "exec $HOME/.local/bin/open_stream.sh"
 
 # MPC controls
 ACTIONS=("toggle" "prev" "next")
@@ -106,12 +126,26 @@ done
 set_key 'Shift+F9' 'exec mpc volume -5'
 set_key 'Shift+F10' 'exec mpc volume +5'
 
-set_key 'Ctrl+Alt+p' 'exec wl-paste'
-set_key 'XF86Explorer' 'exec ~/.local/bin/sway/toggle_touchpad.sh'
+# More friendly MPC controls
+#set_key "$MOD+p" "exec mpc toggle"
+#set_key "$MOD+Shift+bracketleft" "exec mpc volume -5"
+#set_key "$MOD+Shift+bracketright" "exec mpc volume +5"
+#set_key "$MOD+bracketleft" "exec mpc prev"
+#set_key "$MOD+bracketright" "exec mpc next"
+
+# Desktop
+set_key "$MOD+Ctrl+p" "exec mpc toggle -h thnikk-desktop.local"
+set_key "$MOD+Ctrl+Shift+bracketleft" "exec mpc volume -5 -h thnikk-desktop.local"
+set_key "$MOD+Ctrl+Shift+bracketright" "exec mpc volume +5 -h thnikk-desktop.local"
+set_key "$MOD+Ctrl+bracketleft" "exec mpc prev -h thnikk-desktop.local"
+set_key "$MOD+Ctrl+bracketright" "exec mpc next -h thnikk-desktop.local"
+
+# Toggle touchpad
+set_key "XF86Explorer" "exec $HOME/.local/bin/sway/toggle_touchpad.sh"
 
 # MQTT
 FEED=("light" "shelf" "desk")
 for(( k=0; k<3; k++ )); do
-    set_key 'Ctrl+F'"$((k+1))" "exec mosquitto_pub -h 10.0.0.29 -t toggle/${FEED[$k]} -n"
+    set_key "Ctrl+F$((k+1))" "exec mosquitto_pub -h 10.0.0.29 -t toggle/${FEED[$k]} -n"
 done
 

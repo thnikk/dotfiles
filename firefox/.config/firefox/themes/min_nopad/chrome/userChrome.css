@@ -8,8 +8,8 @@
     --color-green:#a3be8c;
     --color-fg:#D8DEE9;
     --color-fg-alt:#747C84;
+    --color-bg:#2b303b;
 }
-
 
 @-moz-document url(chrome://browser/content/browser.xul)
 {
@@ -22,6 +22,11 @@
    {
       background: #1c1f26 !important;
    }
+}
+
+/* Disable mic indicator */
+#webrtcIndicator {
+  display: none;
 }
 
 /* Disable tab arrows */
@@ -93,21 +98,23 @@ toolbarbutton#alltabs-button {display:none !important;}
 
 .tab-content {
     border-radius: 0px;
-    background: rgba(200,220,255,0.1);
+    /*background: rgba(200,220,255,0.1);*/
     padding: 0 5px !important;
     margin: 0px 0px 0px 0px;
     font-size: 12px !important;
-    box-shadow: inset 0px 0px 1px rgba(0,0,0,1);
+    /*box-shadow: inset 0px 0px 1px rgba(0,0,0,1);*/
 }
 .tab-label-container {
     padding: 2px;
 }
 .tab-content:hover {
-    background: rgba(200,220,255,0.2);
+    background: rgba(200,220,255,0.1);
 }
 .tab-content[selected="true"] {
-    background: rgba(200,220,255,0.2);
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.5) !important;
+    background: rgba(255,255,255,0.2);
+}
+.tabbrowser-tab[multiselected="true"] > .tab-stack > .tab-background > .tab-background-inner{
+    background: rgba(255,255,255,0.1) !important;
 }
 /* Remove bottom border */
 #navigator-toolbox {
@@ -172,3 +179,21 @@ toolbarbutton[id*="darkreader"]:before{ -webkit-text-stroke-color: var(--color-b
 toolbarbutton[id*="ublock"]:before{ -webkit-text-stroke-color: var(--color-red); }
 toolbarbutton[label*="Violentmonkey"]:before{ -webkit-text-stroke-color: var(--color-magenta); }
 toolbarbutton[label*="Vim"]:before{ -webkit-text-stroke-color: var(--color-green); }
+
+/*Replace downloads button*/
+#downloads-indicator-anchor {
+    min-width:0px !important;
+    min-height:0px !important;
+}
+#downloads-indicator-anchor::before {
+    content: "";
+    padding: 8px;
+    margin: -10px;
+    font-family: "Font Awesome 5 Free", "FontAwesome";
+    font-size: 16px;
+}
+#downloads-indicator-progress-outer, #downloads-indicator-icon {
+    width: 0px !important;
+    height: 0px !important;
+    background: none;
+}

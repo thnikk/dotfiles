@@ -1,4 +1,6 @@
-#!/usr/bin/env sh
+#!/bin/bash
+# Check if streamers are live
+# This script is relatively slow due to how youtube-dl checks for streams.
 
 # Required to display notifications if run as a cronjob:
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
@@ -13,11 +15,12 @@ CONFIGDIR="$HOME/.config/stream_notify"
 CONFIG="$CONFIGDIR/config"
 SOUND="$HOME/.config/notifications/alert.ogg"
 
+
 # Make necessary files and directories
 [ -d "$CACHEDIR" ] || mkdir -p "$CACHEDIR"
 [ -d "$LIVE" ] || mkdir -p "$LIVE"
 [ -d "$CONFIGDIR" ] || mkdir -p "$CONFIGDIR"
-[ -f "$CONFIG" ] || echo "northernlion" > "$CONFIG"
+[ -f "$CONFIG" ] || { echo '#[name] [stream url]'; echo "northernlion https://www.twitch.tv/northernlion"; } > "$CONFIG"
 
 # Notify when streamer is live
 notify() {
@@ -30,29 +33,18 @@ rm_file() {
 }
 
 
-check_status() {
-    streamlink "twitch.tv/$1" > "$CACHE"
-
-    # If there's an avalable stream
-    if grep -q 'Available' "$CACHE"; then
-        # And they're not hosting
-        if ! grep -q 'hosting' "$CACHE"; then
-            # Create a file and display a notification
-            echo "$1 is live."
-            if [ ! -f "$LIVE/$1" ]; then
-                touch "$LIVE/$1"
-                notify "$1"
-            fi
-        # Otherwise, remove the file
-        else
-            rm_file "$1"
+while IFS= read -r line; do
+    NAME="$(echo "$line" | awk '{print $1}')"
+    URL="$(echo "$line" | awk '{print $2}')"
+    if mpv --load-scripts=no --no-audio --no-video "$URL" | grep -q 'No.*video.*or.*audio.*streams.*selected'; then
+        echo "$NAME is currently live."
+        if [ ! -f "$LIVE/$NAME" ]; then
+            echo "$NAME just went live!"
+            touch "$LIVE/$NAME"
+            notify "$NAME"
         fi
     else
-        rm_file "$1"
+        rm_file "$NAME"
     fi
-}
-
-while IFS= read -r line; do
-    check_status "$line"
 done < "$CONFIG"
 

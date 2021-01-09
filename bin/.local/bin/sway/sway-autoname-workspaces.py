@@ -14,6 +14,7 @@ import re
 import signal
 import sys
 import fontawesome as fa
+import time
 
 WINDOW_ICONS = {
     'kitty': fa.icons['terminal'],
@@ -71,6 +72,11 @@ def icon_for_window(window):
             # Return the icon for the name
             return WINDOW_ICONS[name]
         # Otherwise
+        elif app_id == "chromium":
+            if "#" or "@" or "Discord" in name:
+                return WINDOW_ICONS["discord"]
+            else:
+                return WINDOW_ICONS[app_id]
         elif app_id in WINDOW_ICONS:
             # Return the icon for the app id
             return WINDOW_ICONS[app_id]
@@ -201,6 +207,9 @@ if __name__ == "__main__":
 
     ipc.on("window", window_event_handler)
 
+    # Wait for 1 second before initial renaming
+    # This avoids issues with sway after a restart
+    time.sleep(1)
     rename_workspaces(ipc)
 
     ipc.main()

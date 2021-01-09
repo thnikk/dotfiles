@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Simple script that changes the resolution of the primary display for better performance
+
+current="$(xrandr | grep ' connected' | grep 'primary' | awk '{print $4}')"
+DISPlAY="DisplayPort-1"
+RES1="3840x2160"
+RES2="1600x900"
+
+
+echo "Current resolution is $current"
+
+case $current in
+    "$RES1"*)
+        dunstify "Switching to $RES2"
+        sleep 1
+        xrandr --output DisplayPort-1 --mode "$RES2"
+        ;;
+    "$RES2"*)
+        dunstify "Switching to $RES1"
+        sleep 1
+        xrandr --output DisplayPort-1 --mode "$RES1"
+        ;;
+esac
+
+feh --bg-fill "$HOME/.config/wall.png" "$HOME/.config/wall2.png"

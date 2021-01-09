@@ -1,2 +1,6 @@
 #!/bin/bash
-ls ~/.cache/stream_notify/live | rofi -dmenu | xargs -I {} xdg-open "https://twitch.tv/{}"
+SELECTION=$(ls ~/.cache/stream_notify/live | rofi -dmenu)
+
+URL="$(grep "$SELECTION" "$HOME/.config/stream_notify/config" | awk '{print $2}')"
+
+mpv "$URL"

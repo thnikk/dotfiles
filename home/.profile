@@ -67,9 +67,11 @@ if [ "$(tty)" = "/dev/tty2" ] && ! pgrep -x Xorg >/dev/null; then
     exec startx
 fi
 if [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null; then
+    export XDG_CURRENT_DESKTOP=sway
     export MOZ_ENABLE_WAYLAND=1
     export QT_QPA_PLATFORM=wayland
     export XCURSOR_THEME=Breeze_Snow
     export _JAVA_AWT_WM_NONREPARENTING=1
+   #systemctl --user import-environment
     exec sway
 fi

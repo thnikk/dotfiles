@@ -15,4 +15,4 @@ else
     cp "$REMOTE" "$LOCAL"
     echo "Using hex file from server"
 fi
-ls /dev/ttyACM* >/dev/null 2>/dev/null && avrdude -v -patmega32u4 -cavr109 -P"$(ls /dev/ttyACM* 2>/dev/null)" -b57600 -D -Uflash:w:$FILE:i &>/dev/null || echo "No keypad found, exiting."
+ls /dev/ttyACM* >/dev/null 2>/dev/null && avrdude -v -patmega32u4 -cavr109 -P"$(ls /dev/ttyACM* 2>/dev/null)" -b57600 -D -Uflash:w:$FILE:i

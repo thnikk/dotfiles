@@ -13,9 +13,6 @@ super + d
 	sh -c $LAUNCHER
 super + shift + d
 	dmenu_run -fn 'Futura Bk BT:pixelsize=18' -nb '#1c1f26' -nf '#d8dee9' -sb '#4C566A' -sf '#d8dee9'
-
-super + a
-	~/.local/bin/ls_anime.sh
 super + g
 	gimp
 super + u
@@ -74,13 +71,13 @@ super+F12
 	~/.local/bin/thnikk-desktop/toggle-inputs.sh
 
 # Music control
-{F8,F9,F10}
+super+{p,bracketleft,bracketright}
 	mpc {toggle,prev,next}
-shift+{F9,F10}
+super+shift+{bracketleft,bracketright}
 	mpc volume {-5,+5} && dunstify -r 3 "mpc $(mpc volume)"
-ctrl+{F8,F9,F10}
+ctrl+super+{p,bracketleft,bracketright}
 	mpc -h desktop {toggle,prev,next}
-ctrl+shift+{F9,F10}
+ctrl+shift+super+{bracketleft,bracketright}
 	mpc -h desktop volume {-5,+5}
 
 # VM Volume control
@@ -121,7 +118,6 @@ ctrl+shift+~
 # Preview image from clipboard
 super+shift+p
 	xclip -sel c -o > /tmp/preview.png && sxiv /tmp/preview.png
-
 
 # Screencast
 ctrl+Print

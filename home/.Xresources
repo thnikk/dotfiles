@@ -7,8 +7,8 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 Xcursor.theme: Breeze_Snow
 
-*.font:	Operator Mono Book:pixelsize=18:antialias=true:autohint=true;
-*.alpha: 1.0
+*.font:	Operator Mono Lig Book:pixelsize=18:antialias=true:autohint=true;
+*.alpha: 0.9
 
 Sxiv.foreground: #D8DEE9
 Sxiv.background: #1c1f26

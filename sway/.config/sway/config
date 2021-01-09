@@ -13,19 +13,23 @@ set $mod Mod4
 focus_follows_mouse no
 
 ### Gaps ###
-#for_window [class="^.*"] border pixel 2
 default_border pixel 2
-gaps inner 10
+gaps inner 0
 gaps outer 0
 
 for_window [app_id=^firefox$] max_render_time 4
 for_window [app_id=^kitty$] max_render_time 1
+for_window [title=^Discord$] move workspace number 2
+for_window [title=^ncmpcpp$] move workspace number 2
+for_window [app_id=^telegramdesktop$] move workspace number 2
 
 ### Input configuration
 input "type:keyboard" {
+    # Speed up keypresses when key is held
     repeat_delay 300
     repeat_rate 50
-#    xkb_file ~/.config/xkb/config
+    # Remap caps lock to escape
+    xkb_options "caps:escape"
 }
 
 seat seat0 xcursor_theme Breeze_Snow
@@ -37,27 +41,27 @@ exec --no-startup-id {
     udiskie
     swayidle -w before-sleep '~/.local/bin/sway/swaylock-pixel'
     ibus-daemon -drx
-    trackma-qt
+    env QT_STYLE_OVERRIDE=Adwaita trackma-qt
     mako
+    ydotoold
+    xrdb ~/.Xresources
 }
 # Launch every time
 exec_always --no-startup-id {
     gsettings set org.gnome.desktop.interface gtk-theme 'Adapta-Nokto-Eta'
     gsettings set org.gnome.desktop.interface icon-theme 'Flat-Remix-Blue-Dark'
     gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
-    #autotiling
     ~/.local/bin/sway/sway.keybinds
     ~/.config/sway/sway.display
-    ~/.local/bin/sway/sway-autoname-workspaces.py
-    #~/.local/bin/sway/inactive-window-transparency.py
+    ~/.local/bin/thnikk-desktop/auto_output.sh
     swaymsg input "$(swaymsg -t get_inputs -p | grep -i 'input.*synaptics' -A 5 | grep Identifier | awk '{print $2}')" events disabled
     swaymsg border_images.unfocused ~/.config/sway/unfocused.png
     swaymsg border_images.focused ~/.config/sway/focused.png
+    ~/.local/bin/sway/restart.sh
 }
 
 font pango:Operator Mono Medium 10
 floating_modifier $mod normal
-#bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 set $powermenu Powermenu (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$powermenu" {
@@ -80,7 +84,7 @@ bindsym $mod+Shift+e mode "$powermenu"
 # class        			            border  backgr. text    indicator child_border
 client.unfocused                    #2b303b #2b303b #c0c5ce #2b303b   #2b303b
 client.focused_inactive             #2b303b #2b303b #c0c5ce #2b303b   #2b303b
-client.focused                      #bf616a #bf616a #eff1f5 #1b303b   #bf616a
+client.focused                      #bf616a #bf616a #eff1f5 #8fa1b3   #bf616a
 
 
 # Status Bar:
@@ -89,22 +93,3 @@ bar {
     swaybar_command waybar
 }
 
-
-#bar {
-    #position bottom
-
-    ## When the status_command prints a new line to stdout, swaybar updates.
-    ## The default just shows the current date and time.
-    ## status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
-    #status_command i3blocks
-    #font pango:Operator Mono Medium, Font Awesome 5 Free 12
-
-    #colors {
-        #statusline #d8dee9
-        #background #1c1f26aa
-        #inactive_workspace #2b303baa #2b303baa #d8dee9
-        #focused_workspace #8fa1b3aa #8fa1b3aa #2b303b
-    #}
-#}
-
-#include /etc/sway/config.d/*

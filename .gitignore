@@ -7,9 +7,7 @@ nohup.out
 .zcompdump
 history.log
 watch_later
-thnikk-*/
 appimage/
-anime-rpc
 ff
 looking-glass-client
 __pycache__/
@@ -24,3 +22,5 @@ bookmarks
 .netrwhist
 pio*
 platformio
+*log
+autofakku.sh

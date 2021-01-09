@@ -11,7 +11,7 @@ fi
 if [ -f ~/.cache/bat_detail ] && which upower >/dev/null; then
 
     PERCENTAGE=$(upower -d | grep "percentage" | tail -1 | awk -F ':' '{print $2}' | awk '{$1=$1};1' | awk -F'.' '{print $1}')
-    TL=$(upower -d | grep "time to empty" | tail -1 | awk -F ':' '{print $2}' | awk '{$1=$1};1')
+    TL=$(upower -d | grep "time to empty" | tail -1 | awk -F ':' '{print $2}' | awk '{$1=$1};1' | sed 's/ hours/h/g')
 
 
     if [ $ICON_ENABLE -eq 1 ]; then

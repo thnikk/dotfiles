@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DIR="$HOME/Videos/Anime"
+CACHE="$HOME/.cache/lsa.cache"
+echo "Updating anime database"
+find -L "$DIR" -printf "%T+\t%p\n" | sort -r | grep "mkv" | awk -F '\t' '{print $NF}' 2>/dev/null > "$CACHE"

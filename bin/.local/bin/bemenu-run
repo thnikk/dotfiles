@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BG="#1c1f26"
+BG_ALT="#2b303b"
+HIGHLIGHT="#bf616a"
+
+/usr/bin/bemenu-run -b \
+    --fn "Operator Mono Lig Book 12" \
+    -H 30px \
+    --nb $BG \
+    --tb $BG \
+    --fb $BG \
+    --hb $BG_ALT \
+    --prompt "" \
+    --hf $HIGHLIGHT

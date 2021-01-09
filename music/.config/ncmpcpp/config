@@ -22,7 +22,7 @@ visualizer_color = blue, cyan, green, yellow, magenta, red
 visualizer_look = "▊▊"
 
 [columns]
-song_columns_list_format = "(1)[246]{} (35)[246]{t} (30)[magenta]{a} (30)[green]{b} (5f)[246]{l}"
+song_columns_list_format = "(1)[246]{} (35)[blue]{t} (30)[green]{a} (30)[white]{b} (5f)[cyan]{l}"
 song_list_format = "{$5 %a$9 $1│$9 $8%t$9 }|{ $8%f$9}$R{$5%b $7}"
 song_status_format = "{{{$5%a$9}} $8-$9 {$2%t$9}|{$0%f$9}{ $8-$9 $3%b$9{ $8-$9 $5%y$9}}}"
 song_library_format = "{%n $8-$9 }{%t}|{%f}"

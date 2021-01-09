@@ -12,6 +12,18 @@
     border-color:                @foreground;
     background-color:            rgba ( 0, 0, 0, 0 % );
     highlight: none;
+    color: @alternative-foreground;
+}
+#mode-switcher {
+    /*border: 2px 0px 0px 0px;*/
+    /*border-color: #bf616a;*/
+    background-color: @selected-normal-background;
+}
+button {
+    padding: 8px;
+}
+button selected {
+    background-color: @selected-normal-background;
 }
 #window {
     background-color: @normal-background;

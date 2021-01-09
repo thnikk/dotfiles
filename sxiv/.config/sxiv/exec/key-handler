@@ -27,11 +27,8 @@ set_wall() {
     done
 
     echo "${FINAL_WALL[*]}"
-    if pgrep sway; then
-        swaymsg reload
-    else
-        feh --bg-fill ${FINAL_WALL[*]}
-    fi
+    # Reload sway/i3 to set new wallpaper
+    i3-msg reload
 }
 
 while read -r file
@@ -41,7 +38,13 @@ do
         [ $1 -le $ND ] && set_wall "$1" "$file"
     else
         case "$1" in
-            "c") xclip -selection clipboard -t "image/$EXT" -i "$file";;
+            "c")
+                if [ "$(pgrep sway)" ]; then
+                    wl-copy -t "image/$EXT" < "$file"
+                else
+                    xclip -selection clipboard -t "image/$EXT" -i "$file"
+                fi
+                ;;
         esac
     fi
 done

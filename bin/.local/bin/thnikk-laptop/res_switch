@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Simple script that changes the resolution of the primary display for better performance
+
+current="$(xrandr | grep ' connected' | grep 'primary' | awk '{print $4}')"
+
+echo "Current resolution is $current"
+
+case $current in
+    "1368x768"*)
+        dunstify "Switching to 1920x1080"
+        sleep 1
+        xrandr --output eDP1 --mode 1920x1080
+        ;;
+    "1920x1080"*)
+        dunstify "Switching to 1368x768"
+        sleep 1
+        xrandr --output eDP1 --mode 1368x768
+        ;;
+esac
+
+feh --bg-fill "$HOME/.config/wall.png"

@@ -10,6 +10,7 @@ swaymsg "output * bg ~/.config/wall1.jpg fill"
 if [ "$ND" -gt 1 ]; then
     # Rotate second display
     #swaymsg "output DP-3 transform 270"
+    swaymsg "output DP-3 enabled"
     swaymsg "workspace 1 output DP-2"
     swaymsg "workspace 2 output DP-3"
     swaymsg "workspace 3 output DP-2"
@@ -23,4 +24,7 @@ if [ "$ND" -gt 1 ]; then
     # If there's more than one display, set the wallpaper for the second
     swaymsg output DP-3 bg "$HOME/.config/wall2.jpg" fill
 
+    # Disable the second display if VM is running
+    sudo virsh list --all | grep -q "win.*running" && swaymsg output DP-3 disable
 fi
+

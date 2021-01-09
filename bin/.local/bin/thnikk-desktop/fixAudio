@@ -1,0 +1,2 @@
+#!/bin/bash
+pactl set-sink-volume alsa_output.usb-Logitech_Logitech_G430_Gaming_Headset-00.analog-stereo 50% && pactl set-sink-volume alsa_output.usb-Logitech_Logitech_G430_Gaming_Headset-00.analog-stereo 100%

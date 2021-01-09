@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo virsh start win | xargs -I {} notify-send.sh {}

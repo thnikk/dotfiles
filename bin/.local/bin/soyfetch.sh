@@ -1,11 +1,19 @@
 #!/usr/bin/env sh
 
 KERNEL="$(uname -r)"
-MODEL="$(cat /sys/devices/virtual/dmi/id/product_version)"
+MODEL="$(cat /sys/devices/virtual/dmi/id/product_family)"
+[ "$MODEL" = "To be filled by O.E.M." ] && MODEL="$(cat /sys/devices/virtual/dmi/id/board_name)"
 [ "$(pgrep picom)" ] && COMP="$(yay -Q | grep -i 'picom' | awk '{print $1}')"
 DISTRO="$(lsb_release -ds | sed 's/"//g')"
 BAR="$(pgrep -l bar | awk '{print $2}')"
-WM="$(wmctrl -m | grep Name: | cut -d ' ' -f2)"
+#WM="$(wmctrl -m | grep Name: | cut -d ' ' -f2)"
+
+# Not tested with display managers, but this will pull the WM from pstree
+if pstree | grep -q "login-.*+"; then
+    WM="$(pstree | grep "login.*+" -A1 | sed -n 2p | awk -F'-' '{print $2}')"
+else
+    WM="$(pstree | grep "login-" | awk -F '---' '{print $2}')"
+fi
 
 printLine() {
     # Print first column
@@ -27,7 +35,7 @@ printLine "WM" "$WM"
 printf "\n"
 i=0
 while [ $i -lt 8 ]; do
-printf "\e[3%sm \u2588\u2588 \e[0m" "$i"
-i=$(( i+1 ))
+    printf "\e[3%sm \u2588\u2588 \e[0m" "$i"
+    i=$(( i+1 ))
 done
 printf "\n\n"

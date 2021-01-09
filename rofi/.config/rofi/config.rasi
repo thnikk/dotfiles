@@ -7,6 +7,8 @@ configuration {
     fixed-num-lines: false;
     yoffset: -200;
     show-icons: true;
-    modi: "drun";
+    modi: "drun,anime:~/.local/bin/rofi_anime.sh,stream:~/.local/bin/rofi_stream.sh,run";
+    scroll-method: 1;
+    sidebar-mode: true;
 }
 /* vim:ft=css

@@ -73,7 +73,7 @@ for f in $CONFIGDIR/*; do
             echo "$LINE:"
             # Pull download links from RSS feed (separated by a space if more than one)
             GLINE="$(echo "$LINE" | sed 's/ /.*/g')" # This makes grep lazier so it only searches for words in the title
-            LINKS=$(grep -w -i -A 1 "$GLINE.*title" "$FEEDCACHE" | grep "link" | sed -e "s/<[^<>]*>//g;s/^[ \t]*//" | tr '\n' ' ')
+            LINKS=$(grep -w -i -A 1 "$GLINE.*title" "$FEEDCACHE" | sed '/[bB]atch/,+1d' | grep "link" | sed -e "s/<[^<>]*>//g;s/^[ \t]*//" | tr '\n' ' ')
             NUMLINKS=$(echo "$LINKS" | awk '{print NF}') # Check number of links
             FDIR="$DLDIR/$LINE" # Directory to save show to
             [ -z "$ODIR" ] || FDIR="$FDIR/$ODIR" # Add opt dir if present

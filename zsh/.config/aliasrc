@@ -74,7 +74,7 @@ vim () {
     # If it's a file
     else
         # open normally if user has privileges
-        if groups | grep -q "$(stat -c "%G" "$1")"; then
+        if groups | grep -q "$(stat -c "%G" "$1" 2>/dev/null)"; then
             nvim "$1"
         # otherwise open with root
         else
@@ -99,6 +99,11 @@ sshkey() {
     fi
 }
 
+# ADB push to sdcard
+adbp() {
+    adb push $1 sdcard
+}
+
 # Shorten name
 alias mutt='neomutt'
 
@@ -121,6 +126,7 @@ alias zs='source ~/.config/zsh/.zshrc'
 
 # Quick cd aliases
 alias cdb='cd ~/.local/bin'
+alias cdd='cd ~/.dot'
 alias cdu='cd ~/Documents/Dev/Sketches/unified'
 
 # Edit files
@@ -138,6 +144,7 @@ alias ac='vim ~/.config/aliasrc && source ~/.config/aliasrc'
 alias bsc='vim ~/.config/bspwm/bspwmrc'
 alias sxc='vim ~/.config/sxhkd/sxhkdrc'
 alias sxci='vim ~/.config/sxhkd/i3.sxhkdrc'
+alias rc='vim ~/.config/rofi/config.rasi'
 alias sk='vim ~/.local/bin/sway/sway.keybinds'
 
 # yay-like pacman alias
@@ -169,7 +176,8 @@ alias wid="xprop WM_CLASS"
 alias ddd="sudo dd bs=2M status=progress"
 # systemctl aliases
 alias SS="sudo systemctl"
-alias SSDR="sudo systemctl daemon-reload"
+alias ssdr="sudo systemctl daemon-reload"
+alias sdr="systemctl --user daemon-reload"
 alias SU="systemctl --user"
 # VFIO aliases
 alias lsvfio="lspci -nnk | grep 'Kernel driver in use: vfio-pci' -B 2"
@@ -186,3 +194,6 @@ alias pdm="pio device monitor -f printable -f send_on_enter"
 
 # Run vim as root with user config
 alias svim="sudo -E vim"
+
+# Opens virsh edit with neovim using user config
+alias ved="sudo -E virsh edit"

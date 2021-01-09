@@ -3,8 +3,9 @@ let mapleader =","
 let g:indentLine_setConceal = 0
 set title
 
-"Plug setup
-"Install plug if needed
+" ========================
+"       Plug setup
+" ========================
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
     echo "Downloading junegunn/vim-plug to manage plugins..."
     silent !mkdir -p ~/.config/nvim/autoload/
@@ -12,7 +13,9 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall
 endif
 
-"Set up plugins
+" =========================
+"         Plugins
+"==========================
 call plug#begin('~/.config/nvim/plugged')
 Plug 'Yggdroot/indentLine' "Show lines at indentations
 Plug 'junegunn/goyo.vim' "Shuuchuu
@@ -21,12 +24,15 @@ Plug 'tpope/vim-surround' "Highlights quotes/brackets/parantheses
 Plug 'kovetskiy/sxhkd-vim' "Syntax highlighting for sxhkd config
 Plug 'mboughaba/i3config.vim' "Syntax highlighting for i3 config
 Plug 'airblade/vim-gitgutter' "Shows changes since last commit in NL gutter
-Plug 'itchyny/lightline.vim' "Bottom bar
+"Plug 'itchyny/lightline.vim' "Bottom bar
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md preview
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-syntastic/syntastic' "Shows syntax errors
 Plug 'vimwiki/vimwiki'
 call plug#end()
+
+"let s:hidden_all = 0
+let g:gitgutter_enabled = 0
 
 "Enable persistent undo
 if has("persistent_undo")
@@ -79,7 +85,7 @@ syntax on "Enable syntax highlighting
 set clipboard+=unnamedplus "Set clipboard to system
 set tabstop=4 "Indent width
 set shiftwidth=4
-set noshowmode "Hide mode (shows in lightline)
+"set noshowmode "Hide mode (shows in lightline)
 set mouse=a "Enable mouse support
 set wildmenu "Autocompletion
 set hlsearch "Highlight search patterns
@@ -89,13 +95,18 @@ set confirm "Prompt to save changes on exit
 set expandtab "Convert tab to spaces
 set linebreak "Word wrap
 set number relativenumber "Set line numbers to relative
+set nu! norelativenumber!
+set laststatus=0
 set noswapfile "Disable annoying swap behavior
 set updatetime=100
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disables automatic commenting on newline:
 let g:indentLine_leadingSpaceChar='·' "Show leading spaces with a dot
 let g:indentLine_leadingSpaceEnabled='1'
 
-"Key mappings
+
+" ======================
+"     Key mappings
+" ======================
 "Move between wrapped lines with arrow keys
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
@@ -126,7 +137,11 @@ map <leader>x :!chmod +x %<CR><CR>
 "Clear highlighting from search
 nnoremap <esc><esc> :noh<return>
 
-"On save
+map <leader>g :GitGutterToggle<CR>
+
+" =====================
+"     Do on save
+" =====================
 "Clean trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 "Restart programs on config change

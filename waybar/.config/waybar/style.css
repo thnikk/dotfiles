@@ -8,17 +8,20 @@
 }
 
 window#waybar, #custom-name {
-    /*background: #2b303b;*/
-    background: rgba(28,31,38,0.4);
-}
-
-#workspaces {
-    /*background: #1c1f26;*/
     background: rgba(28,31,38,0.8);
 }
 
+/*window#waybar:first-child > box {*/
+    /*box-shadow: 0 0 5px 0px rgba(0,0,0,0.8);*/
+    /*margin: 5px 0px 0px 0px;*/
+    /*background-color: #2b303b;*/
+/*}*/
+
+#workspaces {
+    /*background: rgba(28,31,38,0.8);*/
+}
+
 #workspaces button {
-    padding: 0px 10px 0px 10px;
     background: transparent;
     color: #d8dee9;
 }
@@ -35,15 +38,15 @@ window#waybar, #custom-name {
 #mode, #clock, #battery, #custom-weather, #cpu, #memory, #temperature, #custom-unread, #custom-updates, #custom-kb, #mpd, #custom-battery, #tray, #custom-name, #custom-temp, #network, #custom-network, #custom-fwaudio {
     padding: 0px 10px 0px 10px;
     color: #d8dee9;
-    background: rgba(28,31,38,0.8);
 }
 
 #mode {
     background: #bf616a;
+    padding: 0px 0px 0px 10px;
 }
 
 #window {
-    padding: 0px 10px 0px 10px;
+    padding: 0px 0px 0px 10px;
     color: #d8dee9;
 }
 

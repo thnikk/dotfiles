@@ -1,0 +1,13 @@
+#!/bin/bash
+# Simple script for seeing devices using the VFIO driver
+
+# Check all pci devices
+[[ $1 == -v ]] &&
+    lspci -vv |
+        # Look for block containing vfio between double newlines
+        awk -v RS="\n\n" '/vfio/' ||
+    lspci -vv |
+        # Look for block containing vfio between double newlines
+        awk -v RS="\n\n" '/vfio/' |
+        # Filter out all but the first line (which isn't indented)
+        grep -Pv '\t'
