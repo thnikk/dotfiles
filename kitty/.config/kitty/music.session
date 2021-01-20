@@ -1,5 +1,4 @@
 title MusicPlayer
 layout fat
 launch ncmpcpp
-launch kunst
-launch cava
+launch trackma

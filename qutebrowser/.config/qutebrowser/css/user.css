@@ -1,0 +1,21 @@
+/* Tweetdeck css */
+/* Fix gaps between buttons */
+.js-tweet-actions > * .icon{
+    font-size: 20px !important;
+    padding:10px;
+}
+.js-tweet-actions > * .icon:hover{
+    background-color: #2b303b !important;
+}
+.js-tweet-actions > * .pull-right {
+    display:block !important;
+    position:absolute !important;
+    pointer-events: none !important;
+}
+html.dark .margin-r--10, html.dark .margin-rl {
+    margin-right: 0px !important;
+}
+/* Disable scrollbars */
+.js-column-scroller {
+    width: 105%!important;
+}

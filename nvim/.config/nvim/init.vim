@@ -102,6 +102,7 @@ set updatetime=100
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "Disables automatic commenting on newline:
 let g:indentLine_leadingSpaceChar='·' "Show leading spaces with a dot
 let g:indentLine_leadingSpaceEnabled='1'
+set signcolumn=no "Don't show syntastic in gutter
 
 
 " ======================

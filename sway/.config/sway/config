@@ -17,7 +17,7 @@ default_border pixel 2
 gaps inner 0
 gaps outer 0
 
-for_window [app_id=^firefox$] max_render_time 4
+for_window [app_id=^firefox$] max_render_time 100
 for_window [app_id=^kitty$] max_render_time 1
 for_window [title=^Discord$] move workspace number 2
 for_window [title=^ncmpcpp$] move workspace number 2
@@ -48,7 +48,7 @@ exec --no-startup-id {
 }
 # Launch every time
 exec_always --no-startup-id {
-    gsettings set org.gnome.desktop.interface gtk-theme 'Adapta-Nokto-Eta'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Flat-Remix-Blue-Dark'
     gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
     ~/.local/bin/sway/sway.keybinds

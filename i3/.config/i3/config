@@ -9,7 +9,7 @@ focus_follows_mouse no
 
 ### Gaps ###
 for_window [class="^.*"] border pixel 2
-gaps inner 10
+gaps inner 0
 gaps outer 0
 
 ### Force workspaces on specific monitors ###

@@ -65,7 +65,7 @@ for f in $CONFIGDIR/*; do
         curl -s "$FEED" > "$FEEDCACHE"
 
         while read -r LINE; do
-            # Exclude empty, feed, and commented lines
+            # Skip line if it has a colon (config line) or a # (comment)
             echo "$LINE" | grep -q ':\|#' || [ -z "$LINE" ] && continue
             # Separate directory if specified
             ODIR="$(echo "$LINE" | awk -F"," '{print $2}')"

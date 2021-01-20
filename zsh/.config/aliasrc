@@ -149,6 +149,7 @@ alias sk='vim ~/.local/bin/sway/sway.keybinds'
 
 # yay-like pacman alias
 alias pin='sudo pacman -Syu'
+alias yay='paru'
 
 # Quit
 alias :q='exit'
@@ -169,7 +170,7 @@ alias DU='DF fetch --all && DF reset --hard origin/master'
 alias weather="curl -s 'wttr.in/?format=%C+%t&$ACTIVE' | sed 's/\s*//g'"
 
 # Sync website
-alias websync='rsync -av --update ~/Documents/Dev/web-html/ root@vultr:/var/www/site/'
+alias websync='rsync -av --update $HOME/Documents/Dev/web-html/ root@vultr:/var/www/site/'
 
 # Misc
 alias wid="xprop WM_CLASS"

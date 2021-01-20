@@ -60,8 +60,6 @@ else
     accounts=$*
 fi
 
-( kill -46 "$(pidof "${STATUSBAR:-dwmblocks}")" >/dev/null 2>&1 ) 2>/dev/null
-
 # Parallelize multiple accounts
 for account in $accounts
 do
@@ -71,9 +69,6 @@ done
 wait
 
 notmuch new 2>/dev/null
-
-emacsclient -e "(mu4e-update-index)" >/dev/null 2>&1 ||
-    mu index
 
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$HOME/.config/mutt/.mailsynclastrun"

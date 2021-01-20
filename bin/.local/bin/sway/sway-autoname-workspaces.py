@@ -40,6 +40,8 @@ WINDOW_ICONS = {
     'prusa-slicer': fa.icons['align-left'],
     'mpv': fa.icons['play'],
     'pavucontrol': fa.icons['volume-up'],
+    'brave-browser': fa.icons['globe-americas'],
+    'org.qutebrowser.qutebrowser': fa.icons['globe-americas'],
     # Terminal entries
     'ncmpcpp': fa.icons['music'],
     'neomutt': fa.icons['envelope-open'],

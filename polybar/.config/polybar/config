@@ -87,7 +87,7 @@ cursor-scroll = ns-resize
 interval = 60
 format-background = ${colors.background}
 format = <label>
-format-padding = 1
+format-padding = 2
 
 [module/net]
 inherit = module/general

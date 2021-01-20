@@ -71,13 +71,13 @@ super+F12
 	~/.local/bin/thnikk-desktop/toggle-inputs.sh
 
 # Music control
-super+{p,bracketleft,bracketright}
+{F8,F9,F10}
 	mpc {toggle,prev,next}
-super+shift+{bracketleft,bracketright}
+shift+{F9,F10}
 	mpc volume {-5,+5} && dunstify -r 3 "mpc $(mpc volume)"
-ctrl+super+{p,bracketleft,bracketright}
+ctrl+{F8,F9,F10}
 	mpc -h desktop {toggle,prev,next}
-ctrl+shift+super+{bracketleft,bracketright}
+ctrl+shift+{F9,F10}
 	mpc -h desktop volume {-5,+5}
 
 # VM Volume control

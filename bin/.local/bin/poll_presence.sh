@@ -8,6 +8,8 @@
 # pypresence
 # rpc_connect.py
 
+CACHE="$HOME/.cache/lsa.cache"
+
 # If the script is closed, kill rpc_connect.py
 trap "pkill -f rpc_connect" EXIT
 
@@ -29,8 +31,8 @@ while true; do
             echo "$TITLE $STATUS"
             # Update discord RPC if the player is active and the video is in cache
             if [ ! -z "$TITLE" ] && [ "$STATUS" = "Playing" ]; then
-                if [ "$1" = "-c" ]; then
-                    grep -q "$TITLE" ~/.cache/lsa.cache && ~/.local/bin/rpc_connect.py "$TITLE" >/dev/null 2>&1 &
+                if [ -f "$CACHE" ]; then
+                    grep -q "$TITLE" "$CACHE" && ~/.local/bin/rpc_connect.py "$TITLE" >/dev/null 2>&1 &
                 else
                     ~/.local/bin/rpc_connect.py "$TITLE" >/dev/null 2>&1 &
                 fi

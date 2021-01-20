@@ -48,6 +48,7 @@ launch "$MOD+m" "$TERMINAL --title neomutt neomutt"
 launch "$MOD+n" "$TERMINAL --title ncmpcpp ncmpcpp"
 launch "$MOD+Ctrl+m" 'chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"'
 launch "$MOD+b" "$BROWSER"
+launch "$MOD+q" "qutebrowser"
 
 # Manually lock screen
 set_key "Ctrl+Alt+l" "exec ~/.local/bin/sway/swaylock-pixel"
@@ -78,6 +79,7 @@ set_key "$MOD+Shift+r" "reload"
 for(( i=0; i<10; i++ )); do
     set_key "$MOD+$i" "workspace number $i"
     set_key "$MOD+Shift+$i" "move container to workspace number $i"
+    #set_key "$MOD+Ctrl+Shift+$i" "move workspace number $i; workspace number $i"
 done
 
 # Movement
@@ -148,4 +150,7 @@ FEED=("light" "shelf" "desk")
 for(( k=0; k<3; k++ )); do
     set_key "Ctrl+F$((k+1))" "exec mosquitto_pub -h 10.0.0.29 -t toggle/${FEED[$k]} -n"
 done
+
+# Unmount
+set_key "$MOD+u" "$HOME/.local/bin/unmount_removable_media.sh"
 
