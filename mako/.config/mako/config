@@ -1,0 +1,11 @@
+default-timeout=5000
+background-color=#2b303b
+border-size=4
+border-color=#bf616a
+icons=1
+icon-path=/usr/share/icons/Papirus-Dark/24x24/panel/:/usr/share/icons/Papirus-Dark/24x24/devices/:/usr/share/icons/Papirus-Dark/24x24/apps:/usr/share/icons/Papirus-Dark/24x24.actions
+default-timeout=5000
+font=Operator Mono Book 12
+max-visible=1
+output=DP-2
+layer=overlay
