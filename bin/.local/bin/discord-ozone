@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+/opt/electron-v12/electron --enable-features=UseOzonePlatform --enable-gpu --ozone-platform=wayland /opt/discord/resources/app.asar

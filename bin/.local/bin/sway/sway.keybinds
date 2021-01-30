@@ -39,6 +39,8 @@ launch "$MOD+c" 'mpv $(wl-paste) --speed=2.0'
 # Program launcher
 launch "$MOD+d" "rofi -show drun"
 launch "$MOD+a" "rofi -show anime"
+launch "$MOD+p" "$HOME/.local/bin/passmenu-rofi"
+launch "$MOD+Tab" "$HOME/.local/bin/sway/window_switcher.py"
 
 # Open program directly
 launch "$MOD+g" "gimp"
@@ -46,7 +48,7 @@ launch "$MOD+u" "$HOME/.local/bin/umsd.sh"
 launch "$MOD+e" "$FM"
 launch "$MOD+m" "$TERMINAL --title neomutt neomutt"
 launch "$MOD+n" "$TERMINAL --title ncmpcpp ncmpcpp"
-launch "$MOD+Ctrl+m" 'chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"'
+launch "$MOD+Ctrl+m" 'env QT_QPA_PLATFORM="xcb" chromium --new-window --app="https://mahjongsoul.game.yo-star.com/"'
 launch "$MOD+b" "$BROWSER"
 launch "$MOD+q" "qutebrowser"
 
@@ -99,7 +101,7 @@ done
 # Layout
 set_key "$MOD+backslash" "splith"
 set_key "$MOD+minus" "splitv"
-set_key "$MOD+Shift+a" "layout tabbed"
+set_key "$MOD+s" "layout tabbed"
 set_key "$MOD+Shift+s" "layout toggle split"
 set_key "$MOD+f" "fullscreen"
 set_key "$MOD+Shift+space" "floating toggle"

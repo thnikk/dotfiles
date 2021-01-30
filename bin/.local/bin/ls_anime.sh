@@ -11,7 +11,7 @@ scp 10.0.0.29:$CACHE $CACHE
 #find -L "$DIR" -printf "%T+\t%p\n" | sort -r | grep "mkv" | awk -F '\t' '{print $NF}' > "$CACHE"
 
 # Get the selection from rofi
-SELECTION="$(cat $CACHE | awk -F'/' '{print $NF}' | sed 's/\[[^][]*\]//g;s/.mkv//g;s/^ *//g;s/ *$//g' | rofi -dmenu -i $@)"
+SELECTION="$(cat $CACHE | awk -F'/' '{print $NF}' | sed 's/\[[^][]*\]//g;s/.mkv//g;s/^ *//g;s/ *$//g' | rofi -dmenu -i "$@")"
 # If user closes rofi (presses escape,) exit the script
 [ -z "$SELECTION" ] && exit 1
 # Open the file
