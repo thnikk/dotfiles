@@ -156,3 +156,5 @@ done
 # Unmount
 set_key "$MOD+u" "$HOME/.local/bin/unmount_removable_media.sh"
 
+# Mako (notifications)
+swaymsg 'bindsym Ctrl+Space exec makoctl dismiss --all'

@@ -5,6 +5,8 @@
 # swaylock
 # grim
 
+gpg-connect-agent --no-autostart reloadagent /bye
+
 IMAGE=/tmp/i3lock.jpg
 LOCK=~/.config/sway/lock.png
 LOCKARGS=""

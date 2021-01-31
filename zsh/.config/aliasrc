@@ -27,8 +27,8 @@ ex () {
 
 # Move a file to a new location and put a symlink where it used to be
 mvln () {
-    mv -- "$1" "$2"
-    ln -s -- "$2" "$1"
+    mv "$1" "$2"
+    ln -s "$2" "$1"
 }
 
 # Use fzf to select usb device and show info
@@ -133,8 +133,8 @@ alias cdu='cd ~/Documents/Dev/Sketches/unified'
 alias ic='vim ~/.config/i3/config && i3-msg restart'
 alias sc='vim ~/.config/sway/config && swaymsg reload'
 alias pc='vim ~/.config/polybar/config'
-alias wc='vim ~/.config/waybar/config'
-alias wcs='vim ~/.config/waybar/style.css'
+alias wbc='vim ~/.config/waybar/config'
+alias wbs='vim ~/.config/waybar/style.css'
 alias cc='vim ~/.config/picom.conf'
 alias kc='vim ~/.config/kitty/kitty.conf'
 alias zc='vim ~/.config/zsh/.zshrc && source ~/.config/zsh/.zshrc'

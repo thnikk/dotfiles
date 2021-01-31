@@ -29,6 +29,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } } "Md pr
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-syntastic/syntastic' "Shows syntax errors
 Plug 'vimwiki/vimwiki'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 call plug#end()
 
 "let s:hidden_all = 0
@@ -150,6 +151,8 @@ autocmd BufWritePost *.rst !make html
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd && notify-send "Restarting sxhkd"
 autocmd BufWritePost *polybar/config* !pkill -USR1 polybar
+autocmd BufWritePost *waybar/* !swaymsg reload
+autocmd BufWritePost *sway.keybinds !swaymsg reload
 autocmd BufWritePost *mako/config* !makoctl reload
 autocmd BufWritePost *polybar/config/scripts/* !pkill -USR1 polybar
 autocmd BufWritePost picom.conf !pkill -USR1 picom

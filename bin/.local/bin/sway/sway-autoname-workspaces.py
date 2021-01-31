@@ -22,6 +22,7 @@ WINDOW_ICONS = {
     'chromium': fa.icons['chrome'],
     'spotify': fa.icons['spotify'],
     'firefox': fa.icons['firefox'],
+    'librewolf': fa.icons['firefox'],
     'firefoxdeveloperedition': fa.icons['firefox'],
     'sxiv': fa.icons['images'],
     'zathura': fa.icons['file'],

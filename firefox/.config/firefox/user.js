@@ -6,7 +6,7 @@ user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 // Enable browser inspector
 user_pref("devtools.chrome.enabled", true);
 user_pref("devtools.debugger.remote-enabled", true);
-user_pref("devtools.theme", "dark");
+//user_pref("devtools.theme", "dark");
 
 // Disable newtab page
 user_pref("browser.newtabpage.enabled", false);
@@ -44,8 +44,17 @@ user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("media.ffvpx.enabled", false);
 
 //// Enable wayland support
-//user_pref("gfx.webrender.enabled", true);
-//user_pref("widget.wayland-dmabuf-vaapi.enabled", true);
+user_pref("gfx.webrender.enabled", true);
+user_pref("widget.wayland-dmabuf-vaapi.enabled", true);
 
 // Fix mouse with context menu
 user_pref("ui.context_menus.after_mouseup", true);
+
+// Disable garbage
+user_pref("extensions.pocket.enabled", false);
+user_pref("reader.parse-on-load.enabled", false);
+
+// Disable account sync
+user_pref("identity.fxaccounts.enabled", false);
+
+

@@ -44,15 +44,15 @@ mpdnotify() {
 
     # Notify
     if [ -f "$CCOVER" ]; then
-        dunstify -r 1 "$TITLE" "$ARTIST\n$ALBUM" -i "$CCOVER"
+        notify-send.sh --replace-file="$HOME"/.cache/notify-id "$TITLE" "$ARTIST\n$ALBUM" -i "$CCOVER"
     else
-        dunstify -r 1 "$TITLE" "$ARTIST\n$ALBUM"
+        notify-send.sh --replace-file="$HOME"/.cache/notify-id "$TITLE" "$ARTIST\n$ALBUM"
     fi
 
 }
 
 # Update lastsong when starting to prevent notification showing when script starts
-LASTSONG="$(mpc | sed 1q)"
+# LASTSONG="$(mpc | sed 1q)"
 
 while true; do
     ## Check playing song

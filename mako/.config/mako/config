@@ -7,5 +7,5 @@ icon-path=/usr/share/icons/Papirus-Dark/24x24/panel/:/usr/share/icons/Papirus-Da
 default-timeout=5000
 font=Operator Mono Book 12
 max-visible=1
-output=DP-2
+output=DP-1
 layer=overlay

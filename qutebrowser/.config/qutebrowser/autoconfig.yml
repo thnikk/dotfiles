@@ -37,7 +37,9 @@ settings:
   colors.webpage.darkmode.algorithm:
     global: lightness-cielab
   colors.webpage.darkmode.enabled:
-    global: false
+    global: true
+  colors.webpage.darkmode.policy.images:
+    global: never
   content.notifications:
     https://www.reddit.com: false
     https://www.youtube.com: false
@@ -49,6 +51,12 @@ settings:
     global: never
   scrolling.smooth:
     global: true
+  statusbar.padding:
+    global:
+      bottom: 5
+      left: 5
+      right: 5
+      top: 5
   statusbar.show:
     global: in-mode
   tabs.background:

@@ -11,6 +11,7 @@ set $mod Mod4
 
 # Disables mouse hovering making the hovered window active
 focus_follows_mouse no
+mouse_warping container
 
 ### Gaps ###
 default_border pixel 2
@@ -19,9 +20,14 @@ gaps outer 0
 
 for_window [app_id=^firefox$] max_render_time 100
 for_window [app_id=^kitty$] max_render_time 1
-for_window [title=^Discord$] move workspace number 2
-for_window [title=^ncmpcpp$] move workspace number 2
-for_window [app_id=^telegramdesktop$] move workspace number 2
+#for_window [title=^Discord$] move workspace number 2
+for_window [title=".*[Cc]ura.*"] move workspace number 4
+for_window [title=".*MusicPlayer.*"] move workspace number 3
+#for_window [app_id=^telegramdesktop$] move workspace number 2
+assign [title=".*MusicPlayer.*"] workspace number 3
+assign [app_id="[Dd]iscord"] workspace number 2
+assign [app_id=^telegramdesktop$] workspace number 2
+assign [title=".*[Cc]ura.*"] workspace number 4
 
 ### Input configuration
 input "type:keyboard" {
@@ -36,15 +42,17 @@ seat seat0 xcursor_theme Breeze_Snow
 set $gnome-schema org.gnome.desktop.interface
 ### First-time startup
 exec --no-startup-id {
-    /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+    /usr/bin/lxpolkit
     /usr/lib/kdeconnectd
     udiskie
     swayidle -w before-sleep '~/.local/bin/sway/swaylock-pixel'
     ibus-daemon -drx
-    env QT_STYLE_OVERRIDE=Adwaita trackma-qt
     mako
     ydotoold
     xrdb ~/.Xresources
+    kitty --session ~/.config/kitty/music.session
+    telegram-desktop
+    ~/.local/bin/discord-ozone
 }
 # Launch every time
 exec_always --no-startup-id {
@@ -53,7 +61,7 @@ exec_always --no-startup-id {
     gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Snow'
     ~/.local/bin/sway/sway.keybinds
     ~/.config/sway/sway.display
-    ~/.local/bin/thnikk-desktop/auto_output.sh
+    #~/.local/bin/thnikk-desktop/auto_output.sh
     swaymsg input "$(swaymsg -t get_inputs -p | grep -i 'input.*synaptics' -A 5 | grep Identifier | awk '{print $2}')" events disabled
     swaymsg border_images.unfocused ~/.config/sway/unfocused.png
     swaymsg border_images.focused ~/.config/sway/focused.png
